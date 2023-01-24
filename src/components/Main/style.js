@@ -18,27 +18,16 @@ export const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
    
     },
-    box: {
-        marginTop: 15,
-        width: "90%",
-        height: 100,
-        backgroundColor: '#fff',
-        borderRadius: 15,
-        
-        shadowColor: '#000',
-        shadowOffset: {width: 2, height: 4},
-        shadowOpacity: 0.2,
-        shadowRadius: 3,
-        elevation: 4
-    },
+
 
     divScroll: {
-        height: 160,
+        height: 190,
         flexDirection: 'row',
         backgroundColor: '#fff',
         alignItems: "center",
         justifyContent: "center",
-        marginBottom: 20
+        marginBottom: 20,
+        
     },
     boxRecursos: {
         marginLeft: 8,
@@ -56,6 +45,7 @@ export const styles = StyleSheet.create({
     dataAtual: {
         padding: 15,
         fontSize: 32,
-        fontWeight: "500"
+        fontWeight: "500",
+        fontFamily: 'Inter_600SemiBold'
     }
 })
