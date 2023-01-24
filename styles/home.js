@@ -7,13 +7,5 @@ export const styles = StyleSheet.create({
             alignItems: 'center',
             justifyContent: 'flex-start',  
             backgroundColor: '#121212'
-    },
-    form: {
-        
-        alignItems: "center",
-        justifyContent: "center",
-        width: "50%",
-        height: 300,
-        backgroundColor: 'blue'
     }
 })
