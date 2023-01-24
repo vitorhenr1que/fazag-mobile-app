@@ -1,6 +1,7 @@
 import { useFonts, Inter_300Light, Inter_400Regular, Inter_600SemiBold, Inter_700Bold } from "@expo-google-fonts/inter";
 import { ScrollView, Text, View } from "react-native";
 import { BoxMainVertical } from "../BoxMainVertical";
+import { List } from "../BoxMainVertical/List";
 import { styles } from "./style";
 
 export function Main(){

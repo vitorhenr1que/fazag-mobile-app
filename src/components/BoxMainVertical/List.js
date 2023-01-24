@@ -24,5 +24,7 @@ const data = [{
 ]
 
 export function List(){
-    <FlatList data={data} renderItem={(index) => {<BoxMainVertical name={index.name} image={index.image}/>}}/>
+    return(
+        <FlatList data={data} renderItem={({index}) => {<BoxMainVertical name={index.name} image={index.image}/>}}/>
+    )
 }
