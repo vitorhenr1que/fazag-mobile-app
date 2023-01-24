@@ -2,20 +2,21 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
     testV: {
-        flex: 1
+        flex: 1,
+        flexDirection: 'column',
+        
     },
     scrollMain: {
-        flex: 2,
-        width: "100%",
+
         backgroundColor: '#fff',
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
         
     },
     container: {
         alignItems: "center",
-        width: '100%',
         backgroundColor: '#ffffff',
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
+   
     },
     box: {
         marginTop: 15,
@@ -30,16 +31,14 @@ export const styles = StyleSheet.create({
         shadowRadius: 3,
         elevation: 4
     },
-    scrollh: {
-        flex: 1
-    },
-    divScroll: {
-        flexDirection: 'row',
-        width: "100%",
-        backgroundColor: 'red',
-        alignItems: "center",
-        justifyContent: "center"
 
+    divScroll: {
+        height: 160,
+        flexDirection: 'row',
+        backgroundColor: '#fff',
+        alignItems: "center",
+        justifyContent: "center",
+        marginBottom: 20
     },
     boxRecursos: {
         marginLeft: 8,
@@ -53,5 +52,10 @@ export const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 3,
         elevation: 5
+    },
+    dataAtual: {
+        padding: 15,
+        fontSize: 32,
+        fontWeight: "500"
     }
 })
