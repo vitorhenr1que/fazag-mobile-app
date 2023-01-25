@@ -1,28 +1,26 @@
-import {  Image, Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { styles } from "./style";
-
-const home = require('../../../assets/home.png')
-const message = require('../../../assets/message.png')
-const user = require('../../../assets/user.png')
-const historic = require('../../../assets/historic.png')
+import { Ionicons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons'; 
+import { FontAwesome5 } from '@expo/vector-icons'; 
 
 export function Footer(){
     return(
         <View style={styles.containerFooter}>
             <TouchableOpacity>
-                <Image source={home} style={styles.icon}/>
+                <Ionicons name="home-outline" size={30} />
             </TouchableOpacity>
             
             <TouchableOpacity>
-                <Image source={historic} style={styles.icon}/>
+            <Ionicons name="document-attach-outline" size={30}  />
             </TouchableOpacity>
             
             <TouchableOpacity>
-                <Image source={message} style={styles.icon}/>
+            <Feather name="message-circle" size={30} />
             </TouchableOpacity>
 
             <TouchableOpacity>
-                <Image source={user} style={styles.icon}/>
+            <Feather name="user" size={30} />
             </TouchableOpacity>
         </View>
     )
