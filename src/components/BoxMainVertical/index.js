@@ -20,13 +20,13 @@ export function BoxMainVertical(props){
         <View style={styles.box}>
     
             <View style={styles.boxHeader}>
-                <Image source={ouvidoria} style={styles.icon}/>
-                <Text style={styles.title}>Ouvidoria FAZAG</Text>
+                <Image source={props.image} style={styles.icon}/>
+                <Text style={styles.title}>{props.name}</Text>
                 <Text style={[styles.title, {fontFamily: 'Inter_400Regular', marginLeft: 'auto'}]}> → </Text>
             </View>
          
             <View>
-                <Text style={styles.description}>Ajude-nos a melhorar cada vez mais!</Text>
+                <Text style={styles.description}>{props.description}</Text>
             </View>
         
         </View>

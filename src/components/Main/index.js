@@ -1,7 +1,9 @@
 import { useFonts, Inter_300Light, Inter_400Regular, Inter_600SemiBold, Inter_700Bold } from "@expo-google-fonts/inter";
 import { ScrollView, Text, View } from "react-native";
+import { BoxMainHorizontal } from "../BoxMainHorizontal";
+import { ListBoxMainHorizontal } from "../BoxMainHorizontal/ListBoxMainHorizontal";
 import { BoxMainVertical } from "../BoxMainVertical";
-import { List } from "../BoxMainVertical/List";
+import { ListBoxMainVertical } from "../BoxMainVertical/ListBoxMainVertical";
 import { styles } from "./style";
 
 export function Main(){
@@ -16,22 +18,17 @@ export function Main(){
     }
     return(
         <View style={styles.testV}>
-        <ScrollView style={styles.scrollMain}>
+        <ScrollView style={styles.scrollMain} showsVerticalScrollIndicator={false}>
             <Text style={styles.dataAtual}>Hoje, 24 de janeiro.</Text>
             <View style={styles.container}>
-                <BoxMainVertical/>
-                <BoxMainVertical/>
-                <BoxMainVertical/>
-                <BoxMainVertical/>
+                <ListBoxMainVertical/>
             </View>
         </ScrollView>
         
         <ScrollView horizontal={true} style={styles.scrollh} showsHorizontalScrollIndicator={false}>
-            <View style={styles.divScroll}>
-                <View style={styles.boxRecursos}></View>
-                <View style={styles.boxRecursos}></View>
-                <View style={styles.boxRecursos}></View>
-            </View>
+
+                <ListBoxMainHorizontal/>
+
         </ScrollView>
         </View>
     )

@@ -19,29 +19,6 @@ export const styles = StyleSheet.create({
    
     },
 
-
-    divScroll: {
-        height: 190,
-        flexDirection: 'row',
-        backgroundColor: '#fff',
-        alignItems: "center",
-        justifyContent: "center",
-        marginBottom: 20,
-        
-    },
-    boxRecursos: {
-        marginLeft: 8,
-        width: 150,
-        height: 150,
-        backgroundColor: '#fff',
-        borderRadius: 8,
-
-        shadowColor: '#000',
-        shadowOffset: {width: 2, height: 4},
-        shadowOpacity: 0.2,
-        shadowRadius: 3,
-        elevation: 5
-    },
     dataAtual: {
         padding: 15,
         fontSize: 32,

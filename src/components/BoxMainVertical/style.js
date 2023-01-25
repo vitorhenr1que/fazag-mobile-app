@@ -4,7 +4,6 @@ export const styles = StyleSheet.create({
     box: {
         padding: 15,
         marginTop: 15,
-        width: "90%",
         height: 90,
         backgroundColor: '#fff',
         borderRadius: 15,
@@ -35,5 +34,8 @@ export const styles = StyleSheet.create({
         marginRight: 10,
         height: 25,
         width: 25
+    },
+    listMap: {
+        width: "90%"
     }
 })
