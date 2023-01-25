@@ -7,25 +7,29 @@ const data = [{
     id: 1,  
     name: "Ouvidoria FAZAG",
     image: require('../../../assets/ouvidoria.png'),
-    description: "Ajude a FAZAG a servi-lo melhor."
+    description: "Ajude a FAZAG a servi-lo melhor.",
+    route: 'Ouvidoria'
 }, 
 {
     id: 2,
     name: "Fale com o seu coordenador",
     image: require('../../../assets/coordenador.png'),
-    description: "Agora você pode entrar em contato direto com o seu coordenador."
+    description: "Agora você pode entrar em contato direto com o seu coordenador.",
+    route: 'Coordenador'
 },
 {
     id: 3,
     name: "Calendário Acadêmico",
     image: require('../../../assets/calendar.png'),
-    description: "Fique por dentro de tudo que acontecerá na FAZAG durante o semestre."
+    description: "Fique por dentro de tudo que acontecerá na FAZAG durante o semestre.",
+    route: 'Calendario'
 },
 {
     id: 4,
     name: "Fale com o seu coordenador",
     image: require('../../../assets/coordenador.png'),
-    description: "Agora você pode entrar em contato direto com o seu coordenador."
+    description: "Agora você pode entrar em contato direto com o seu coordenador.",
+    route: 'Coordenador'
 }
 ]
 
@@ -35,7 +39,7 @@ export function ListBoxMainVertical(){
         {data.map((index) => {
             return (
                 
-                <BoxMainVertical key={index.id} name={index.name} image={index.image} description={index.description}/>
+                <BoxMainVertical key={index.id} name={index.name} image={index.image} description={index.description} route={index.route}/>
                 
             )
         })}

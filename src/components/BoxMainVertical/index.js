@@ -16,15 +16,13 @@ export function BoxMainVertical(props){
         return null
     }
 
-    function irAtendimento(){
-        navegar.navigate('Atendimento')
-    }
+
 
     return (
     
        
         <View style={styles.box}>
-            <TouchableOpacity onPress={irAtendimento}>
+            <TouchableOpacity onPress={() => navegar.navigate(props.route)}>
                 <View style={styles.boxHeader}>
                     <Image source={props.image} style={styles.icon}/>
                     <Text style={styles.title}>{props.name}</Text>
