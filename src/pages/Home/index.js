@@ -10,7 +10,7 @@ export function Home(){
         <StatusBar barStyle={'default'}/>
         <Header/>
         <Main/>
-        <Footer/>
+        {/*<Footer/>*/}
       </View>
     )
 }

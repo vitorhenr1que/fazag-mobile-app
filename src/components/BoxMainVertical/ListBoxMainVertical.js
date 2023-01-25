@@ -1,6 +1,7 @@
-import { View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { BoxMainVertical } from "./";
 import { styles } from "./style";
+import { useNavigation } from "@react-navigation/native";
 
 const data = [{
     id: 1,  
@@ -33,7 +34,9 @@ export function ListBoxMainVertical(){
        <View style={styles.listMap}>
         {data.map((index) => {
             return (
+                
                 <BoxMainVertical key={index.id} name={index.name} image={index.image} description={index.description}/>
+                
             )
         })}
        </View>

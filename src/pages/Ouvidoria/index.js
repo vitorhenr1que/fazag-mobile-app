@@ -1,8 +1,8 @@
 import { Text, View } from 'react-native'
-export function User(){
+export function Ouvidoria(){
     return(
         <View>
-            <Text>Usuário</Text>
+            <Text>Ouvidoria</Text>
         </View>
     )
 }

@@ -24,5 +24,8 @@ export const styles = StyleSheet.create({
         fontSize: 32,
         fontWeight: "500",
         fontFamily: 'Inter_600SemiBold'
+    },
+    scrollh: {
+        height: 190
     }
 })
