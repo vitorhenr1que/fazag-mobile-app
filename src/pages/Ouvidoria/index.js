@@ -1,19 +1,28 @@
-import { Text, TextInput, View } from 'react-native'
+import { Text, TextInput, View,  TouchableOpacity } from 'react-native'
 import { styles } from './style'
 import { Picker } from '@react-native-picker/picker'
 import { useState } from 'react'
 import { Header } from '../../components/Header'
+import { Inter_600SemiBold, Inter_400Regular, useFonts } from '@expo-google-fonts/inter'
 
 export function Ouvidoria(){
     const [vinculo, setVinculo] = useState('Vinculo')
     const [motivo, setMotivo] = useState('Motivo')
+
+    const [fontLoaded] = useFonts({
+        Inter_600SemiBold, Inter_400Regular
+    })
+    if(!fontLoaded){
+        return null
+    }
+    
     return(
          <>
          <Header/>
         <View style={styles.container}>
             
             <Text style={styles.title}>Ouvidoria</Text>
-            <Text>Ajude a FAZAG a servi-lo melhor.</Text>
+            <Text style={styles.subtitle}>Ajude a FAZAG a servi-lo melhor.</Text>
 
             <Text style={styles.label}>Nome Completo</Text>
             <TextInput style={styles.inputs}/>
@@ -22,7 +31,7 @@ export function Ouvidoria(){
 
             <View style={styles.containerDoublePicker}>
                 <View style={styles.viewPicker}>
-                <Text style={styles.labelPicker}>Vínculo</Text>
+                <Text style={styles.label}>Vínculo</Text>
                     <Picker selectedValue={vinculo} onValueChange={(item, index) => setVinculo(item)} style={styles.picker} >
                     <Picker.Item label="Servidor" value="Servidor" />
                     <Picker.Item label="Aluno" value="Aluno" />
@@ -33,7 +42,7 @@ export function Ouvidoria(){
                 </View>
                 
                 <View style={styles.viewPicker}>
-                <Text style={styles.labelPicker}>Motivo</Text>
+                <Text style={styles.label}>Motivo</Text>
                     <Picker selectedValue={motivo} onValueChange={(item, index) => setMotivo(item)} style={styles.picker} >
                     <Picker.Item label="Crítica" value="Crítica" />
                     <Picker.Item label="Denúncia" value="Denúncia" />
@@ -47,6 +56,12 @@ export function Ouvidoria(){
             </View>
             <Text style={styles.label}>Messagem</Text>
             <TextInput style={[styles.inputs, {height: 150, textAlignVertical: 'top'}]} multiline={true} numberOfLines={4}/>
+
+            <TouchableOpacity>
+                <View style={styles.submit}>
+                    <Text style={styles.submitText}>Enviar</Text>
+                </View>
+            </TouchableOpacity>
         </View>
         </>
     )

@@ -4,10 +4,15 @@ export const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        padding: 30
+        padding: 30,
+        
     },
     title: {
         fontSize: 30,
+        fontFamily: 'Inter_600SemiBold'
+    },
+    subtitle: { 
+        fontFamily: 'Inter_400Regular' 
     },
     inputs: {
         width: "100%",
@@ -36,9 +41,25 @@ export const styles = StyleSheet.create({
         textDecorationLine: 'underline',
         backgroundColor: '#0c0c0c',
         color: '#fff',
+        fontFamily: 'Inter_400Regular'
     },
     label: {
         marginTop: 20,
-        textAlign: 'left'
+        marginBottom: 5,
+        textAlign: 'left',
+        fontFamily: 'Inter_400Regular'
+    },
+    submit: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 13,
+        height: 60,
+        width: '100%',
+        backgroundColor: 'black',
+        borderRadius: 8
+    },
+    submitText: {
+        color: '#fff',
+        fontFamily: 'Inter_400Regular'
     }
 })
