@@ -1,13 +1,15 @@
-import { Text, TextInput, View,  TouchableOpacity } from 'react-native'
+import { Text, TextInput, View,  TouchableOpacity, Modal, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, ScrollView } from 'react-native'
 import { styles } from './style'
 import { Picker } from '@react-native-picker/picker'
 import { useState } from 'react'
 import { Header } from '../../components/Header'
 import { Inter_600SemiBold, Inter_400Regular, useFonts } from '@expo-google-fonts/inter'
+import { useLinkProps } from '@react-navigation/native'
 
 export function Ouvidoria(){
     const [vinculo, setVinculo] = useState('Vinculo')
     const [motivo, setMotivo] = useState('Motivo')
+
 
     const [fontLoaded] = useFonts({
         Inter_600SemiBold, Inter_400Regular
@@ -15,10 +17,13 @@ export function Ouvidoria(){
     if(!fontLoaded){
         return null
     }
-    
+  
     return(
-         <>
-         <Header/>
+         
+         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={40}>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 
+                <ScrollView showsVerticalScrollIndicator={false}>
+        <Header/>
         <View style={styles.container}>
             
             <Text style={styles.title}>Ouvidoria</Text>
@@ -63,6 +68,9 @@ export function Ouvidoria(){
                 </View>
             </TouchableOpacity>
         </View>
-        </>
+        </ScrollView>
+        </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
+        
     )
 }
