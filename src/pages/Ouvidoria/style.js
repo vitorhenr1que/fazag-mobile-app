@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
     container: {
-        alignItems: "center",
+        flex: 1,
         justifyContent: 'center',
         padding: 30
     },
@@ -10,27 +10,35 @@ export const styles = StyleSheet.create({
         fontSize: 30,
     },
     inputs: {
-        marginTop: 20,
         width: "100%",
         height: 50,
         borderWidth: 1,
         borderRadius: 4,
         padding: 15
     },
-    containerDoubleInput: {
-
+    containerDoublePicker: {
         width: '100%',
         flexDirection: 'row',
-        justifyContent: 'space-between'
-    },
-    doubleInputItem: {
+        justifyContent: 'space-between',
 
-        marginTop: 20,
-        width: "49%",
+
+    },
+    viewPicker: {
+        width: "49%"
+    },
+    picker: {
+        width: "100%",
         height: 50,
-        borderWidth: 1,
+        borderWidth: 0,
         borderRadius: 4,
         padding: 15,
-    
+        borderColor: '#000',
+        textDecorationLine: 'underline',
+        backgroundColor: '#0c0c0c',
+        color: '#fff',
+    },
+    label: {
+        marginTop: 20,
+        textAlign: 'left'
     }
 })
