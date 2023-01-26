@@ -18,6 +18,7 @@ export const styles = StyleSheet.create({
         padding: 15
     },
     containerDoubleInput: {
+
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between'

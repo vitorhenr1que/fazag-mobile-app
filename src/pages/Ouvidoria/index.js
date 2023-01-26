@@ -5,6 +5,7 @@ import { useState } from 'react'
 
 export function Ouvidoria(){
     const [vinculo, setVinculo] = useState('Vinculo')
+    const [motivo, setMotivo] = useState('Motivo')
     return(
         <View style={styles.container}>
             <Text style={styles.title}>Ouvidoria</Text>
@@ -13,15 +14,13 @@ export function Ouvidoria(){
             <TextInput placeholder='E-mail' style={styles.inputs}/>
 
             <View style={styles.containerDoubleInput}>
-                <Picker selectedValue={vinculo}>
-                <Picker.Item label="Java" value="java" />
-                <Picker.Item label="JavaScript" value="js" />
-                </Picker>
+                <Picker selectedValue={vinculo} onValueChange={(itemValue, itemIndex) => setVinculo(itemValue)}>
+                <Picker.Item key={0} label="Teste" value={0}/>
+                </Picker> 
 
-                <Picker>
-                <Picker.Item label="Java" value="java" />
-                <Picker.Item label="JavaScript" value="js" />
-                </Picker>
+                <Picker selectedValue={motivo} onValueChange={(itemValue, itemIndex) => setMotivo(itemValue)}>
+                <Picker.Item key={1} label="Teste" value={1}/>
+                </Picker> 
                 
             </View>
 
