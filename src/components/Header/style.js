@@ -16,10 +16,6 @@ export const styles = StyleSheet.create({
         height: 45
         
     },
-    notificationIcon: {
-        width: 30,
-        height: 30
-    },
     avatarText: {
         color: '#fff',
         fontSize: 20,

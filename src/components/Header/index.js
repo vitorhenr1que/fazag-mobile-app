@@ -14,7 +14,7 @@ export function Header(){
             <Text style={styles.avatarText}>VH</Text>
             <Image style={styles.image} source={logoBranca} />
             <TouchableOpacity>
-            <Ionicons name="notifications-outline" size={30} />
+            <Ionicons name="notifications-outline" size={30} color='#fff' />
             </TouchableOpacity>
             
         </View>
