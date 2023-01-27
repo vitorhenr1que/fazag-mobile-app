@@ -18,7 +18,6 @@ export function Coordenador(){
     const [curso, setCurso] = useState(0)
     const [mensagem, setMensagem] = useState('')
     const [loading, setLoading] = useState(false)
-    const [emailCoordenador, setEmailCoordenador] = useState('')
 
     const cursos = {
         0: 'Administração',
@@ -35,6 +34,23 @@ export function Coordenador(){
         11: 'Psicologia',
         12: 'Serviço Social'
     }
+
+    const emailCoordenador = {
+        0: 'daiana.paixão@gmail.com',
+        1: 'vhpsantos@gmail.com',
+        2: 'Educação Física (Licenciatura)',
+        3: 'Educação Física (Licenciatura)',
+        4: 'Enfermagem',
+        5: 'Engenharia Civil',
+        6: 'Estética',
+        7: 'Farmácia',
+        8: 'Fisioterapia',
+        9: 'Nutrição',
+        10: 'Pedagogia',
+        11: 'Psicologia',
+        12: 'Serviço Social'
+    }
+    console.log(emailCoordenador[curso])
     console.log(cursos[curso])
 
     const [fontLoaded] = useFonts({
@@ -57,17 +73,16 @@ export function Coordenador(){
        await api.post('ouvidoria/coordenador', {
             nome,
             email,
-            curso,
+            curso: cursos[curso],
             text: mensagem,
             }).then(e => console.log(`${e.data} - enviou! OUVIDORIA`))
 
         await api.post('ouvidoria/emailcoordenador', {
             nome,
             email,
-            curso,
-            motivo,
+            curso: cursos[curso],
+            emailCoordenador: emailCoordenador[curso],
             text: mensagem,
-            procurouSetor
         }).then(e => console.log(`${e.data} - enviou! NODEMAILER`))
 
         setLoading(false)
