@@ -6,10 +6,13 @@ import { Header } from '../../components/Header'
 import { Inter_600SemiBold, Inter_400Regular, useFonts } from '@expo-google-fonts/inter'
 import { useLinkProps } from '@react-navigation/native'
 
-export function Ouvidoria(){
-    const [vinculo, setVinculo] = useState('Vinculo')
-    const [motivo, setMotivo] = useState('Motivo')
 
+export function Ouvidoria(){
+    const [nome, setNome] = useState('')
+    const [email, setEmail] = useState('')
+    const [vinculo, setVinculo] = useState('')
+    const [motivo, setMotivo] = useState('')
+    const [mensagem, setMensagem] = useState('')
 
     const [fontLoaded] = useFonts({
         Inter_600SemiBold, Inter_400Regular
@@ -17,7 +20,15 @@ export function Ouvidoria(){
     if(!fontLoaded){
         return null
     }
-  
+
+    function enviarForm(){
+    if(nome !== '' && email !== '' && mensagem !== ''){
+        alert('Formulário Enviado!')
+    } else {
+        alert('Preencha todos os campos')
+    }
+    }
+
     return(
          
          <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={40}>
@@ -30,11 +41,13 @@ export function Ouvidoria(){
             <Text style={styles.subtitle}>Ajude a FAZAG a servi-lo melhor.</Text>
 
             <Text style={styles.label}>Nome Completo</Text>
-            <TextInput style={styles.inputs}/>
+            <TextInput style={styles.inputs} value={nome} onValueChange={setNome}/>
+
             <Text style={styles.label}>E-mail</Text>
-            <TextInput style={styles.inputs}/>
+            <TextInput style={styles.inputs} value={email} onValueChange={(valor) => setEmail(valor)}/>
 
             <View style={styles.containerDoublePicker}>
+
                 <View style={styles.viewPicker}>
                 <Text style={styles.label}>Vínculo</Text>
                     <Picker selectedValue={vinculo} onValueChange={(item, index) => setVinculo(item)} style={styles.picker} >
@@ -60,9 +73,9 @@ export function Ouvidoria(){
                 </View>
             </View>
             <Text style={styles.label}>Messagem</Text>
-            <TextInput style={[styles.inputs, {height: 150, textAlignVertical: 'top'}]} multiline={true} numberOfLines={4}/>
+            <TextInput style={[styles.inputs, {height: 150, textAlignVertical: 'top'}]} multiline={true} numberOfLines={4} value={mensagem} onValueChange={(valor) => setMensagem(valor)}/>
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={enviarForm}>
                 <View style={styles.submit}>
                     <Text style={styles.submitText}>Enviar</Text>
                 </View>
