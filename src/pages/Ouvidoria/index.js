@@ -5,14 +5,18 @@ import { useState } from 'react'
 import { Header } from '../../components/Header'
 import { Inter_600SemiBold, Inter_400Regular, useFonts } from '@expo-google-fonts/inter'
 import { useLinkProps } from '@react-navigation/native'
+import { api } from '../../services/api'
+import { Loading } from '../../components/Loading'
 
 
 export function Ouvidoria(){
     const [nome, setNome] = useState('')
     const [email, setEmail] = useState('')
-    const [vinculo, setVinculo] = useState('')
-    const [motivo, setMotivo] = useState('')
+    const [vinculo, setVinculo] = useState('Servidor')
+    const [motivo, setMotivo] = useState('Crítica')
     const [mensagem, setMensagem] = useState('')
+    const [procurouSetor, setProcurouSetor] = ('Sim')
+    const [loading, setLoading] = useState(false)
 
     const [fontLoaded] = useFonts({
         Inter_600SemiBold, Inter_400Regular
@@ -21,12 +25,40 @@ export function Ouvidoria(){
         return null
     }
 
-    function enviarForm(){
-    if(nome !== '' && email !== '' && mensagem !== ''){
-        alert('Formulário Enviado!')
-    } else {
-        alert('Preencha todos os campos')
+    async function enviarForm(){
+    if(nome === '' || email === '' || mensagem === '' ){
+       return alert('Preencha todos os campos.')
     }
+    setLoading(true)
+    try {
+
+       await api.post('ouvidoria/create', {
+            nome,
+            email,
+            vinculo,
+            motivo,
+            text: mensagem,
+            procurouSetor
+            }).then(e => console.log(`${e.data} - enviou! OUVIDORIA`))
+
+        await api.post('ouvidoria/nodemailer', {
+            nome,
+            email,
+            vinculo,
+            motivo,
+            text: mensagem,
+            procurouSetor
+        }).then(e => console.log(`${e.data} - enviou! NODEMAILER`))
+
+        setLoading(false)
+        return alert('Sua mensagem foi enviada!')
+
+        } catch(err) {
+            console.log(err.message)
+            setLoading(false)
+            return alert(err.message)
+        }
+        
     }
 
     return(
@@ -35,16 +67,17 @@ export function Ouvidoria(){
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 
                 <ScrollView showsVerticalScrollIndicator={false}>
         <Header/>
+        {loading && <Loading/>}
         <View style={styles.container}>
             
             <Text style={styles.title}>Ouvidoria</Text>
             <Text style={styles.subtitle}>Ajude a FAZAG a servi-lo melhor.</Text>
 
             <Text style={styles.label}>Nome Completo</Text>
-            <TextInput style={styles.inputs} value={nome} onValueChange={setNome}/>
+            <TextInput style={styles.inputs} value={nome} onChangeText={setNome}/>
 
             <Text style={styles.label}>E-mail</Text>
-            <TextInput style={styles.inputs} value={email} onValueChange={(valor) => setEmail(valor)}/>
+            <TextInput style={styles.inputs} value={email} onChangeText={setEmail}/>
 
             <View style={styles.containerDoublePicker}>
 
@@ -73,7 +106,7 @@ export function Ouvidoria(){
                 </View>
             </View>
             <Text style={styles.label}>Messagem</Text>
-            <TextInput style={[styles.inputs, {height: 150, textAlignVertical: 'top'}]} multiline={true} numberOfLines={4} value={mensagem} onValueChange={(valor) => setMensagem(valor)}/>
+            <TextInput style={[styles.inputs, {height: 150, textAlignVertical: 'top'}]} multiline={true} numberOfLines={4} value={mensagem} onChangeText={setMensagem}/>
 
             <TouchableOpacity onPress={enviarForm}>
                 <View style={styles.submit}>
