@@ -7,7 +7,6 @@ import { styles } from './home';
 export function Home(){
     return (
         <View style={styles.container} >
-        <StatusBar barStyle={'default'}/>
         <Header/>
         <Main/>
         {/*<Footer/>*/}

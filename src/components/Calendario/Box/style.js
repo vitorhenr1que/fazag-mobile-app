@@ -20,10 +20,8 @@ export const styles = StyleSheet.create({
     numberDateBox: {
         justifyContent: 'center',
         alignItems: 'center',
-        paddingLeft: 15,
-        paddingRight: 15,
         borderEndWidth: 1,
-
+        width: 90,
         borderColor: '#7a7a7a'
     },
     number: {
@@ -40,5 +38,11 @@ export const styles = StyleSheet.create({
     text: {
         textAlign: 'left',
         color: '#000',
+    },
+    titleMonth: {
+        textAlign: 'center',
+        fontSize: 30,
+        padding: 15,
+        fontFamily: 'Inter_500Medium'
     }
 })

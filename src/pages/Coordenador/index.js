@@ -103,6 +103,7 @@ export function Coordenador(){
                 <ScrollView showsVerticalScrollIndicator={false}>
         <Header/>
         {loading && <Loading/>}
+       <View style={styles.lowerHeader}>
         <View style={styles.container}>
             
             <Text style={styles.title}>Fale com o seu coordenador</Text>
@@ -145,6 +146,7 @@ export function Coordenador(){
                     <Text style={styles.submitText}>Enviar</Text>
                 </View>
             </TouchableOpacity>
+        </View>
         </View>
         </ScrollView>
         </TouchableWithoutFeedback>

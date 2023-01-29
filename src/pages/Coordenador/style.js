@@ -1,10 +1,14 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
+    lowerHeader: {
+        backgroundColor: '#121212'
+    },
     container: {
-        
+        backgroundColor: '#fff',
         padding: 30,
-        
+        borderTopStartRadius: 20,
+        borderTopEndRadius: 20
     },
     title: {
         fontSize: 30,

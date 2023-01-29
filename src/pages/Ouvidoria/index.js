@@ -63,58 +63,63 @@ export function Ouvidoria(){
 
     return(
          
-         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={40}>
+         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={0} style={{flex: 1}}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 
-                <ScrollView showsVerticalScrollIndicator={false}>
+    <ScrollView showsVerticalScrollIndicator={false}>
         <Header/>
+        
         {loading && <Loading/>}
-        <View style={styles.container}>
+        <View style={styles.lowerHeader}> 
+
+            <View style={styles.container}>
             
-            <Text style={styles.title}>Ouvidoria</Text>
-            <Text style={styles.subtitle}>Ajude a FAZAG a servi-lo melhor.</Text>
+                <Text style={styles.title}>Ouvidoria</Text>
+                <Text style={styles.subtitle}>Ajude a FAZAG a servi-lo melhor.</Text>
 
-            <Text style={styles.label}>Nome Completo</Text>
-            <TextInput style={styles.inputs} value={nome} onChangeText={setNome}/>
+                <Text style={styles.label}>Nome Completo</Text>
+                <TextInput style={styles.inputs} value={nome} onChangeText={setNome}/>
 
-            <Text style={styles.label}>E-mail</Text>
-            <TextInput style={styles.inputs} value={email} onChangeText={setEmail}/>
+                <Text style={styles.label}>E-mail</Text>
+                <TextInput style={styles.inputs} value={email} onChangeText={setEmail}/>
 
-            <View style={styles.containerDoublePicker}>
+                <View style={styles.containerDoublePicker}>
 
-                <View style={styles.viewPicker}>
-                <Text style={styles.label}>Vínculo</Text>
-                    <Picker selectedValue={vinculo} onValueChange={(item, index) => setVinculo(item)} style={styles.picker} >
-                    <Picker.Item label="Servidor" value="Servidor" />
-                    <Picker.Item label="Aluno" value="Aluno" />
-                    <Picker.Item label="Professor" value="Professor" />
-                    <Picker.Item label="Terceirizado" value="Terceirizado" />
-                    <Picker.Item label="Usuário/Outros" value="Usuário/Outros" />
-                    </Picker>
+                    <View style={styles.viewPicker}>
+                    <Text style={styles.label}>Vínculo</Text>
+                        <Picker selectedValue={vinculo} onValueChange={(item, index) => setVinculo(item)} style={styles.picker} >
+                        <Picker.Item label="Servidor" value="Servidor" />
+                        <Picker.Item label="Aluno" value="Aluno" />
+                        <Picker.Item label="Professor" value="Professor" />
+                        <Picker.Item label="Terceirizado" value="Terceirizado" />
+                        <Picker.Item label="Usuário/Outros" value="Usuário/Outros" />
+                        </Picker>
+                    </View>
+                    
+                    <View style={styles.viewPicker}>
+                    <Text style={styles.label}>Motivo</Text>
+                        <Picker selectedValue={motivo} onValueChange={(item, index) => setMotivo(item)} style={styles.picker} >
+                        <Picker.Item label="Crítica" value="Crítica" />
+                        <Picker.Item label="Denúncia" value="Denúncia" />
+                        <Picker.Item label="Elogio" value="Elogio" />
+                        <Picker.Item label="Informação" value="Informação" />
+                        <Picker.Item label="Reclamação" value="Reclamação" />
+                        <Picker.Item label="Solicitação" value="Solicitação" />
+                        <Picker.Item label="Sugestão" value="Sugestão" />
+                        </Picker>
+                    </View>
                 </View>
+                <Text style={styles.label}>Messagem</Text>
+                <TextInput style={[styles.inputs, {height: 150, textAlignVertical: 'top'}]} multiline={true} numberOfLines={4} value={mensagem} onChangeText={setMensagem}/>
                 
-                <View style={styles.viewPicker}>
-                <Text style={styles.label}>Motivo</Text>
-                    <Picker selectedValue={motivo} onValueChange={(item, index) => setMotivo(item)} style={styles.picker} >
-                    <Picker.Item label="Crítica" value="Crítica" />
-                    <Picker.Item label="Denúncia" value="Denúncia" />
-                    <Picker.Item label="Elogio" value="Elogio" />
-                    <Picker.Item label="Informação" value="Informação" />
-                    <Picker.Item label="Reclamação" value="Reclamação" />
-                    <Picker.Item label="Solicitação" value="Solicitação" />
-                    <Picker.Item label="Sugestão" value="Sugestão" />
-                    </Picker>
-                </View>
+                <TouchableOpacity onPress={enviarForm}>
+                    <View style={styles.submit}>
+                        <Text style={styles.submitText}>Enviar</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
-            <Text style={styles.label}>Messagem</Text>
-            <TextInput style={[styles.inputs, {height: 150, textAlignVertical: 'top'}]} multiline={true} numberOfLines={4} value={mensagem} onChangeText={setMensagem}/>
-
-            <TouchableOpacity onPress={enviarForm}>
-                <View style={styles.submit}>
-                    <Text style={styles.submitText}>Enviar</Text>
-                </View>
-            </TouchableOpacity>
+            
         </View>
-        </ScrollView>
+    </ScrollView>
         </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
         

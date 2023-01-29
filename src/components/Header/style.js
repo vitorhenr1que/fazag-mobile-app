@@ -1,7 +1,9 @@
 import { StyleSheet } from "react-native";
+import { getStatusBarHeight } from "react-native-status-bar-height";
 
 export const styles = StyleSheet.create({
     containerHeader: {
+        marginTop: 0 + getStatusBarHeight(),
         flexDirection: 'row',
         justifyContent: 'space-between',
         backgroundColor: '#121212',
