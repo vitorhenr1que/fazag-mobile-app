@@ -5,6 +5,7 @@ import { Main } from '../../components/Main';
 import { styles } from './home';
 
 export function Home(){
+
     return (
         <View style={styles.container} >
         <Main/>

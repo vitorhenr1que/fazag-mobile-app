@@ -44,7 +44,7 @@ export const styles = StyleSheet.create({
         borderColor: colors.black,
         textDecorationLine: 'underline',
         backgroundColor: colors.black,
-        color: colors.gray[800],
+        color: colors.white,
         fontFamily: 'Inter_400Regular'
     },
     label: {

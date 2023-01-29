@@ -10,6 +10,7 @@ import { Historico } from '../../src/pages/Historico';
 import { Ouvidoria } from '../../src/pages/Ouvidoria';
 import { Calendario } from '../../src/pages/Calendario';
 import { Coordenador } from '../../src/pages/Coordenador';
+import { Header } from '../components/Header';
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -72,7 +73,8 @@ function Tabs(){
 export default function AppRoute() {
 
   return (
-    
+    <>
+    <Header/>
      <Stack.Navigator 
      screenOptions={{
       headerShown: false
@@ -83,7 +85,7 @@ export default function AppRoute() {
       <Stack.Screen name='Calendario' component={Calendario}/>
       <Stack.Screen name='Coordenador' component={Coordenador}/>
      </Stack.Navigator>
-    
+     </>
   );
 }
 

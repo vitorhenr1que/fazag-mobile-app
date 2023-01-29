@@ -50,8 +50,7 @@ export function Coordenador(){
         11: 'Psicologia',
         12: 'Serviço Social'
     }
-    console.log(emailCoordenador[curso])
-    console.log(cursos[curso])
+
 
     const [fontLoaded] = useFonts({
         Inter_600SemiBold, Inter_400Regular

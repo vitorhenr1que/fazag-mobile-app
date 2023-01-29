@@ -27,7 +27,6 @@ export function BoxDate({month, idMonth}){
         11: 'Dezembro'
     }
 
-    console.log(month, idMonth)
     const [fontLoaded] = useFonts({
         Inter_400Regular,
         Inter_500Medium,
