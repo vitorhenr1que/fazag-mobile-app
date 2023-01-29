@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { colors } from "../../../styles/theme";
 
 export const styles = StyleSheet.create({
     loadingContainer: {
@@ -11,7 +12,7 @@ export const styles = StyleSheet.create({
         left: 0, 
         right: 0, 
         bottom: 0, 
-        backgroundColor: '#000', 
+        backgroundColor: colors.black, 
         opacity: 0.7
     },
     loading: {

@@ -1,15 +1,16 @@
 import { StyleSheet } from "react-native";
+import { colors } from "../../../styles/theme";
 
 export const styles = StyleSheet.create({
     box: {
         padding: 15,
         marginTop: 15,
         height: 90,
-        backgroundColor: '#fff',
+        backgroundColor: colors.white,
         borderRadius: 15,
         justifyContent: 'space-between',
         
-        shadowColor: '#000',
+        shadowColor: colors.black,
         shadowOffset: {width: 2, height: 4},
         shadowOpacity: 0.2,
         shadowRadius: 3,
@@ -22,12 +23,12 @@ export const styles = StyleSheet.create({
 
     title: {
         fontSize: 16,
-        color: '#000',
+        color: colors.black,
         fontFamily: 'Inter_700Bold'
     },
 
     description: {
-        color: '#a9a9a9',
+        color: colors.gray[300],
         fontFamily: 'Inter_400Regular'
     },
     icon: {

@@ -1,12 +1,13 @@
 import { StyleSheet } from "react-native";
+import { colors } from "../../../styles/theme";
 
 export const styles = StyleSheet.create({
     lowerHeader: {
-        backgroundColor: '#121212',
+        backgroundColor: colors.gray[800],
         
     },
     container: {
-        backgroundColor: '#fff',
+        backgroundColor: colors.white,
         borderTopEndRadius: 20,
         borderTopLeftRadius: 20,
         padding: 30,
@@ -42,10 +43,10 @@ export const styles = StyleSheet.create({
         borderWidth: 0,
         borderRadius: 4,
         padding: 15,
-        borderColor: '#000',
+        borderColor: colors.black,
         textDecorationLine: 'underline',
-        backgroundColor: '#0c0c0c',
-        color: '#fff',
+        backgroundColor: colors.black,
+        color: colors.white,
         fontFamily: 'Inter_400Regular'
     },
     label: {
@@ -60,11 +61,11 @@ export const styles = StyleSheet.create({
         marginTop: 13,
         height: 60,
         width: '100%',
-        backgroundColor: 'black',
+        backgroundColor: colors.black,
         borderRadius: 8
     },
     submitText: {
-        color: '#fff',
+        color: colors.white,
         fontFamily: 'Inter_400Regular'
     }
 })

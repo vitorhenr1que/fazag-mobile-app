@@ -7,7 +7,6 @@ import { styles } from './home';
 export function Home(){
     return (
         <View style={styles.container} >
-        <Header/>
         <Main/>
         {/*<Footer/>*/}
       </View>

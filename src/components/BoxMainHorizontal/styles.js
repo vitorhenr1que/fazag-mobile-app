@@ -1,16 +1,17 @@
 import { StyleSheet } from "react-native";
+import { colors } from "../../../styles/theme";
 
 export const styles = StyleSheet.create({
     box: {
         marginLeft: 8,
         width: 150,
         height: 150,
-        backgroundColor: '#fff',
+        backgroundColor: colors.white,
         borderRadius: 8,
         alignItems: "center",
         justifyContent: "space-evenly",
 
-        shadowColor: '#000',
+        shadowColor: colors.black,
         shadowOffset: {width: 2, height: 4},
         shadowOpacity: 0.2,
         shadowRadius: 3,
@@ -27,7 +28,7 @@ export const styles = StyleSheet.create({
         paddingRight: 15,
         height: 190,
         flexDirection: 'row',
-        backgroundColor: '#fff',
+        backgroundColor: colors.white,
         alignItems: "center",
         justifyContent: "center",
         marginBottom: 20,

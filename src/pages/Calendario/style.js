@@ -1,13 +1,14 @@
 import { StyleSheet } from "react-native";
+import { colors } from "../../../styles/theme";
 
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#121212'
+        backgroundColor: colors.gray[800]
         
     },
     lowerHeader: {
-        backgroundColor: 'white',
+        backgroundColor: colors.white,
         borderTopEndRadius: 20,
         borderTopLeftRadius: 20
     },

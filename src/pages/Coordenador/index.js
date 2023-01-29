@@ -101,7 +101,6 @@ export function Coordenador(){
          <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={40}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 
                 <ScrollView showsVerticalScrollIndicator={false}>
-        <Header/>
         {loading && <Loading/>}
        <View style={styles.lowerHeader}>
         <View style={styles.container}>

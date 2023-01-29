@@ -20,7 +20,6 @@ export function Calendario(){
     return(
 
         <View style={styles.container}>
-            <Header/>
             <View style={styles.lowerHeader}>
             <ScrollView showsVerticalScrollIndicator={false} style={{padding: 15}}>  
             <CalendarioList/>

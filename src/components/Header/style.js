@@ -1,12 +1,13 @@
 import { StyleSheet } from "react-native";
 import { getStatusBarHeight } from "react-native-status-bar-height";
+import { colors } from "../../../styles/theme";
 
 export const styles = StyleSheet.create({
     containerHeader: {
         marginTop: 0 + getStatusBarHeight(),
         flexDirection: 'row',
         justifyContent: 'space-between',
-        backgroundColor: '#121212',
+        backgroundColor: colors.gray[800],
         height: 80,
         width: "100%",
         alignItems: "center",
@@ -19,7 +20,7 @@ export const styles = StyleSheet.create({
         
     },
     avatarText: {
-        color: '#fff',
+        color: colors.white,
         fontSize: 20,
     }
 
