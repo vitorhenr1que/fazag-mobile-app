@@ -1,12 +1,25 @@
+
 import { useContext } from 'react'
 import { Text, View } from 'react-native'
+import { TouchableOpacity } from 'react-native'
+
 import { AuthContext } from '../../contexts/auth'
+import { styles } from './style'
 export function User(){
-    const {signed, user} = useContext(AuthContext)
-    console.log(signed)
+    const {user, setUser, signOut} = useContext(AuthContext)
+
+
     return(
-        <View>
-            <Text>{`${signed} ${user.username}`}</Text>
+        <View style={styles.container}>
+            <View style={styles.profileContainer}>
+                <Text>Bem vindo</Text>
+                <Text>{user.email}</Text>
+                <Text>Meu CGA:</Text>
+                <Text>{user.id}</Text>
+            </View>            
+            <TouchableOpacity style={styles.buttonSair} onPress={() => {signOut()}}>
+                <Text>Sair</Text>
+            </TouchableOpacity>
         </View>
     )
 }

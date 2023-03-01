@@ -5,7 +5,6 @@ export const styles = StyleSheet.create({
     modalContainer: {
         flex: 1,
         justifyContent: 'flex-end', 
-  
 
     },
     modal: {
@@ -18,6 +17,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-around',
         padding: 30,
         backgroundColor: colors.white,
+        zIndex: 1,
     },
     titleContainer: {
         alignItems: 'center'
