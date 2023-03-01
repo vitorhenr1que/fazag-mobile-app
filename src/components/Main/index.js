@@ -1,5 +1,6 @@
 import { useFonts, Inter_300Light, Inter_400Regular, Inter_600SemiBold, Inter_700Bold } from "@expo-google-fonts/inter";
 import { ScrollView, Text, TextInput, View } from "react-native";
+import { nomeAluno } from "../nomeAluno";
 import { ListBoxMainHorizontal } from "../BoxMainHorizontal/ListBoxMainHorizontal";
 import { ListBoxMainVertical } from "../BoxMainVertical/ListBoxMainVertical";
 import { styles } from "./style";
@@ -20,6 +21,7 @@ const months = {
 }
 
 export function Main(){
+
     const day = new Date().getDate().toLocaleString('pt-BR')
     const month = new Date().getMonth().toLocaleString('pt-BR')
     const [fontLoaded] = useFonts({
@@ -35,7 +37,9 @@ export function Main(){
         <View style={styles.testV}>
            
         <ScrollView style={styles.scrollMain} showsVerticalScrollIndicator={false}>
-            <Text style={styles.dataAtual}>Hoje, {day} de {months[month]}.</Text>
+            
+            <Text style={styles.nomeAluno}>Olá {nomeAluno()}!</Text>
+            {/*<Text>Hoje, {day} de {months[month]}.</Text>*/}
             <View style={styles.container}>
                 <ListBoxMainVertical/>
             </View>

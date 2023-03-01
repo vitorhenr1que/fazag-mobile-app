@@ -7,8 +7,7 @@ export const AuthContext = createContext()
 export default function AuthProvider({children}){
 
     const [user, setUser] = useState(false)
-
- 
+    console.log(user)
         useEffect(() => {
             async function isLogged(){
                 const asyncLogged = await AsyncStorage.getItem('user')
@@ -36,11 +35,13 @@ export default function AuthProvider({children}){
         else if (!!isLogged.a_id === true){    // Se a response tiver a_id adicione ao usuário...
             setUser({                           
                 id: isLogged.a_id.trim(),
+                name: isLogged.a_nome.trim(),
                 cpf: isLogged.au_cpf.trim(),
                 email: isLogged.au_email.trim(),
             })
             const logged = await AsyncStorage.setItem('user', JSON.stringify({ // Se a response tiver a_id adicione ao AsyncStorage...
                 id: isLogged.a_id.trim(),
+                name: isLogged.a_nome.trim(),
                 cpf: isLogged.au_cpf.trim(),
                 email: isLogged.au_email.trim(),
             }))

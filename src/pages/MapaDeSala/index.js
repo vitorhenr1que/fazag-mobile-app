@@ -1,9 +1,9 @@
 import { Text, View } from 'react-native'
 import { getStatusBarHeight } from 'react-native-status-bar-height'
-export function Atendimento(){
+export function MapaDeSala(){
     return(
         <View>
-            <Text>Atendimento</Text>
+            <Text>Mapa de Sala</Text>
         </View>
     )
 }

@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Home } from '../../src/pages/Home';
 import { User } from '../../src/pages/User';
 import { Feather, Ionicons } from '@expo/vector-icons';
-import { Atendimento } from '../../src/pages/Atendimento';
+import { MapaDeSala } from '../../src/pages/MapaDeSala';
 import { Historico } from '../../src/pages/Historico';
 import { Ouvidoria } from '../../src/pages/Ouvidoria';
 import { Calendario } from '../../src/pages/Calendario';
@@ -22,8 +22,8 @@ const icons = {
   Historico: {
     name: 'document-attach-outline'
   },
-  Atendimento: {
-    name: 'message-circle'
+  Mapa_de_Sala: {
+    name: 'map'
   },
   Perfil: {
     name: 'user'
@@ -36,15 +36,14 @@ function Tabs(){
   screenOptions={({route}) => ({ // pegar a rota atual
     tabBarIcon: ({color, size}) => {
       const { name } = icons[route.name] //desestruture o "name:" de dentro da const icons['rota.name']
-
       if(name === 'home-outline'){
         return <Ionicons name={name} size={size} color={color} />
       }
       if(name === 'document-attach-outline'){
         return <Ionicons name={name} size={size} color={color} />
       }
-      if(name === 'message-circle'){
-        return <Feather name={name} size={size} color={color} />
+      if(name === 'map'){
+        return <Feather name="map" size={size} color={color} />
       }
       if(name === 'user'){
         return <Feather name={name} size={size} color={color} />
@@ -64,7 +63,7 @@ function Tabs(){
   )}>
     <Tab.Screen name="Home" component={Home}/>
     <Tab.Screen name="Historico" component={Historico}/>
-    <Tab.Screen name="Atendimento" component={Atendimento}/>
+    <Tab.Screen name="Mapa_de_Sala" component={MapaDeSala}/>
     <Tab.Screen name="Perfil" component={User}/>
 </Tab.Navigator>
  )

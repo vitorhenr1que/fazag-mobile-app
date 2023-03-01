@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
    
     },
 
-    dataAtual: {
+    nomeAluno: {
         padding: 15,
         fontSize: 32,
         fontWeight: "500",
