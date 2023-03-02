@@ -9,9 +9,6 @@ export function nomeAluno(){
     const restName = firstNameLowerCase.splice(1)
     const firstname = [firstLetterUpperCase, ...restName].join('')
 
-    return(
-        <>
-        {firstname}
-        </>
-    )
+    return firstname
+    
 }

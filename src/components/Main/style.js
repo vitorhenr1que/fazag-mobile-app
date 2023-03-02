@@ -20,11 +20,9 @@ export const styles = StyleSheet.create({
    
     },
 
-    nomeAluno: {
-        padding: 15,
-        fontSize: 32,
-        fontWeight: "500",
-        fontFamily: 'Inter_600SemiBold'
+    olaAluno: {
+        paddingLeft: 15,
+        paddingTop: 15
     },
     scrollh: {
         height: 190
