@@ -5,7 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { colors } from "../../../styles/theme";
 import { useEffect, useState } from "react";
-
+import {CanBack} from './CanBack'
 const logoBranca = require('../../../assets/logo-white.png')
 export function Header(){
    const [canNavigate, setCanNavigate] = useState(false)
@@ -13,15 +13,16 @@ export function Header(){
    useEffect(() => {
     
     setCanNavigate(navigation.canGoBack())
-    
+  
 },[])
 
-    {console.log(canNavigate)}
+    
     return(
         <View style={styles.containerHeader}>
             <StatusBar backgroundColor="#121212" style="light"/>
+            {console.log(canNavigate)}
             <TouchableOpacity>
-               <Text style={styles.avatarText}>VH</Text>
+               <Text style={styles.avatarText}>{navigation.canGoBack() && <CanBack/>}</Text>
             </TouchableOpacity>
             <Image style={styles.image} source={logoBranca} />
             <TouchableOpacity>

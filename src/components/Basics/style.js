@@ -20,6 +20,5 @@ export const styles = StyleSheet.create({
     },
     bold: {
         fontFamily: 'Inter_700Bold',
-
     }
 })

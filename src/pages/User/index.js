@@ -19,8 +19,8 @@ console.log(user)
             <View style={styles.header}>
                 <View style={styles.profileContainer}>
                         <View style={styles.circleUser}></View>
-                        <TextFont texto={"Tailana Oliveira"} fontWeight={"bold"} fontSize={20}/>
-                        <TextFont texto={"Pedagogia / 7° Semestre"} fontWeight={"regular"}/>
+                        <TextFont texto={"Tailana Oliveira"} fontWeight={"bold"} fontSize={20} color={'white'}/>
+                        <TextFont texto={"Pedagogia / 7° Semestre"} fontWeight={"regular"} color={'white'}/>
                 </View>            
             </View>
 
