@@ -5,8 +5,10 @@ import axios from "axios";
 
 export const AuthContext = createContext()
 export default function AuthProvider({children}){
-
+    const [userVerification, setUserVerification] = useState('')
     const [user, setUser] = useState(false)
+    const [loading, setLoading] = useState(false)
+
     console.log(user)
         useEffect(() => {
             async function isLogged(){
@@ -23,6 +25,7 @@ export default function AuthProvider({children}){
 
 
     async function signIn(usuario, pass){ // Logar Usuário
+        setLoading(true)
         const params = {
             banco: 'jaguar_fazag',
              proc: `[FX jaguar fazag] "loginaluno", "${usuario}", "${pass}"`
@@ -30,7 +33,8 @@ export default function AuthProvider({children}){
         const response = await axios.post('http://jaguar.solutio.net.br:9002/jaguar', params).then(res => res.data)
         const isLogged = response[0]
         if(usuario === '' || pass === ''){
-            console.log('Preencha os campos de Usuário e Senha')
+            setUserVerification('Preencha os campos de Usuário e Senha*')
+            
         }
         else if (!!isLogged.a_id === true){    // Se a response tiver a_id adicione ao usuário...
             setUser({                           
@@ -45,10 +49,12 @@ export default function AuthProvider({children}){
                 cpf: isLogged.au_cpf.trim(),
                 email: isLogged.au_email.trim(),
             }))
+            
         }
         else {
-            console.log('Usuário Inválido')
+            setUserVerification('Usuário Inválido*')
         }
+        return setLoading(false)
     }
 
     async function signOut(){ // Deslogar Usuário
@@ -59,7 +65,7 @@ export default function AuthProvider({children}){
 
 
 return (
-    <AuthContext.Provider value={{signed: !!user , user, setUser, signOut, signIn}}>
+    <AuthContext.Provider value={{signed: !!user , user, setUser, signOut, signIn, userVerification, loading}}>
         {children}
     </AuthContext.Provider>
 )

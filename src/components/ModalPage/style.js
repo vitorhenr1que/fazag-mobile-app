@@ -30,6 +30,12 @@ export const styles = StyleSheet.create({
         fontFamily: 'Inter_400Regular',
         color: colors.gray[300]
     },
+    userVerification: {
+        fontFamily: 'Inter_400Regular',
+        color: colors.red[300],
+        fontSize: 12,
+        marginTop: 7
+    },
     inputContainer: {
 
     },
@@ -65,5 +71,6 @@ export const styles = StyleSheet.create({
         fontFamily: 'Inter_500Medium',
         textAlign: 'center',
         fontSize: 17
-    }
+    },
+  
 })
