@@ -13,6 +13,7 @@ export function User(){
 const semestreAtual = userHistoric[userHistoric.length - 1]
 
 
+
 console.log(user)
 
     return(
