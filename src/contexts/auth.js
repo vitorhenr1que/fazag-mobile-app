@@ -8,8 +8,7 @@ export default function AuthProvider({children}){
     const [userVerification, setUserVerification] = useState('')
     const [user, setUser] = useState(false)
     const [loading, setLoading] = useState(false)
-    const [userHistoric, setUserHistoric] = useState([])
-
+    const [userHistoric, setUserHistoric] = useState('')
 
     console.log(user)
         useEffect(() => {
@@ -60,8 +59,7 @@ export default function AuthProvider({children}){
             banco: 'jaguar_fazag',
             proc: `[FX jaguar fazag] "historico", "${isLogged.a_id.trim()}"`
             }).then(res => setUserHistoric(res.data))
-            
-            const historicAsyncStorage = await AsyncStorage.setItem('historic', JSON.stringify(userHistoric))
+            await AsyncStorage.setItem('historic', JSON.stringify(userHistoric))
             
         }
         else {
