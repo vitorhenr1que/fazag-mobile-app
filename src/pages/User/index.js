@@ -4,12 +4,13 @@ import { useContext } from 'react'
 import { Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native'
 import { TextFont } from '../../components/Basics/TextFont'
-import { nomeAluno } from '../../components/nomeAluno'
 import { AuthContext } from '../../contexts/auth'
 import { styles } from './style'
 export function User(){
-    const {user, setUser, signOut} = useContext(AuthContext)
+    const {user, signOut, userHistoric} = useContext(AuthContext)
 
+
+const semestreAtual = userHistoric[userHistoric.length - 1]
 
 
 console.log(user)

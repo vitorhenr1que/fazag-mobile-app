@@ -8,13 +8,20 @@ export default function AuthProvider({children}){
     const [userVerification, setUserVerification] = useState('')
     const [user, setUser] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [userHistoric, setUserHistoric] = useState([])
+
 
     console.log(user)
         useEffect(() => {
             async function isLogged(){
-                const asyncLogged = await AsyncStorage.getItem('user')
-                if(!!asyncLogged === true){
-                    setUser(JSON.parse(asyncLogged))
+                const asyncUserLogged = await AsyncStorage.getItem('user')
+                const asyncHistoricLogged = await AsyncStorage.getItem('historic')
+
+                if(!!asyncUserLogged === true){
+                    setUser(JSON.parse(asyncUserLogged))
+                }
+                if(!!asyncHistoricLogged === true){
+                    setUserHistoric(JSON.parse(asyncHistoricLogged))
                 }
             }
             isLogged()
@@ -26,11 +33,11 @@ export default function AuthProvider({children}){
 
     async function signIn(usuario, pass){ // Logar Usuário
         setLoading(true)
-        const params = {
+        const paramsUser = {
             banco: 'jaguar_fazag',
              proc: `[FX jaguar fazag] "loginaluno", "${usuario}", "${pass}"`
             }
-        const response = await axios.post('http://jaguar.solutio.net.br:9002/jaguar', params).then(res => res.data)
+        const response = await axios.post('http://jaguar.solutio.net.br:9002/jaguar', paramsUser).then(res => res.data)
         const isLogged = response[0]
         if(usuario === '' || pass === ''){
             setUserVerification('Preencha os campos de Usuário e Senha*')
@@ -43,12 +50,18 @@ export default function AuthProvider({children}){
                 cpf: isLogged.au_cpf.trim(),
                 email: isLogged.au_email.trim(),
             })
-            const logged = await AsyncStorage.setItem('user', JSON.stringify({ // Se a response tiver a_id adicione ao AsyncStorage...
+            const loggedAsyncStorage = await AsyncStorage.setItem('user', JSON.stringify({ // Se a response tiver a_id adicione ao AsyncStorage...
                 id: isLogged.a_id.trim(),
                 name: isLogged.a_nome.trim(),
                 cpf: isLogged.au_cpf.trim(),
                 email: isLogged.au_email.trim(),
             }))
+            const paramsHistoric = await axios.post('http://jaguar.solutio.net.br:9002/jaguar', { //AsyncStorage Histórico Acadêmico
+            banco: 'jaguar_fazag',
+            proc: `[FX jaguar fazag] "historico", "${isLogged.a_id.trim()}"`
+            }).then(res => setUserHistoric(res.data))
+            
+            const historicAsyncStorage = await AsyncStorage.setItem('historic', JSON.stringify(userHistoric))
             
         }
         else {
@@ -60,12 +73,13 @@ export default function AuthProvider({children}){
     async function signOut(){ // Deslogar Usuário
         setUser(false)
         await AsyncStorage.removeItem('user')
+        await AsyncStorage.removeItem('historic')
     }
 
 
 
 return (
-    <AuthContext.Provider value={{signed: !!user , user, setUser, signOut, signIn, userVerification, loading}}>
+    <AuthContext.Provider value={{signed: !!user , user, setUser, signOut, signIn, userVerification, loading, userHistoric}}>
         {children}
     </AuthContext.Provider>
 )
