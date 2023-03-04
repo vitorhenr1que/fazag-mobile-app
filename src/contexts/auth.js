@@ -15,11 +15,13 @@ export default function AuthProvider({children}){
             async function isLogged(){
                 const asyncUserLogged = await AsyncStorage.getItem('user')
                 const asyncHistoricLogged = await AsyncStorage.getItem('historic')
+                const keys = AsyncStorage.getAllKeys()
+                console.log(keys)
 
                 if(!!asyncUserLogged === true){
                     setUser(JSON.parse(asyncUserLogged))
                 }
-                if(!!asyncHistoricLogged === true){
+                if(asyncHistoricLogged){
                     setUserHistoric(JSON.parse(asyncHistoricLogged))
                 }
             }
@@ -58,8 +60,14 @@ export default function AuthProvider({children}){
             const paramsHistoric = await axios.post('http://jaguar.solutio.net.br:9002/jaguar', { //AsyncStorage Histórico Acadêmico
             banco: 'jaguar_fazag',
             proc: `[FX jaguar fazag] "historico", "${isLogged.a_id.trim()}"`
-            }).then(res => setUserHistoric(res.data))
-            await AsyncStorage.setItem('historic', JSON.stringify(userHistoric))
+            }).then(res => {
+                setUserHistoric(res.data)
+                AsyncStorage.setItem('historic', JSON.stringify(res.data))
+            })
+
+            
+
+
             
         }
         else {
@@ -72,12 +80,13 @@ export default function AuthProvider({children}){
         setUser(false)
         await AsyncStorage.removeItem('user')
         await AsyncStorage.removeItem('historic')
+
     }
 
 
 
 return (
-    <AuthContext.Provider value={{signed: !!user , user, setUser, signOut, signIn, userVerification, loading, userHistoric}}>
+    <AuthContext.Provider value={{signed: !!user , user, setUser, signOut, signIn, userVerification, loading, userHistoric, setUserHistoric}}>
         {children}
     </AuthContext.Provider>
 )

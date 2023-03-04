@@ -13,14 +13,14 @@ export function User(){
 
 console.log(modifyName)
 
-const semestreAtual = userHistoric[userHistoric.length - 1]
-const nomeCompletoAluno = semestreAtual.a_nome.split(' ')
-const curso = semestreAtual.s_descricao.split('<')[0]
-console.log(semestreAtual.aperiodo)
+const semestreAtual = userHistoric[userHistoric.length - 1] 
+const nomeCompletoAluno = semestreAtual.a_nome.split(' ') // pega o nome EM LETRA MAIUSCULA e particiona em array
+const curso = semestreAtual.s_descricao.split('<')[0] // Separa o nome do curso da string criando uma array 'CURSO<br>EMEC'
+const periodoAtual = semestreAtual.aperiodo.split(' ').join('') // Pega o "7 °" e remove o espaço
 
 const modifyName = []
 
-function verifyName(name){
+function verifyName(name){ // Função que percorre a array particionada acima, transforma as letras e adiciona em uma nova array
 
     name.map((index) => {
 
@@ -28,27 +28,29 @@ function verifyName(name){
             modifyName.push(index.toLowerCase())
         }
         else{
-            const breakName = index.split('')
-            const firstLetter = breakName[0]
-            const restOfName = breakName.splice(1).join('').toLowerCase()
-            const name = firstLetter + restOfName
+            const name = index[0].toUpperCase() + index.substring(1).toLowerCase() // Coloque o indice [0] da string MAIUSC... e pegue o restante (substring) à partir do índice 1 
             modifyName.push(name)
         }
     })  
 }
 
-const ativar = () => {verifyName(nomeCompletoAluno)}
-ativar()
-console.log(modifyName)
-console.log(user)
+const getModifiedName = () => {verifyName(nomeCompletoAluno)}
+getModifiedName()
+
+function getProfileName(){ // Função que verifica se o nome da pessoa tem "dos, de..." e retorna o nome com isso 
+    if(modifyName[1] === 'de' || modifyName[1] === 'do' || modifyName[1] === 'dos' || modifyName[1] === 'da' || modifyName[1] === 'das' || modifyName[1] === 'e'){
+        return `${modifyName[0]} ${modifyName[1]} ${modifyName[2]}`
+    }
+    return `${modifyName[0]} ${modifyName[1]}`
+}
 
     return(
         <View style={styles.container}>
             <View style={styles.header}>
                 <View style={styles.profileContainer}>
                         <View style={styles.circleUser}></View>
-                        <TextFont texto={`${modifyName[0]} ${modifyName[1]} ${modifyName[2]}`} fontWeight={"bold"} fontSize={20} color={'white'}/>
-                        <TextFont texto={"Pedagogia / 7° Semestre"} fontWeight={"regular"} color={'white'}/>
+                        <TextFont texto={getProfileName()} fontWeight={"bold"} fontSize={20} color={'white'}/>
+                        <TextFont texto={`${curso[0].toUpperCase() + curso.substring(1).toLowerCase()} / ${periodoAtual} Semestre`} fontWeight={"regular"} color={'white'}/>
                 </View>            
             </View>
 
@@ -62,7 +64,7 @@ console.log(user)
                         <View style={styles.boxUserInfo}>
                             <View style={styles.boxUserInfoRow}>
                                 <TextFont texto={"NOME"} fontWeight={"semibold"} fontSize={12}/>
-                                <TextFont texto={`${modifyName[0]} ${modifyName[1]} ${modifyName[2]}`} fontWeight={"semibold"} fontSize={12}/>
+                                <TextFont texto={`${getProfileName().toUpperCase()}`} fontWeight={"semibold"} fontSize={12}/>
                             </View>
                             <View style={styles.boxUserInfoRow}>
                                 <TextFont texto={"CGA"} fontWeight={"semibold"} fontSize={12}/>
@@ -74,7 +76,7 @@ console.log(user)
                             </View>
                             <View style={styles.boxUserInfoRow}>
                                 <TextFont texto={"SEMESTRE"} fontWeight={"semibold"} fontSize={12}/>
-                                <TextFont texto={"1°"} fontWeight={"semibold"} fontSize={12}/>
+                                <TextFont texto={`${periodoAtual}`} fontWeight={"semibold"} fontSize={12}/>
                             </View>
                             <View style={styles.boxUserInfoRow}>
                                 <TextFont texto={"E-MAIL"} fontWeight={"semibold"} fontSize={12}/>
