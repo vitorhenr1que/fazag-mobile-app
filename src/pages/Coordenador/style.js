@@ -3,7 +3,7 @@ import { colors } from "../../../styles/theme";
 
 export const styles = StyleSheet.create({
     lowerHeader: {
-        backgroundColor: colors.gray[50]
+        backgroundColor: colors.gray[800]
     },
     container: {
         backgroundColor: colors.white,

@@ -22,6 +22,10 @@ export const styles = StyleSheet.create({
     avatarText: {
         color: colors.white,
         fontSize: 20,
+    },
+    sino: {
+        flex: 1, 
+        alignItems: 'flex-end'
     }
 
 })
