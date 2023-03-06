@@ -4,7 +4,7 @@ import { getStatusBarHeight } from 'react-native-status-bar-height'
 import { TextFont } from '../../components/Basics/TextFont'
 import { AuthContext } from '../../contexts/auth'
 import { styles } from './style'
-import { Table, Row, Rows,  } from 'react-native-table-component'
+import { Table, Row, Rows } from 'react-native-table-component'
 
 export function MapaDeSala(){
     const { userHistoric, signOut } = useContext(AuthContext)
@@ -12,7 +12,7 @@ export function MapaDeSala(){
     const table = {
         tableHead: ['Disc1','Disc2','Disc3','Disc4','Disc5',],
         tableBody: [
-            [],
+            ['' , '', '', '', ''],
             
         ]
     }
@@ -28,9 +28,7 @@ export function MapaDeSala(){
             })}
             <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
                 <Row data={table.tableHead} style={styles.head}/>
-                <Rows data={table.tableBody} style={styles.body}/>
-
-               
+                <Rows data={table.tableBody} style={styles.body} textStyle={styles.body} />
             </Table>
             <Text>text</Text>
             <Button onPress={() => signOut()} title={"Sair"}/>
