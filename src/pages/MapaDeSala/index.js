@@ -4,8 +4,18 @@ import { getStatusBarHeight } from 'react-native-status-bar-height'
 import { TextFont } from '../../components/Basics/TextFont'
 import { AuthContext } from '../../contexts/auth'
 import { styles } from './style'
+import { Table, Row, Rows,  } from 'react-native-table-component'
+
 export function MapaDeSala(){
     const { userHistoric, signOut } = useContext(AuthContext)
+
+    const table = {
+        tableHead: ['Disc1','Disc2','Disc3','Disc4','Disc5',],
+        tableBody: [
+            [],
+            
+        ]
+    }
     return(
         <ScrollView>
 
@@ -16,6 +26,13 @@ export function MapaDeSala(){
                    return <TextFont key={index.ds_id} texto={index.d_descricao.trim()}/>
                 }
             })}
+            <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
+                <Row data={table.tableHead} style={styles.head}/>
+                <Rows data={table.tableBody} style={styles.body}/>
+
+               
+            </Table>
+            <Text>text</Text>
             <Button onPress={() => signOut()} title={"Sair"}/>
         </ScrollView>
     )
