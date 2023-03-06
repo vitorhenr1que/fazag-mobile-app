@@ -1,5 +1,5 @@
 
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native'
 import { TextFont } from '../../components/Basics/TextFont'
@@ -14,7 +14,7 @@ export function User(){
 console.log(modifyName)
 
 const semestreAtual = userHistoric[userHistoric.length - 1] 
-const nomeCompletoAluno = semestreAtual.a_nome.split(' ') // pega o nome EM LETRA MAIUSCULA e particiona em array
+const nomeCompletoAluno = user.name.split(' ') // pega o nome EM LETRA MAIUSCULA e particiona em array
 const curso = semestreAtual.s_descricao.split('<')[0] // Separa o nome do curso da string criando uma array 'CURSO<br>EMEC'
 const periodoAtual = semestreAtual.aperiodo.split(' ').join('') // Pega o "7 °" e remove o espaço
 
