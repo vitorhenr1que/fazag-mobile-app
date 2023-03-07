@@ -18,6 +18,7 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     body: { 
+        flex: 1,
         justifyContent: 'center',
         height: 60,
         backgroundColor: 'white'
