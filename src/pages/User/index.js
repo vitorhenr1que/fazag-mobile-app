@@ -3,6 +3,8 @@ import { useContext, useEffect } from 'react'
 import { Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native'
 import { TextFont } from '../../components/Basics/TextFont'
+import { NomeSobrenomeAlternado } from '../../components/TratamentoDeNomes/NomeSobrenomeAlternado'
+import { NomeSobrenomeUpperCase } from '../../components/TratamentoDeNomes/NomeSobrenomeUpperCase'
 import { AuthContext } from '../../contexts/auth'
 import { styles } from './style'
 export function User(){
@@ -49,7 +51,7 @@ function getProfileName(){ // Função que verifica se o nome da pessoa tem "dos
             <View style={styles.header}>
                 <View style={styles.profileContainer}>
                         <View style={styles.circleUser}></View>
-                        <TextFont texto={getProfileName()} fontWeight={"bold"} fontSize={20} color={'white'}/>
+                        <TextFont texto={<NomeSobrenomeAlternado name={user.name}/>} fontWeight={"bold"} fontSize={20} color={'white'}/>
                         <TextFont texto={`${curso[0].toUpperCase() + curso.substring(1).toLowerCase()} / ${periodoAtual} Semestre`} fontWeight={"regular"} color={'white'}/>
                 </View>            
             </View>
@@ -64,7 +66,7 @@ function getProfileName(){ // Função que verifica se o nome da pessoa tem "dos
                         <View style={styles.boxUserInfo}>
                             <View style={styles.boxUserInfoRow}>
                                 <TextFont texto={"NOME"} fontWeight={"semibold"} fontSize={12}/>
-                                <TextFont texto={`${getProfileName().toUpperCase()}`} fontWeight={"semibold"} fontSize={12}/>
+                                <TextFont texto={<NomeSobrenomeUpperCase name={user.name}/>} fontWeight={"semibold"} fontSize={12}/>
                             </View>
                             <View style={styles.boxUserInfoRow}>
                                 <TextFont texto={"CGA"} fontWeight={"semibold"} fontSize={12}/>

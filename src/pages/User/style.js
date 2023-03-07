@@ -7,11 +7,11 @@ export const styles = StyleSheet.create({
     },
     header: {
         flex: 1,
-        backgroundColor: colors.gray[800]
+        backgroundColor: colors.gray[800],
     },
     main: {
         flex: 2,
-        backgroundColor: colors.gray[300],
+        backgroundColor: colors.gray[50],
         position: 'relative',
         alignItems: 'center'
     },
@@ -65,7 +65,7 @@ export const styles = StyleSheet.create({
         height: 100,
         width: 100,
         borderRadius: 50,
-        backgroundColor: colors.gray[500]
+        backgroundColor: colors.gray[50]
     },
     textName: {
         fontWeight: "bold",
