@@ -17,13 +17,11 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: 'bold'
     },
-    body: { 
+    cell: { 
         flex: 1,
         justifyContent: 'center',
+        alignItems: 'center',
         height: 60,
         backgroundColor: 'white'
     },
-    textBody: {
-        textAlign: 'center'
-    }
 })
