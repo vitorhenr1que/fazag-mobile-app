@@ -4,83 +4,59 @@ import { getStatusBarHeight } from 'react-native-status-bar-height'
 import { TextFont } from '../../components/Basics/TextFont'
 import { AuthContext } from '../../contexts/auth'
 import { styles } from './style'
-import { Table, Row, Rows, Cols, Col, TableWrapper } from 'react-native-table-component'
 import { MapaTable } from '../../components/MapaDeSala/MapaTable'
 
 export function MapaDeSala(){
 
     const [tableHead, setTableHead] = useState(['Segunda-Feira'])
-    const [tableBody, setTableBody] = useState([])
+    
     const { userHistoric, signOut } = useContext(AuthContext)
 
- 
-const daysOfWeek = []
+    let count = 0
+    const weekDays = {
+        "SEG": 0,
+        "TER": 1,
+        "QUA": 2,
+        "QUI": 3,
+        "SEX": 4,
+        "SAB": 5
+    }
 
-console.log(daysOfWeek[0])
-let count = 0
+    const mapaItems = []
+
     return(
         <ScrollView showsVerticalScrollIndicator={false}>
-            {userHistoric.map((index, position) => {
+            {userHistoric.map((index) => {
                 const periodo = index.periodo.trim()
                 const periodoAtual = userHistoric[userHistoric.length - 1].periodo.trim()
                 
                 if(periodo === periodoAtual){
-                    const sala = index.sala.split(' ').filter(nome => (nome))
-                    if (sala[0] === "SEG"){
-                        daysOfWeek.splice(0, 0, { // splice params = (posição_inicial, quantos itens tirar, item para adicionar)
-                            day: "Segunda-Feira",
-                            disciplina: index.d_descricao,
+                    try {
+                        const sala = index.sala.split(' ').filter(nome => (nome))  // cria uma array ex: [TER, "19:00", "22:00", Auditório, Andar, 1°, 02]
+                        mapaItems.push({
+                            dia: weekDays[sala[0]], // recebe sala[0] dia da semana da api ex: "SEG"
+                            disciplina: index.d_descricao, 
                             sala: sala[sala.length - 1],
-                            andar: sala[sala.length - 2],
+                            andar: `${sala.length === 7 ? sala[sala.length - 3] + ' ' + sala[sala.length - 2] : sala[sala.length - 2]}`, //se tiver "num° andar" : se tiver térreo
                             professor: index.professor
-                        })}
-                    if (sala[0] === "TER"){
-                        daysOfWeek.splice(1, 0, {
-                            day: "Terça-Feira",
-                            disciplina: index.d_descricao,
-                            sala: sala[sala.length - 1],
-                            andar: sala[sala.length - 2],
+                        })
+                    } catch (e){
+                        mapaItems.push({
+                            dia: 'Dia não informado', 
+                            disciplina: index.d_descricao, 
+                            sala: '',
+                            andar: '', //se tiver "num° andar" : se tiver térreo
                             professor: index.professor
-                        })}
-                    if (sala[0] === "QUA"){
-                        daysOfWeek.splice(2, 0, {
-                            day: "Quarta-Feira",
-                            disciplina: index.d_descricao,
-                            sala: sala[sala.length - 1],
-                            andar: sala[sala.length - 2],
-                            professor: index.professor
-                        })}
-                    if (sala[0] === "QUI"){
-                        daysOfWeek.splice(3, 0, {
-                            day: "Quarta-Feira",
-                            disciplina: index.d_descricao,
-                            sala: sala[sala.length - 1],
-                            andar: sala[sala.length - 2],
-                            professor: index.professor
-                        })}
-                    if (sala[0] === "SEX"){
-                        daysOfWeek.splice(4, 0, {
-                            day: "Sexta-Feira",
-                            disciplina: index.d_descricao,
-                            sala: sala[sala.length - 1],
-                            andar: sala[sala.length - 2],
-                            professor: index.professor
-                        })}
-                    if (sala[0] === "SAB"){
-                        daysOfWeek.splice(5, 0, {
-                            day: "Sábado-Feira",
-                            disciplina: index.d_descricao,
-                            sala: sala[sala.length - 1],
-                            andar: sala[sala.length - 2],
-                            professor: index.professor
-                        })}
-                    
+                        })
+                    }
+  
                 }
             })}
-            {daysOfWeek.map((index) => {
-                console.log(daysOfWeek)
-                return <MapaTable key={index.disciplina} disciplina={index.disciplina} andar={index.andar} dia={index.day} professor={index.professor} sala={index.sala}/>
+            {mapaItems.sort((a, b) => a.dia - b.dia).map((item, position) => {  // sort() ordena itens à partir de uma propriedade
+            count++
+                return <MapaTable key={count} dia={item.dia} disciplina={item.disciplina} andar={item.andar} professor={item.professor} sala={item.sala}/>
             })}
+            
         </ScrollView>
     )
 }
