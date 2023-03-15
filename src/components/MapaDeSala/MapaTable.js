@@ -9,7 +9,9 @@ export function MapaTable({disciplina, sala, andar, professor, dia}){
                 2: "Quarta-Feira",
                 3: "Quinta-Feira",
                 4: "Sexta-Feira",
-                5: "Sábado"
+                5: "Sábado",
+                6: "Domingo",
+                7: "Dia não informado"
             }
 
    return (

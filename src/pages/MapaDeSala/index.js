@@ -19,19 +19,22 @@ export function MapaDeSala(){
         "QUA": 2,
         "QUI": 3,
         "SEX": 4,
-        "SAB": 5
+        "SAB": 5,
+        "DOM": 6,
+        "Dia não informado": 7
     }
 
     const mapaItems = []
 
     return(
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView showsVerticalScrollIndicator={false} >
             {userHistoric.map((index) => {
                 const periodo = index.periodo.trim()
                 const periodoAtual = userHistoric[userHistoric.length - 1].periodo.trim()
                 
                 if(periodo === periodoAtual){
-                    try {
+                   
+                    if(index.sala !== null) {
                         const sala = index.sala.split(' ').filter(nome => (nome))  // cria uma array ex: [TER, "19:00", "22:00", Auditório, Andar, 1°, 02]
                         mapaItems.push({
                             dia: weekDays[sala[0]], // recebe sala[0] dia da semana da api ex: "SEG"
@@ -40,14 +43,16 @@ export function MapaDeSala(){
                             andar: `${sala.length === 7 ? sala[sala.length - 3] + ' ' + sala[sala.length - 2] : sala[sala.length - 2]}`, //se tiver "num° andar" : se tiver térreo
                             professor: index.professor
                         })
-                    } catch (e){
+                        return
+                    } else{
                         mapaItems.push({
-                            dia: 'Dia não informado', 
+                            dia: weekDays["Dia não informado"], 
                             disciplina: index.d_descricao, 
                             sala: '',
                             andar: '', //se tiver "num° andar" : se tiver térreo
                             professor: index.professor
                         })
+                        return
                     }
   
                 }
