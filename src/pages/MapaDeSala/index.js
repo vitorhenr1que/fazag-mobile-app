@@ -36,11 +36,12 @@ export function MapaDeSala(){
                    
                     if(index.sala !== null) {
                         const sala = index.sala.split(' ').filter(nome => (nome))  // cria uma array ex: [TER, "19:00", "22:00", Auditório, Andar, 1°, 02]
+                        console.log(sala)
                         mapaItems.push({
                             dia: weekDays[sala[0]], // recebe sala[0] dia da semana da api ex: "SEG"
-                            disciplina: index.d_descricao, 
-                            sala: sala[sala.length - 1],
-                            andar: `${sala.length === 7 ? sala[sala.length - 3] + ' ' + sala[sala.length - 2] : sala[sala.length - 2]}`, //se tiver "num° andar" : se tiver térreo
+                            disciplina: index.d_descricao,
+                            sala: `${sala.length > 7 ? sala.slice(5, sala.length).join(' ') : sala[sala.length - 1]}`, // slice pegue tudo à partir da posição 5
+                            andar: `${sala[5] === "Andar" ? sala[4] + ' ' + sala[5] : sala[4]}`, // se houver andar na pos.5 retorne 1° + Andar se não retorne Térreo ou Online
                             professor: index.professor
                         })
                         return
