@@ -136,7 +136,7 @@ export function Coordenador(){
                 
         
             </View>
-            <Text style={styles.label}>Messagem</Text>
+            <Text style={styles.label}>Mensagem</Text>
             <TextInput style={[styles.inputs, {height: 150, textAlignVertical: 'top'}]} multiline={true} numberOfLines={4} value={mensagem} onChangeText={setMensagem}/>
 
             <TouchableOpacity onPress={enviarForm}>
