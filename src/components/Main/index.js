@@ -13,7 +13,7 @@ export function Main(){
     return(
         <View style={styles.testV}>
            
-        <ScrollView style={styles.scrollMain} showsVerticalScrollIndicator={false}>
+            <ScrollView style={styles.scrollMain} showsVerticalScrollIndicator={false}>
             <View style={styles.olaAluno}>
                 <TextFont texto={`Olá ${nomeAluno()}!`} fontWeight={"bold"} fontSize={32}/>
             </View>
@@ -21,13 +21,13 @@ export function Main(){
             <View style={styles.container}>
                 <ListBoxMainVertical/>
             </View>
-        </ScrollView>
+            </ScrollView>
         
-        <ScrollView horizontal={true} style={styles.scrollh} showsHorizontalScrollIndicator={false}>
+            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollh}>
 
                 <ListBoxMainHorizontal/>
 
-        </ScrollView>
+            </ScrollView>
         </View>
     )
 }

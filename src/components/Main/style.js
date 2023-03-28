@@ -3,8 +3,9 @@ import { colors } from "../../../styles/theme";
 
 export const styles = StyleSheet.create({
     testV: {
-        flex: 1,
+
         flexDirection: 'column',
+
         
     },
     scrollMain: {
@@ -12,12 +13,12 @@ export const styles = StyleSheet.create({
         backgroundColor: colors.white,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
+  
         
     },
     container: {
         alignItems: "center",
         backgroundColor: colors.white,
-   
     },
 
     olaAluno: {
@@ -25,6 +26,10 @@ export const styles = StyleSheet.create({
         paddingTop: 15
     },
     scrollh: {
-        height: 190
+    backgroundColor: colors.white,
+       paddingBottom: 20,
+       paddingTop: 20,
+
+        alignItems: 'center'
     }
 })

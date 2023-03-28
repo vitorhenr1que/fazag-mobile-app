@@ -26,12 +26,11 @@ export const styles = StyleSheet.create({
     },
     divScroll: {
         paddingRight: 15,
-        height: 190,
         flexDirection: 'row',
-        backgroundColor: colors.white,
-        alignItems: "center",
-        justifyContent: "center",
-        marginBottom: 20,
+
+
+
+
         
     },
 })

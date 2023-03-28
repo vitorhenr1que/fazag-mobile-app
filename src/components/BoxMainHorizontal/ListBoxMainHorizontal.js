@@ -22,7 +22,7 @@ export function ListBoxMainHorizontal(){
             id: '2',
             title: 'Serviços',
             image: require('../../../assets/servicos.png')
-        }
+        },
     ]
     return (
         <View style={styles.divScroll}>
