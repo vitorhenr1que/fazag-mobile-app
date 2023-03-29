@@ -31,13 +31,7 @@ const data = [{
     description: "Agora você pode entrar em contato direto com o seu coordenador.",
     route: 'Coordenador'
 },
-{
-    id: 6,
-    name: "Fale com o seu coordenador",
-    image: require('../../../assets/coordenador.png'),
-    description: "Agora você pode entrar em contato direto com o seu coordenador.",
-    route: 'Coordenador'
-}
+
 ]
 
 export function ListBoxMainVertical(){
