@@ -38,7 +38,7 @@ export function Coordenador(){
     const emailCoordenador = {
         0: 'daiana.paixão@gmail.com',
         1: 'vhpsantos@gmail.com',
-        2: 'Educação Física (Licenciatura)',
+        2: 'Educação Física (Bacharelado)',
         3: 'Educação Física (Licenciatura)',
         4: 'Enfermagem',
         5: 'Engenharia Civil',

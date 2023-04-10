@@ -35,13 +35,14 @@ export function MapaDeSala(){
                 if(periodo === periodoAtual){
                    
                     if(index.sala !== null) {
-                        const sala = index.sala.split(' ').filter(nome => (nome))  // cria uma array ex: [TER, "19:00", "22:00", Auditório, Andar, 1°, 02]
-                        console.log(sala)
+                        const sala = index.sala.trim()
+                        const dia = weekDays[`${index.dia.trim()}`]
+                        const andar = index.pavimento.split(' ')
                         mapaItems.push({
-                            dia: weekDays[sala[0]], // recebe sala[0] dia da semana da api ex: "SEG"
+                            dia,
                             disciplina: index.d_descricao,
-                            sala: `${sala.length > 7 ? sala.slice(5, sala.length).join(' ') : sala[sala.length - 1]}`, // slice pegue tudo à partir da posição 5
-                            andar: `${sala[5] === "Andar" ? sala[4] + ' ' + sala[5] : sala[4]}`, // se houver andar na pos.5 retorne 1° + Andar se não retorne Térreo ou Online
+                            sala,
+                            andar: andar[0],
                             professor: index.professor
                         })
                         return
