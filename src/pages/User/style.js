@@ -23,6 +23,16 @@ export const styles = StyleSheet.create({
         backgroundColor: colors.red[300],
         top: "-9%",
     },
+    boxAbsoluteContainer: {
+       justifyContent: 'center',
+       flex: 1,
+    },
+    boxAbsoluteTextContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+    },
     lowerMain: {
         flex: 1,
         width: "100%",

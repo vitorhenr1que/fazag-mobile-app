@@ -57,7 +57,20 @@ function getProfileName(){ // Função que verifica se o nome da pessoa tem "dos
             </View>
 
             <View style={styles.main}>
-                <View style={styles.boxAbsolute}></View>
+
+                <View style={styles.boxAbsolute}>
+                        <View style={styles.boxAbsoluteContainer}>
+                            <View style={styles.boxAbsoluteTextContainer}>
+                                <TextFont texto={"CH / CURSADA"} fontWeight={"regular"} fontSize={12} color={'white'}/>
+                                <TextFont texto={"CH / TOTAL"} fontWeight={"regular"} fontSize={12} color={'white'}/>
+                            </View>
+                            <View style={styles.boxAbsoluteTextContainer}>
+                                <TextFont texto={semestreAtual.carga_horaria_cursada.split('.')[0]} fontWeight={"bold"} fontSize={20} color={'white'}/>
+                                <TextFont texto={semestreAtual.carga_horaria_curso} fontWeight={"bold"} fontSize={20} color={'white'}/>
+                            </View>
+                        </View>
+                </View>
+
                 <View style={styles.lowerMain}>
                     <View style={styles.boxUserInfoContainer}>
                         <View style={[styles.boxUserInfoRow, {marginBottom: 22}]}>

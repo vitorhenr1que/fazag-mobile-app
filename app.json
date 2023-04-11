@@ -12,13 +12,15 @@
       "backgroundColor": "#2b2b2b"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/42667dd3-f029-4eb3-8f9e-db39e477c46c"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.fazag"
     },
     "android": {
       "adaptiveIcon": {
@@ -34,6 +36,9 @@
       "eas": {
         "projectId": "42667dd3-f029-4eb3-8f9e-db39e477c46c"
       }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
     }
   }
 }
