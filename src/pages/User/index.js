@@ -53,12 +53,13 @@ function getProfileName(){ // Função que verifica se o nome da pessoa tem "dos
                         <View style={styles.circleUser}></View>
                         <TextFont texto={<NomeSobrenomeAlternado name={user.name}/>} fontWeight={"bold"} fontSize={20} color={'white'}/>
                         <TextFont texto={`${curso[0].toUpperCase() + curso.substring(1).toLowerCase()} / ${periodoAtual} Semestre`} fontWeight={"regular"} color={'white'}/>
-                </View>            
+                </View>   
+                
             </View>
 
             <View style={styles.main}>
 
-                <View style={styles.boxAbsolute}>
+                 <View style={styles.boxAbsolute}>
                         <View style={styles.boxAbsoluteContainer}>
                             <View style={styles.boxAbsoluteTextContainer}>
                                 <TextFont texto={"CH / CURSADA"} fontWeight={"regular"} fontSize={12} color={'white'}/>
@@ -69,7 +70,7 @@ function getProfileName(){ // Função que verifica se o nome da pessoa tem "dos
                                 <TextFont texto={semestreAtual.carga_horaria_curso} fontWeight={"bold"} fontSize={20} color={'white'}/>
                             </View>
                         </View>
-                </View>
+                 </View>         
 
                 <View style={styles.lowerMain}>
                     <View style={styles.boxUserInfoContainer}>

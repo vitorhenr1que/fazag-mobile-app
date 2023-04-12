@@ -12,16 +12,14 @@ export const styles = StyleSheet.create({
     main: {
         flex: 2,
         backgroundColor: colors.gray[50],
-        position: 'relative',
         alignItems: 'center'
     },
     boxAbsolute: {
-        position: 'absolute',
-        width: "88%",
-        height: 100,
+        width: "90%",
+        flex: 1,
         borderRadius: 4,
         backgroundColor: colors.red[300],
-        top: "-9%",
+        top: "-3%"
     },
     boxAbsoluteContainer: {
        justifyContent: 'center',
@@ -34,17 +32,16 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-around',
     },
     lowerMain: {
-        flex: 1,
+        flex: 3.5,
         width: "100%",
         alignItems: 'center',
         justifyContent: "flex-end"
     },
     boxUserInfoContainer: {
         width: '90%',
-        height: 230,
+        flex: 3.5,
         borderRadius: 4,
         backgroundColor: colors.white,
-        marginBottom: 35,
         padding: 30
 
     },
@@ -63,13 +60,14 @@ export const styles = StyleSheet.create({
     },
     buttonSair: {
         width: "90%",
-        height: 50,
+        flex: 1,
         borderRadius: 50,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: colors.red[300],
         bottom: 0,
-        marginBottom: 30,
+        marginBottom: 20,
+        marginTop: 20
     },
     circleUser: {
         height: 100,
