@@ -39,8 +39,8 @@ export function ModalPage({fecharModal}){
                         <Text style={styles.userVerification}>{userVerification}</Text>
                     </View>
                     <View style={styles.inputContainer}>
-                        <TextInput style={styles.inputUser}  placeholder="Usuário" placeholderTextColor={colors.gray[500]} value={usuario} onChangeText={(e) => {setUsuario(e)}} />
-                        <TextInput style={styles.inputPass} placeholder="Senha" placeholderTextColor={colors.gray[500]} value={pass} onChangeText={(e) => {setPass(e)}} secureTextEntry/>
+                        <TextInput style={styles.inputUser}  placeholder="Usuário" scrollEnabled={false} placeholderTextColor={colors.gray[500]} value={usuario} onChangeText={(e) => {setUsuario(e)}} />
+                        <TextInput style={styles.inputPass} placeholder="Senha" scrollEnabled={false} placeholderTextColor={colors.gray[500]} value={pass} onChangeText={(e) => {setPass(e)}} secureTextEntry/>
                     </View>
                     <TouchableOpacity onPress={() => logar()}>
                         <View style={styles.signInButton}>

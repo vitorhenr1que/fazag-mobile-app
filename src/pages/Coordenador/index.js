@@ -96,7 +96,6 @@ export function Coordenador(){
     }
 
     return(
-         
          <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={40}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 
                 <ScrollView showsVerticalScrollIndicator={false}>
@@ -137,7 +136,7 @@ export function Coordenador(){
         
             </View>
             <Text style={styles.label}>Mensagem</Text>
-            <TextInput style={[styles.inputs, {height: 150, textAlignVertical: 'top'}]} multiline={true} numberOfLines={4} value={mensagem} onChangeText={setMensagem}/>
+            <TextInput style={[styles.inputs, {height: 150, textAlignVertical: 'top'}]} multiline={true} scrollEnabled={false} numberOfLines={4} value={mensagem} onChangeText={setMensagem}/>
 
             <TouchableOpacity onPress={enviarForm}>
                 <View style={styles.submit}>

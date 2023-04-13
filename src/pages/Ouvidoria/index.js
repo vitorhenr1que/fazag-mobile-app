@@ -108,7 +108,7 @@ export function Ouvidoria(){
                     </View>
                 </View>
                 <Text style={styles.label}>Mensagem</Text>
-                <TextInput style={[styles.inputs, {height: 150, textAlignVertical: 'top'}]} multiline={true} numberOfLines={4} value={mensagem} onChangeText={setMensagem}/>
+                <TextInput style={[styles.inputs, {height: 150, textAlignVertical: 'top'}]} multiline={true} scrollEnabled={false} numberOfLines={4} value={mensagem} onChangeText={setMensagem}/>
                 
                 <TouchableOpacity onPress={enviarForm}>
                     <View style={styles.submit}>
