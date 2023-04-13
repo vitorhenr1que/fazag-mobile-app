@@ -2,8 +2,7 @@ import { useContext } from "react";
 import { Text, TouchableOpacity, View, Linking } from "react-native";
 import { AuthContext } from "../../contexts/auth";
 import { styles } from "./style";
-import axios from "axios";
-import * as FileSystem from 'expo-file-system'
+
 
 export function Historico(){
     const {user} = useContext(AuthContext)
@@ -11,7 +10,7 @@ export function Historico(){
     async function handleGenerateHistoricButton(){
         const url = `http://jaguar.solutio.net.br/jaguar/wjaprepararel20.jsp?servidor=jaguar.solutio.net.br&banco=jaguar_fazag&relatorio=historico.jasper&a_id=${user.id}`
         const isSupported = Linking.canOpenURL(url)
-
+        
         if(isSupported){
             Linking.openURL(url)
         } else {

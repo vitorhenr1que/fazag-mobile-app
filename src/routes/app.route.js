@@ -11,6 +11,7 @@ import { Ouvidoria } from '../../src/pages/Ouvidoria';
 import { Calendario } from '../../src/pages/Calendario';
 import { Coordenador } from '../../src/pages/Coordenador';
 import { Header } from '../components/Header';
+import { CanaisDeAtendimento } from '../pages/CanaisDeAtendimento';
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -50,7 +51,7 @@ function Tabs(){
       }
     },
     tabBarStyle: { // Estilo da Barra de Navegação
-      height: 55,
+      height: "8%",
       alignItems: 'center',
       
     },
@@ -83,6 +84,7 @@ export default function AppRoute() {
       <Stack.Screen name='Ouvidoria' component={Ouvidoria}/>
       <Stack.Screen name='Calendario' component={Calendario}/>
       <Stack.Screen name='Coordenador' component={Coordenador}/>
+      <Stack.Screen name='CanaisDeAtendimento' component={CanaisDeAtendimento}/>
      </Stack.Navigator>
      </>
   );

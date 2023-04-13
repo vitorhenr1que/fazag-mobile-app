@@ -26,10 +26,10 @@ const data = [{
 },
 {
     id: 4,
-    name: "Fale com o seu coordenador",
-    image: require('../../../assets/coordenador.png'),
-    description: "Agora você pode entrar em contato direto com o seu coordenador.",
-    route: 'Coordenador'
+    name: "Canais de Atendimento",
+    image: require('../../../assets/whatsapp-icon.png'),
+    description: "Entre em contato com nossos setores de atendimento por whatsapp ou e-mail.",
+    route: 'CanaisDeAtendimento'
 },
 
 ]

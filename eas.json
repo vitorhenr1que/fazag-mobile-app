@@ -32,7 +32,8 @@
       "ios": {
         "resourceClass": "m-medium"
       },
-      "channel": "production"
+      "channel": "production",
+      "autoIncrement": true
     }
   },
   "submit": {
