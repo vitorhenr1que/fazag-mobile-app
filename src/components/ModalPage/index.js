@@ -1,6 +1,6 @@
 import { useFonts, Inter_600SemiBold, Inter_400Regular, Inter_300Light, Inter_700Bold, Inter_500Medium } from "@expo-google-fonts/inter";
 import { useContext, useState } from "react";
-import { ActivityIndicator, Button, KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import { ActivityIndicator, Button, KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View, Platform } from "react-native";
 import { colors } from "../../../styles/theme";
 import { AuthContext } from "../../contexts/auth";
 import { jaguar } from "../../services/api";
@@ -25,7 +25,7 @@ export function ModalPage({fecharModal}){
     }
 
     return (
-        <KeyboardAvoidingView behavior={Platform.OS === 'padding'} keyboardVerticalOffset={0} style={{flex: 1}}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={0} style={{flex: 1}}>
             
             <TouchableWithoutFeedback onPress={() => fecharModal()}>
            

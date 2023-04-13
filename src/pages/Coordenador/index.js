@@ -1,6 +1,6 @@
 import { Text, TextInput, View,  TouchableOpacity, Modal, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, ScrollView } from 'react-native'
 import { styles } from './style'
-import { Picker } from '@react-native-picker/picker'
+import Picker from 'react-native-picker-select'
 import { useEffect, useState } from 'react'
 import { Header } from '../../components/Header'
 import { Inter_600SemiBold, Inter_400Regular, useFonts } from '@expo-google-fonts/inter'
@@ -15,14 +15,31 @@ export function Coordenador(){
 
     const [nome, setNome] = useState('')
     const [email, setEmail] = useState('')
-    const [curso, setCurso] = useState(0)
     const [mensagem, setMensagem] = useState('')
     const [loading, setLoading] = useState(false)
+    const [selectedValue, setSelectedValue] = useState(null)
+
+
+    const options = [
+        {label: 'Administração', value: 0},
+        {label: 'Ciências Contábeis', value: 1},
+        {label: 'Educação Física (Licenciatura)', value: 2},
+        {label: 'Educação Física (Bacharelado)', value: 3},
+        {label: 'Enfermagem', value: 4},
+        {label: 'Engenharia Civil', value: 5},
+        {label: 'Estética', value: 6},
+        {label: 'Farmácia', value: 7},
+        {label: 'Fisioterapia', value: 8},
+        {label: 'Nutrição', value: 9},
+        {label: 'Pedagogia', value: 10},
+        {label: 'Psicologia', value: 11},
+        {label: 'Serviço Social', value: 12}
+    ]
 
     const cursos = {
         0: 'Administração',
         1: 'Ciências Contábeis',
-        2: 'Educação Física (Licenciatura)',
+        2: 'Educação Física (Bacharelado)',
         3: 'Educação Física (Licenciatura)',
         4: 'Enfermagem',
         5: 'Engenharia Civil',
@@ -63,7 +80,7 @@ export function Coordenador(){
 
 
     async function enviarForm(){
-    if(nome === '' || email === '' || mensagem === '' ){
+    if(nome === '' || email === '' || mensagem === '' || selectedValue === null){
        return alert('Preencha todos os campos.')
     }
     setLoading(true)
@@ -72,15 +89,15 @@ export function Coordenador(){
        await api.post('ouvidoria/coordenador', {
             nome,
             email,
-            curso: cursos[curso],
+            curso: cursos[selectedValue],
             text: mensagem,
             }).then(e => console.log(`${e.data} - enviou! OUVIDORIA`))
 
         await api.post('ouvidoria/emailcoordenador', {
             nome,
             email,
-            curso: cursos[curso],
-            emailCoordenador: emailCoordenador[curso],
+            curso: cursos[selectedValue],
+            emailCoordenador: emailCoordenador[selectedValue],
             text: mensagem,
         }).then(e => console.log(`${e.data} - enviou! NODEMAILER`))
 
@@ -96,7 +113,7 @@ export function Coordenador(){
     }
 
     return(
-         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={40}>
+         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={20}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 
                 <ScrollView showsVerticalScrollIndicator={false}>
         {loading && <Loading/>}
@@ -116,7 +133,13 @@ export function Coordenador(){
 
                 <View style={styles.viewPicker}>
                 <Text style={styles.label}>Curso</Text>
-                    <Picker selectedValue={curso} onValueChange={(item, index) => setCurso(item)} style={styles.picker} >
+                <Picker 
+                placeholder={{label: "Selecione um curso...", value: null}}
+                onValueChange={setSelectedValue}
+                items={options}
+                value={selectedValue}
+                />
+                    {/*<Picker selectedValue={curso} onValueChange={(item, index) => setCurso(item)} style={styles.picker} >
                     <Picker.Item label="Administração" value={0} />
                     <Picker.Item label="Ciências Contábeis" value={1} />
                     <Picker.Item label="Educação Física (Bacharelado)" value={2} />
@@ -130,13 +153,13 @@ export function Coordenador(){
                     <Picker.Item label="Pedagogia" value={10} />
                     <Picker.Item label="Psicologia" value={11} />
                     <Picker.Item label="Serviço Social" value={12} />
-                    </Picker>
+    </Picker>*/}
              
                 
         
             </View>
             <Text style={styles.label}>Mensagem</Text>
-            <TextInput style={[styles.inputs, {height: 150, textAlignVertical: 'top'}]} multiline={true} scrollEnabled={false} numberOfLines={4} value={mensagem} onChangeText={setMensagem}/>
+            <TextInput style={[styles.inputs, {height: 150, textAlignVertical: 'top'}]} multiline scrollEnabled={false} numberOfLines={4} value={mensagem} onChangeText={setMensagem}/>
 
             <TouchableOpacity onPress={enviarForm}>
                 <View style={styles.submit}>

@@ -1,10 +1,8 @@
 import { Text, TextInput, View,  TouchableOpacity, Modal, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, ScrollView } from 'react-native'
 import { styles } from './style'
-import { Picker } from '@react-native-picker/picker'
+import Picker from 'react-native-picker-select'
 import { useState } from 'react'
-import { Header } from '../../components/Header'
 import { Inter_600SemiBold, Inter_400Regular, useFonts } from '@expo-google-fonts/inter'
-import { useLinkProps } from '@react-navigation/native'
 import { api } from '../../services/api'
 import { Loading } from '../../components/Loading'
 
@@ -12,11 +10,28 @@ import { Loading } from '../../components/Loading'
 export function Ouvidoria(){
     const [nome, setNome] = useState('')
     const [email, setEmail] = useState('')
-    const [vinculo, setVinculo] = useState('Servidor')
-    const [motivo, setMotivo] = useState('Crítica')
+    const [vinculo, setVinculo] = useState(null)
+    const [motivo, setMotivo] = useState(null)
     const [mensagem, setMensagem] = useState('')
     const [procurouSetor, setProcurouSetor] = ('Sim')
     const [loading, setLoading] = useState(false)
+
+    const optionsMotivo = [
+        {label: "Crítica", value: "Crítica"},
+        {label: "Denúncia", value: "Denúncia"},
+        {label: "Elogio", value: "Elogio"},
+        {label: "Informação", value: "Informação"},
+        {label: "Reclamação", value: "Reclamação"},
+        {label: "Solicitação", value: "Solicitação"},
+        {label: "Sugestão", value: "Sugestão"}
+    ]
+    const optionsVinculo = [
+        {label: "Servidor", value: "Servidor"},
+        {label: "Aluno", value: "Aluno"},
+        {label: "Professor", value: "Professor"},
+        {label: "Terceirizado", value: "Terceirizado"},
+        {label: "Usuário/Outros", value: "Usuário/Outros"},
+    ]
 
     const [fontLoaded] = useFonts({
         Inter_600SemiBold, Inter_400Regular
@@ -26,7 +41,7 @@ export function Ouvidoria(){
     }
 
     async function enviarForm(){
-    if(nome === '' || email === '' || mensagem === '' ){
+    if(nome === '' || email === '' || mensagem === '' || vinculo === null ){
        return alert('Preencha todos os campos.')
     }
     setLoading(true)
@@ -85,30 +100,30 @@ export function Ouvidoria(){
 
                     <View style={styles.viewPicker}>
                     <Text style={styles.label}>Vínculo</Text>
-                        <Picker selectedValue={vinculo} onValueChange={(item, index) => setVinculo(item)} style={styles.picker} >
-                        <Picker.Item label="Servidor" value="Servidor" />
-                        <Picker.Item label="Aluno" value="Aluno" />
-                        <Picker.Item label="Professor" value="Professor" />
-                        <Picker.Item label="Terceirizado" value="Terceirizado" />
-                        <Picker.Item label="Usuário/Outros" value="Usuário/Outros" />
-                        </Picker>
+
+                    <Picker 
+                    placeholder={{label: 'Selecione seu vínculo...', value: null}}
+                    onValueChange={(value) => setVinculo(value)}
+                    items={optionsVinculo}
+                    value={vinculo}
+                    />
+                       
                     </View>
                     
                     <View style={styles.viewPicker}>
                     <Text style={styles.label}>Motivo</Text>
-                        <Picker selectedValue={motivo} onValueChange={(item, index) => setMotivo(item)} style={styles.picker} >
-                        <Picker.Item label="Crítica" value="Crítica" />
-                        <Picker.Item label="Denúncia" value="Denúncia" />
-                        <Picker.Item label="Elogio" value="Elogio" />
-                        <Picker.Item label="Informação" value="Informação" />
-                        <Picker.Item label="Reclamação" value="Reclamação" />
-                        <Picker.Item label="Solicitação" value="Solicitação" />
-                        <Picker.Item label="Sugestão" value="Sugestão" />
-                        </Picker>
+                    
+                    <Picker 
+                    placeholder={{label: 'Selecione um motivo...', value: null}}
+                    onValueChange={(value) => setMotivo(value)}
+                    items={optionsMotivo}
+                    value={motivo}
+                    />
+                       
                     </View>
                 </View>
                 <Text style={styles.label}>Mensagem</Text>
-                <TextInput style={[styles.inputs, {height: 150, textAlignVertical: 'top'}]} multiline={true} scrollEnabled={false} numberOfLines={4} value={mensagem} onChangeText={setMensagem}/>
+                <TextInput style={[styles.inputs, {height: 150, textAlignVertical: 'top'}]} multiline scrollEnabled={false} numberOfLines={4} value={mensagem} onChangeText={setMensagem}/>
                 
                 <TouchableOpacity onPress={enviarForm}>
                     <View style={styles.submit}>

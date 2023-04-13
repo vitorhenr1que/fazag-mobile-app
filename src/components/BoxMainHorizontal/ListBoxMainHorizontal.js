@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { BoxMainHorizontal } from '.'
+import { BoxMainHorizontal } from './'
 import { styles } from './styles'
 
 
