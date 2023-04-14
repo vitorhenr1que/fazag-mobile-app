@@ -80,7 +80,7 @@ export function Ouvidoria(){
          
          <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={0} style={{flex: 1}}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 
-    <ScrollView showsVerticalScrollIndicator={false}>
+    <ScrollView showsVerticalScrollIndicator={false} style={{flex: 1}}>
         
         {loading && <Loading/>}
         <View style={styles.lowerHeader}> 

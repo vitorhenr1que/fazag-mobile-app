@@ -113,9 +113,9 @@ export function Coordenador(){
     }
 
     return(
-         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={20}>
+         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={20} style={{flex: 1}}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 
-                <ScrollView showsVerticalScrollIndicator={false}>
+                <ScrollView showsVerticalScrollIndicator={false} style={{flex : 1}}>
         {loading && <Loading/>}
        <View style={styles.lowerHeader}>
         <View style={styles.container}>
@@ -133,27 +133,13 @@ export function Coordenador(){
 
                 <View style={styles.viewPicker}>
                 <Text style={styles.label}>Curso</Text>
-                <Picker 
+
+               <Picker 
                 placeholder={{label: "Selecione um curso...", value: null}}
                 onValueChange={setSelectedValue}
                 items={options}
                 value={selectedValue}
                 />
-                    {/*<Picker selectedValue={curso} onValueChange={(item, index) => setCurso(item)} style={styles.picker} >
-                    <Picker.Item label="Administração" value={0} />
-                    <Picker.Item label="Ciências Contábeis" value={1} />
-                    <Picker.Item label="Educação Física (Bacharelado)" value={2} />
-                    <Picker.Item label="Educação Física (Licenciatura)" value={3} />
-                    <Picker.Item label="Enfermagem" value={4} />
-                    <Picker.Item label="Engenharia Civil" value={5} />
-                    <Picker.Item label="Estética" value={6} />
-                    <Picker.Item label="Farmácia" value={7} />
-                    <Picker.Item label="Fisioterapia" value={8} />
-                    <Picker.Item label="Nutrição" value={9} />
-                    <Picker.Item label="Pedagogia" value={10} />
-                    <Picker.Item label="Psicologia" value={11} />
-                    <Picker.Item label="Serviço Social" value={12} />
-    </Picker>*/}
              
                 
         
