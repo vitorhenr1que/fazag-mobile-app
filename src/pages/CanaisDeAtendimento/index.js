@@ -1,7 +1,7 @@
 import { Image, Linking, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./style";
 import { TextFont } from "../../components/Basics/TextFont";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Line } from "../../components/Basics/Line";
 import { Ionicons } from "@expo/vector-icons";
 import { colors } from "../../../styles/theme";
@@ -9,10 +9,12 @@ import { colors } from "../../../styles/theme";
 export function CanaisDeAtendimento(){
     const [hours, setHours] = useState('')
     const [message, setMessage] = useState('')
-    
+    useEffect(() => {
+        setHours(new Date().getHours()) 
+    })
     function abrirWhatsapp(phoneNumber){
 
-        setHours(new Date().getHours()) 
+        
 
         if(hours >= 5 && hours < 12){
             setMessage('Olá, bom dia!')

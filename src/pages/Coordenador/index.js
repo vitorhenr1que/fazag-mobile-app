@@ -7,7 +7,7 @@ import { Inter_600SemiBold, Inter_400Regular, useFonts } from '@expo-google-font
 import { useLinkProps } from '@react-navigation/native'
 import { api } from '../../services/api'
 import { Loading } from '../../components/Loading'
-
+import InputScrollView from 'react-native-input-scroll-view'
 
 
 
@@ -111,11 +111,10 @@ export function Coordenador(){
         }
         
     }
-
+    let scrollCoordenador = ''
     return(
-         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={20} style={{flex: 1}}>
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}> 
-                <ScrollView showsVerticalScrollIndicator={false} style={{flex : 1}}>
+         <InputScrollView keyboardOffset={250} showsVerticalScrollIndicator={false} >
+
         {loading && <Loading/>}
        <View style={styles.lowerHeader}>
         <View style={styles.container}>
@@ -145,8 +144,9 @@ export function Coordenador(){
         
             </View>
             <Text style={styles.label}>Mensagem</Text>
-            <TextInput style={[styles.inputs, {height: 150, textAlignVertical: 'top'}]} multiline scrollEnabled={false} numberOfLines={4} value={mensagem} onChangeText={setMensagem}/>
 
+            <TextInput style={[styles.inputs, {height: 150, textAlignVertical: 'top'}]} multiline numberOfLines={4} value={mensagem} scrollEnabled={false} onChangeText={setMensagem} />
+ 
             <TouchableOpacity onPress={enviarForm}>
                 <View style={styles.submit}>
                     <Text style={styles.submitText}>Enviar</Text>
@@ -154,9 +154,8 @@ export function Coordenador(){
             </TouchableOpacity>
         </View>
         </View>
-        </ScrollView>
-        </TouchableWithoutFeedback>
-        </KeyboardAvoidingView>
+ 
+        </InputScrollView>
         
     )
 }

@@ -3,11 +3,9 @@ import { colors } from "../../../styles/theme";
 
 export const styles = StyleSheet.create({
     lowerHeader: {
-        flex: 1,
         backgroundColor: colors.gray[800]
     },
     container: {
-        flex: 1,
         backgroundColor: colors.white,
         padding: 30,
         borderTopStartRadius: 20,
