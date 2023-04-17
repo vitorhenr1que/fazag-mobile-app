@@ -5,11 +5,9 @@ export const styles = StyleSheet.create({
     testV: {
 
         flexDirection: 'column',
-
-        
+        flex: 1,
     },
     scrollMain: {
-
         backgroundColor: colors.white,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
@@ -26,10 +24,11 @@ export const styles = StyleSheet.create({
         paddingTop: 15
     },
     scrollh: {
+      
     backgroundColor: colors.white,
        paddingBottom: 20,
        paddingTop: 20,
-
+       justifyContent: 'center',
         alignItems: 'center'
     }
 })

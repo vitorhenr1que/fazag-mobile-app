@@ -32,6 +32,7 @@ const data = [{
     route: 'CanaisDeAtendimento'
 },
 
+
 ]
 
 export function ListBoxMainVertical(){

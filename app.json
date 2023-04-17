@@ -21,7 +21,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.fazag"
+      "bundleIdentifier": "com.fazag",
+      "buildNumber": "2"
     },
     "android": {
       "adaptiveIcon": {

@@ -37,6 +37,10 @@
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "ios": {
+        "companyName": "SOCIEDADE EDUCACIONAL ZACARIAS DE GOES VASCONCELOS LTDA."
+      }
+    }
   }
 }
