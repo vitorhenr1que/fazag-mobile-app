@@ -30,12 +30,6 @@ const data = [{
     image: require('../../../assets/whatsapp-icon.png'),
     description: "Entre em contato com nossos setores de atendimento por whatsapp ou e-mail.",
     route: 'CanaisDeAtendimento'
-},
-{   id: 5,
-    name: "Ambiente Virtual de Aprendizagem",
-    image: require('../../../assets/whatsapp-icon.png'),
-    description: "Entre em contato com nossos setores de atendimento por whatsapp ou e-mail.",
-    route: 'Ava'
 }
 ]
 
