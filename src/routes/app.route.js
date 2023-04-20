@@ -1,17 +1,18 @@
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Home } from '../../src/pages/Home';
 import { User } from '../../src/pages/User';
-import { Feather, Ionicons } from '@expo/vector-icons';
+import { Feather, Ionicons, FontAwesome5 } from '@expo/vector-icons';
 import { MapaDeSala } from '../../src/pages/MapaDeSala';
-import { Historico } from '../../src/pages/Historico';
 import { Ouvidoria } from '../../src/pages/Ouvidoria';
 import { Calendario } from '../../src/pages/Calendario';
 import { Coordenador } from '../../src/pages/Coordenador';
 import { Header } from '../components/Header';
 import { CanaisDeAtendimento } from '../pages/CanaisDeAtendimento';
+import { Ava } from '../pages/Ava';
+import { Servicos } from '../pages/Servicos';
+
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -20,8 +21,8 @@ const icons = {
   Home: {
     name: 'home-outline'
   },
-  Historico: {
-    name: 'document-attach-outline'
+  AVA: {
+    name: 'chalkboard-teacher'
   },
   Mapa_de_Sala: {
     name: 'map'
@@ -40,8 +41,8 @@ function Tabs(){
       if(name === 'home-outline'){
         return <Ionicons name={name} size={size} color={color} />
       }
-      if(name === 'document-attach-outline'){
-        return <Ionicons name={name} size={size} color={color} />
+      if(name === 'chalkboard-teacher'){
+        return <FontAwesome5 name={name} size={size} color={color} />
       }
       if(name === 'map'){
         return <Feather name="map" size={size} color={color} />
@@ -63,7 +64,7 @@ function Tabs(){
   
   )}>
     <Tab.Screen name="Home" component={Home}/>
-    <Tab.Screen name="Historico" component={Historico}/>
+    <Tab.Screen name="AVA" component={Ava}/>
     <Tab.Screen name="Mapa_de_Sala" component={MapaDeSala}/>
     <Tab.Screen name="Perfil" component={User}/>
 </Tab.Navigator>
@@ -85,6 +86,8 @@ export default function AppRoute() {
       <Stack.Screen name='Calendario' component={Calendario}/>
       <Stack.Screen name='Coordenador' component={Coordenador}/>
       <Stack.Screen name='CanaisDeAtendimento' component={CanaisDeAtendimento}/>
+      <Stack.Screen name='Ava' component={Ava}/>
+      <Stack.Screen name='Servicos' component={Servicos}/>
      </Stack.Navigator>
      </>
   );

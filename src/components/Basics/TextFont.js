@@ -3,7 +3,7 @@ import {Inter_300Light, Inter_400Regular, Inter_600SemiBold, Inter_700Bold, useF
 import { styles } from "./style"
 
 
-export function TextFont({texto, fontWeight, fontSize, color}){
+export function TextFont({texto, fontWeight, fontSize, color, textAlign}){
     const [fontLoaded] = useFonts({
         Inter_300Light,
         Inter_400Regular,
@@ -19,7 +19,8 @@ export function TextFont({texto, fontWeight, fontSize, color}){
         <Text style={[styles[`${fontWeight}`],{
             fontWeight: fontWeight,
             fontSize: fontSize,
-            color: color
+            color: color,
+            textAlign: textAlign,
         }
         ]}>{texto}</Text>
     )

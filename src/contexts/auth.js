@@ -86,7 +86,7 @@ export default function AuthProvider({children}){
 
 
 return (
-    <AuthContext.Provider value={{signed: !!user , user, setUser, signOut, signIn, userVerification, loading, userHistoric, setUserHistoric}}>
+    <AuthContext.Provider value={{signed: !!user , user, setUser, signOut, signIn, userVerification, loading, userHistoric, setUserHistoric, setLoading}}>
         {children}
     </AuthContext.Provider>
 )

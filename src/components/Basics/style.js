@@ -24,5 +24,14 @@ export const styles = StyleSheet.create({
     hr: {
         borderBottomColor: 'black',
         borderBottomWidth: StyleSheet.hairlineWidth,
+    },
+    center: {
+        textAlign: 'center'
+    },
+    right: {
+        textAlign: 'right'
+    },
+    left: {
+        textAlign: 'left'
     }
 })

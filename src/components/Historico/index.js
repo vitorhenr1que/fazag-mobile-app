@@ -4,6 +4,7 @@ import { AuthContext } from "../../contexts/auth";
 import { styles } from "./style";
 
 
+
 export function Historico(){
     const {user} = useContext(AuthContext)
     
