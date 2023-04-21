@@ -1,6 +1,6 @@
 import { Text, TextInput, View,  TouchableOpacity, Modal, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, ScrollView } from 'react-native'
 import { styles } from './style'
-import Picker from 'react-native-picker-select'
+
 import { useEffect, useState } from 'react'
 import { Header } from '../../components/Header'
 import { Inter_600SemiBold, Inter_400Regular, useFonts } from '@expo-google-fonts/inter'
@@ -8,7 +8,10 @@ import { useLinkProps } from '@react-navigation/native'
 import { api } from '../../services/api'
 import { Loading } from '../../components/Loading'
 import InputScrollView from 'react-native-input-scroll-view'
-
+import {Picker} from '@react-native-picker/picker';
+import { TextFont } from '../../components/Basics/TextFont'
+import { colors } from '../../../styles/theme'
+import { ModalCoordenador } from '../../components/ModalForms/ModalCoordenador'
 
 
 export function Coordenador(){
@@ -17,8 +20,8 @@ export function Coordenador(){
     const [email, setEmail] = useState('')
     const [mensagem, setMensagem] = useState('')
     const [loading, setLoading] = useState(false)
-    const [selectedValue, setSelectedValue] = useState(null)
-
+    const [selectedValue, setSelectedValue] = useState('')
+    const [modalVisible, setModalVisible] = useState(false)
 
     const options = [
         {label: 'Administração', value: 0},
@@ -37,38 +40,38 @@ export function Coordenador(){
     ]
 
     const cursos = {
-        0: 'Administração',
-        1: 'Ciências Contábeis',
-        2: 'Educação Física (Bacharelado)',
-        3: 'Educação Física (Licenciatura)',
-        4: 'Enfermagem',
-        5: 'Engenharia Civil',
-        6: 'Estética',
-        7: 'Farmácia',
-        8: 'Fisioterapia',
-        9: 'Nutrição',
-        10: 'Pedagogia',
-        11: 'Psicologia',
-        12: 'Serviço Social'
+        "0": 'Administração',
+        "1": 'Ciências Contábeis',
+        "2": 'Educação Física (Bacharelado)',
+        "3": 'Educação Física (Licenciatura)',
+        "4": 'Enfermagem',
+        "5": 'Engenharia Civil',
+        "6": 'Estética',
+        "7": 'Farmácia',
+        "8": 'Fisioterapia',
+        "9": 'Nutrição',
+        "10": 'Pedagogia',
+        "11": 'Psicologia',
+        "12": 'Serviço Social'
     }
 
     const emailCoordenador = {
-        0: 'daiana.paixão@gmail.com',
-        1: 'vhpsantos@gmail.com',
-        2: 'Educação Física (Bacharelado)',
-        3: 'Educação Física (Licenciatura)',
-        4: 'Enfermagem',
-        5: 'Engenharia Civil',
-        6: 'Estética',
-        7: 'Farmácia',
-        8: 'Fisioterapia',
-        9: 'Nutrição',
-        10: 'Pedagogia',
-        11: 'Psicologia',
-        12: 'Serviço Social'
+        "0": 'daiana.paixão@gmail.com',
+        "1": 'vhpsantos@gmail.com',
+        "2": 'Educação Física (Bacharelado)',
+        "3": 'Educação Física (Licenciatura)',
+        "4": 'Enfermagem',
+        "5": 'Engenharia Civil',
+        "6": 'Estética',
+        "7": 'Farmácia',
+        "8": 'Fisioterapia',
+        "9": 'Nutrição',
+        "10": 'Pedagogia',
+        "11": 'Psicologia',
+        "12": 'Serviço Social'
     }
 
-
+    
     const [fontLoaded] = useFonts({
         Inter_600SemiBold, Inter_400Regular
     })
@@ -111,9 +114,21 @@ export function Coordenador(){
         }
         
     }
-    let scrollCoordenador = ''
+
+
+    function fecharModal(){
+        if(modalVisible === true){
+            setModalVisible(false)
+        }
+    }
+
+                                                                                    // Fechar em 1 segundo quando soltar o toque para dar tempo de pegar o valor no iOS
     return(
-         <InputScrollView keyboardOffset={250} showsVerticalScrollIndicator={false} >
+         <InputScrollView keyboardOffset={250} showsVerticalScrollIndicator={false} onTouchEnd={() => {
+            setTimeout(() => {
+                fecharModal()
+            }, 1000)
+         }}>
 
         {loading && <Loading/>}
        <View style={styles.lowerHeader}>
@@ -129,20 +144,20 @@ export function Coordenador(){
             <TextInput style={styles.inputs} value={email} onChangeText={setEmail}/>
 
            
+            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)} style={styles.selectTextContainer}>
+                    <TextFont texto={"Selecione seu Curso"} color={colors.white} fontWeight={'bold'}/>
+                    <TextFont texto={cursos[selectedValue]} color={colors.gray[100]}/>
+            </TouchableOpacity>
 
-                <View style={styles.viewPicker}>
-                <Text style={styles.label}>Curso</Text>
 
-               <Picker 
-                placeholder={{label: "Selecione um curso...", value: null}}
-                onValueChange={setSelectedValue}
-                items={options}
-                value={selectedValue}
-                />
+  
+            <Modal visible={modalVisible} animationType='slide' transparent={true}>
+             <ModalCoordenador fecharModal={fecharModal} selectedValue={selectedValue} setSelectedValue={setSelectedValue}/>
+            </Modal> 
+
              
-                
         
-            </View>
+
             <Text style={styles.label}>Mensagem</Text>
 
             <TextInput style={[styles.inputs, {height: 150, textAlignVertical: 'top'}]} multiline numberOfLines={4} value={mensagem} scrollEnabled={false} onChangeText={setMensagem} />

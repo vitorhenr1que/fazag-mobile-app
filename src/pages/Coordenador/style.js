@@ -65,5 +65,13 @@ export const styles = StyleSheet.create({
     submitText: {
         color: colors.white,
         fontFamily: 'Inter_400Regular'
+    },
+    selectTextContainer: {
+        marginTop: 20,
+        backgroundColor: colors.gray[800],
+        width: '100%',
+        padding: 8,
+        alignItems: 'center',
+        borderRadius: 4
     }
 })

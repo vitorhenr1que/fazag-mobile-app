@@ -1,22 +1,26 @@
 import { Text, TextInput, View,  TouchableOpacity, Modal, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, ScrollView } from 'react-native'
 import { styles } from './style'
-import Picker from 'react-native-picker-select'
+import {Picker} from '@react-native-picker/picker';
 import { useState } from 'react'
 import { Inter_600SemiBold, Inter_400Regular, useFonts } from '@expo-google-fonts/inter'
 import { api } from '../../services/api'
 import { Loading } from '../../components/Loading'
 import InputScrollView from 'react-native-input-scroll-view'
-
+import { TextFont } from '../../components/Basics/TextFont'
+import { colors } from '../../../styles/theme';
+import { ModalOuvidoriaVinculo } from '../../components/ModalForms/ModalOuvidoriaVinculo';
+import { ModalOuvidoriaMotivo } from '../../components/ModalForms/ModalOuvidoriaMotivo';
 
 export function Ouvidoria(){
     const [nome, setNome] = useState('')
     const [email, setEmail] = useState('')
-    const [vinculo, setVinculo] = useState(null)
-    const [motivo, setMotivo] = useState(null)
+    const [vinculo, setVinculo] = useState('')
+    const [motivo, setMotivo] = useState('')
     const [mensagem, setMensagem] = useState('')
     const [procurouSetor, setProcurouSetor] = ('Sim')
     const [loading, setLoading] = useState(false)
-
+    const [modalVisibleVinculo, setModalVisibleVinculo] = useState(false)
+    const [modalVisibleMotivo, setModalVisibleMotivo] = useState(false)
     const optionsMotivo = [
         {label: "Crítica", value: "Crítica"},
         {label: "Denúncia", value: "Denúncia"},
@@ -42,7 +46,7 @@ export function Ouvidoria(){
     }
 
     async function enviarForm(){
-    if(nome === '' || email === '' || mensagem === '' || vinculo === null ){
+    if(nome === '' || email === '' || mensagem === '' || vinculo === '' ){
        return alert('Preencha todos os campos.')
     }
     setLoading(true)
@@ -76,14 +80,26 @@ export function Ouvidoria(){
         }
         
     }
-    let scrollOuvidoria = {}
+    
+    function fecharModal(){
+        if(modalVisibleVinculo === true || modalVisibleMotivo === true){
+            setModalVisibleVinculo(false)
+            setModalVisibleMotivo(false)
+        }
+    }
+
     return(
          
-         <InputScrollView keyboardOffset={250} showsVerticalScrollIndicator={false}>
+         <InputScrollView keyboardOffset={250} showsVerticalScrollIndicator={false} onTouchEnd={() => {
+            setTimeout(() => {
+                fecharModal()
+            }, 1000)
+         }}>
 
-        {loading && <Loading/>}
+        
+        
         <View style={styles.lowerHeader}> 
-
+            {loading && <Loading/>}
             <View style={styles.container}>
             
                 <Text style={styles.title}>Ouvidoria</Text>
@@ -95,32 +111,29 @@ export function Ouvidoria(){
                 <Text style={styles.label}>E-mail</Text>
                 <TextInput style={styles.inputs} value={email} onChangeText={setEmail}/>
 
-                <View style={styles.containerDoublePicker}>
+                <View style={styles.vinculoMotivoContainer}>
+                <TouchableOpacity onPress={() => setModalVisibleVinculo(!modalVisibleVinculo)} style={styles.vinculMotivoTextContainer}>
+                    <TextFont texto={"Selecione o Vínculo"} color={colors.white} fontWeight={'bold'}/>
+                    <TextFont texto={vinculo} color={colors.gray[100]}/>
+                </TouchableOpacity>
 
-                    <View style={styles.viewPicker}>
-                    <Text style={styles.label}>Vínculo</Text>
-
-                    <Picker 
-                    placeholder={{label: 'Selecione seu vínculo...', value: null}}
-                    onValueChange={(value) => setVinculo(value)}
-                    items={optionsVinculo}
-                    value={vinculo}
-                    />
-                       
-                    </View>
-                    
-                    <View style={styles.viewPicker}>
-                    <Text style={styles.label}>Motivo</Text>
-                    
-                    <Picker 
-                    placeholder={{label: 'Selecione um motivo...', value: null}}
-                    onValueChange={(value) => setMotivo(value)}
-                    items={optionsMotivo}
-                    value={motivo}
-                    />
-                       
-                    </View>
+                <TouchableOpacity onPress={() => setModalVisibleMotivo(!modalVisibleMotivo)} style={styles.vinculMotivoTextContainer}>
+                    <TextFont texto={"Selecione o Motivo"} color={colors.white} fontWeight={'bold'}/>
+                    <TextFont texto={motivo} color={colors.gray[300]}/>
+                </TouchableOpacity>
                 </View>
+
+                
+                <Modal visible={modalVisibleVinculo} animationType='slide' transparent={true}>
+                <ModalOuvidoriaVinculo fecharModal={fecharModal} setVinculo={setVinculo} vinculo={vinculo}/>
+                </Modal>
+
+                <Modal visible={modalVisibleMotivo} animationType='slide' transparent={true}>
+                    <ModalOuvidoriaMotivo fecharModal={fecharModal} setMotivo={setMotivo} motivo={motivo}/>
+                </Modal>
+
+
+                
                 <Text style={styles.label}>Mensagem</Text>
                 <TextInput style={[styles.inputs, {height: 150, textAlignVertical: 'top'}]} multiline scrollEnabled={false} numberOfLines={4} value={mensagem} onChangeText={setMensagem} />
                 

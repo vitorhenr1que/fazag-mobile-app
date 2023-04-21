@@ -35,7 +35,8 @@ export const styles = StyleSheet.create({
 
     },
     viewPicker: {
-        width: "49%"
+        width: "49%",
+        
     },
     picker: {
         width: "100%",
@@ -67,5 +68,19 @@ export const styles = StyleSheet.create({
     submitText: {
         color: colors.white,
         fontFamily: 'Inter_400Regular'
+    },
+ 
+    vinculoMotivoContainer: {
+        marginTop: 20,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    vinculMotivoTextContainer: {
+        backgroundColor: colors.gray[800],
+        width: '49%',
+        padding: 8,
+        alignItems: 'center',
+        borderRadius: 4
     }
+
 })
