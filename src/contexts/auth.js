@@ -13,6 +13,7 @@ export default function AuthProvider({children}){
     console.log(user)
         useEffect(() => {
             async function isLogged(){
+                
                 const asyncUserLogged = await AsyncStorage.getItem('user')
                 const asyncHistoricLogged = await AsyncStorage.getItem('historic')
                 const keys = AsyncStorage.getAllKeys()
@@ -61,8 +62,22 @@ export default function AuthProvider({children}){
             banco: 'jaguar_fazag',
             proc: `[FX jaguar fazag] "historico", "${isLogged.a_id.trim()}"`
             }).then(res => {
-                setUserHistoric(res.data)
-                AsyncStorage.setItem('historic', JSON.stringify(res.data))
+                if(res.data.length === true){       //Se tiver alguma coisa dentro da resposta adicione a resposta : se não adicione o histórico fake para não dar erro
+                    setUserHistoric(res.data)
+                    AsyncStorage.setItem('historic', JSON.stringify(res.data))
+                }else{            
+                    let fakeHistoric =  [{
+                        s_descricao: "Curso não encontrado",
+                        aperiodo: "0°",
+                        carga_horaria_cursada: "0",
+                        carga_horaria_curso: "0"
+                      }]
+                    setUserHistoric(
+                       fakeHistoric
+                    )
+                    AsyncStorage.setItem('historic', JSON.stringify(fakeHistoric))
+                }
+                
             })
 
             
