@@ -2,8 +2,8 @@
   "expo": {
     "name": "FAZAG",
     "slug": "fazag-mobile-app",
-    "version": "1.0.5",
-    "versionCode": "3",
+    "version": "1.0.6",
+    "versionCode": "4",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -22,7 +22,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.fazag",
-      "buildNumber": "8"
+      "buildNumber": "11"
     },
     "android": {
       "adaptiveIcon": {
