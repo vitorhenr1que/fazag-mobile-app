@@ -13,12 +13,12 @@ export default function AuthProvider({children}){
     console.log(user)
         useEffect(() => {
             async function isLogged(){
-                
+                console.log('ENTROU NO USEEFFECT')
                 const asyncUserLogged = await AsyncStorage.getItem('user')
                 const asyncHistoricLogged = await AsyncStorage.getItem('historic')
                 const keys = AsyncStorage.getAllKeys()
                 console.log(keys)
-
+                console.log('QUANTIDADE DE ITENS NO HISTÓRICO: ', asyncHistoricLogged.length)
                 if(!!asyncUserLogged === true){
                     setUser(JSON.parse(asyncUserLogged))
                 }
@@ -42,7 +42,8 @@ export default function AuthProvider({children}){
         const response = await axios.post('http://jaguar.solutio.net.br:9002/jaguar', paramsUser).then(res => res.data)
         const isLogged = response[0]
         if(usuario === '' || pass === ''){
-            setUserVerification('Preencha os campos de Usuário e Senha*')
+            setLoading(false)
+            return setUserVerification('Preencha os campos de Usuário e Senha*')
             
         }
         else if (!!isLogged.a_id === true){    // Se a response tiver a_id adicione ao usuário...
@@ -62,7 +63,7 @@ export default function AuthProvider({children}){
             banco: 'jaguar_fazag',
             proc: `[FX jaguar fazag] "historico", "${isLogged.a_id.trim()}"`
             }).then(res => {
-                if(res.data.length === true){       //Se tiver alguma coisa dentro da resposta adicione a resposta : se não adicione o histórico fake para não dar erro
+                if(!!res.data.length === true){       //Se tiver alguma coisa dentro da resposta adicione a resposta : se não adicione o histórico fake para não dar erro
                     setUserHistoric(res.data)
                     AsyncStorage.setItem('historic', JSON.stringify(res.data))
                 }else{            
