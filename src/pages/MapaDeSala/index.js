@@ -28,8 +28,10 @@ export function MapaDeSala(){
 
     return(
         <ScrollView showsVerticalScrollIndicator={false} >
+            {console.log(userHistoric)}
             {userHistoric.map((index) => {
                 const periodo = index.periodo.trim()
+                console.log(periodo)
                 const periodoAtual = userHistoric[userHistoric.length - 1].periodo.trim()
                 
                 if(periodo === periodoAtual){
