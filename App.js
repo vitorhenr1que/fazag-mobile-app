@@ -12,7 +12,7 @@ import OneSignal from 'react-native-onesignal';
 
 export default function App() {
   useEffect(() => {
-    // OneSignal Initialization
+  {/*    // OneSignal Initialization
 OneSignal.setAppId("cfaa1db6-012b-4078-be46-ab8df7146f83");
 
 // promptForPushNotificationsWithUserResponse will show the native iOS or Android notification permission prompt.
@@ -33,7 +33,7 @@ OneSignal.setNotificationWillShowInForegroundHandler(notificationReceivedEvent =
 //Method for handling notifications opened
 OneSignal.setNotificationOpenedHandler(notification => {
   console.log("OneSignal: notification opened:", notification);
-});
+});*/}
   },[]) 
 
   return (

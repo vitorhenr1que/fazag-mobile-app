@@ -11,7 +11,12 @@ export const styles = StyleSheet.create({
         padding: 30,
         borderTopEndRadius: 20,
         borderTopLeftRadius: 20,
-        backgroundColor: colors.white
+        backgroundColor: colors.white,
 
+
+    },
+    servicesContainer: {
+        marginTop: 20,
+        gap: 20
     }
 })

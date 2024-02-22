@@ -18,7 +18,7 @@ export default function AuthProvider({children}){
                 const asyncHistoricLogged = await AsyncStorage.getItem('historic')
                 const keys = AsyncStorage.getAllKeys()
                 console.log(keys)
-                console.log('QUANTIDADE DE ITENS NO HISTÓRICO: ', asyncHistoricLogged.length)
+
                 if(!!asyncUserLogged === true){
                     setUser(JSON.parse(asyncUserLogged))
                 }
