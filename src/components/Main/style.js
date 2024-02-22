@@ -7,6 +7,14 @@ export const styles = StyleSheet.create({
         flexDirection: 'column',
         flex: 1,
     },
+    generalContainer: {
+
+        width: '100%',
+        height: '100%',
+        backgroundColor: colors.white,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     scrollMain: {
         backgroundColor: colors.white,
         borderTopLeftRadius: 20,

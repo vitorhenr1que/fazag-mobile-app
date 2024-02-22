@@ -20,11 +20,10 @@ export function Historico(){
     }
 
     return (
-        <View style={styles.container}>
+        <>
             <TouchableOpacity style={styles.buttonGenerateHistoric} onPress={() => handleGenerateHistoricButton()} >
                 <Text style={styles.textButton}>Histórico Completo</Text>
             </TouchableOpacity>
-            
-        </View>
+        </>
     )
 }
