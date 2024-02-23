@@ -4,7 +4,7 @@ import { Header } from './src/components/Header';
 import Routes from './src/routes';
 import AuthProvider from './src/contexts/auth';
 import { useEffect } from 'react';
-import OneSignal from 'react-native-onesignal';
+//import OneSignal from 'react-native-onesignal';
 
 // para o expo go não crashar no iOS:
 // npm uninstall onesignal-expo-plugin
