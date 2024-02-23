@@ -38,7 +38,8 @@
     "extra": {
       "eas": {
         "projectId": "42667dd3-f029-4eb3-8f9e-db39e477c46c"
-      }
+      },
+      "oneSignalAppId": "cfaa1db6-012b-4078-be46-ab8df7146f83"
     },
     "runtimeVersion": {
       "policy": "sdkVersion"
