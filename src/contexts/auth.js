@@ -102,7 +102,7 @@ export default function AuthProvider({children}){
         setUser(false)
         await AsyncStorage.removeItem('user')
         await AsyncStorage.removeItem('historic')
-
+        OneSignal.logout()
     }
 
 
