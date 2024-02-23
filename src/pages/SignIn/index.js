@@ -28,7 +28,7 @@ export function SignInPage(){
         <LinearGradient start={{x: 0, y: 1}} end={{x: 0, y:0}} colors={['rgba(0,0,0,0.8)', 'transparent']} locations={[.2, 1]} style={styles.gradiantContainer}/>
             <View style={styles.container}>
             <View style={styles.titleContainer}>
-            <Text style={styles.title}>{`Aplicativo da FAZAG React-\nNative.`}</Text>
+            <Text style={styles.title}>{`Aplicativo da FAZAG`}</Text>
             <Text style={styles.subtitle}>Envie mensagens para a ouvidoria, fale com o seu coordenador, consulte o calendário acadêmico e muito mais.</Text>
             </View>
             <TouchableOpacity style={styles.signInButtonContainer} onPress={() => setModalVisible(true)}>
