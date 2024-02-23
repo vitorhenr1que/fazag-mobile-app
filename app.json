@@ -2,8 +2,8 @@
   "expo": {
     "name": "FAZAG",
     "slug": "fazag-mobile-app",
-    "version": "1.0.6",
-    "versionCode": "4",
+    "version": "1.0.8",
+    "versionCode": "19",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -30,7 +30,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.fazag",
-      "versionCode": 14
+      "versionCode": 19
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -49,6 +49,16 @@
         "onesignal-expo-plugin",
         {
           "mode": "development"
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 33,
+            "targetSdkVersion": 33,
+            "buildToolsVersion": "33.0.0"
+          }
         }
       ]
     ]
