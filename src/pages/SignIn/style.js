@@ -22,19 +22,23 @@ export const styles = StyleSheet.create({
 
     },
     signInButtonContainer: {
+        flex: 0.2,
         alignItems: 'center',
         justifyContent: 'center',
         height: 60,
        width: '100%',
        backgroundColor: colors.white,
        borderRadius: 100,
+       marginTop: 20
     },
     signInButton: {
        fontSize: 20,
        fontFamily: 'Inter_600SemiBold',
     },
     titleContainer: {
-       
+       flex: 2,
+       alignItems: 'center',
+       justifyContent: 'center',
     },
     title: {
         fontSize: 63,
