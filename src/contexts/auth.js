@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useRoute } from "@react-navigation/native";
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
+import { OneSignal } from 'react-native-onesignal';
 
 export const AuthContext = createContext()
 export default function AuthProvider({children}){
@@ -69,6 +70,7 @@ export default function AuthProvider({children}){
                 if(!!res.data.length === true){       //Se tiver alguma coisa dentro da resposta adicione a resposta : se não adicione o histórico fake para não dar erro
                     setUserHistoric(res.data)
                     AsyncStorage.setItem('historic', JSON.stringify(res.data))
+                    OneSignal.login(isLogged.a_id.trim())
                 }else{            
                     let fakeHistoric =  [{
                         s_descricao: "Curso não encontrado",
