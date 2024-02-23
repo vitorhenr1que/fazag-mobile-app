@@ -47,17 +47,20 @@ export default function AuthProvider({children}){
             
         }
         else if (!!isLogged.a_id === true){    // Se a response tiver a_id adicione ao usuário...
+            const m_id = await axios.post('http://jaguar.solutio.net.br:9002/jaguar', { banco: 'jaguar_fazag', proc: `[FX jaguar fazag] "list-matricula", "${isLogged.a_id.trim()}"` }).then(res => res.data[0].m_id)
             setUser({                           
                 id: isLogged.a_id.trim(),
                 name: isLogged.a_nome.trim(),
                 cpf: isLogged.au_cpf.trim(),
                 email: isLogged.au_email.trim(),
+                m_id: m_id,
             })
             const loggedAsyncStorage = await AsyncStorage.setItem('user', JSON.stringify({ // Se a response tiver a_id adicione ao AsyncStorage...
                 id: isLogged.a_id.trim(),
                 name: isLogged.a_nome.trim(),
                 cpf: isLogged.au_cpf.trim(),
                 email: isLogged.au_email.trim(),
+                m_id: m_id,
             }))
             const paramsHistoric = await axios.post('http://jaguar.solutio.net.br:9002/jaguar', { //AsyncStorage Histórico Acadêmico
             banco: 'jaguar_fazag',
