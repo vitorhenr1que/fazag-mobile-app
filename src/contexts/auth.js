@@ -72,6 +72,7 @@ export default function AuthProvider({children}){
                     AsyncStorage.setItem('historic', JSON.stringify(res.data))
                     OneSignal.login(isLogged.a_id.trim())
                     OneSignal.User.addTag("curso", `${res.data[0].s_descricao.split('<')[0].toLowerCase()}`) //Obter curso minúsculo e add tag no OneSignal
+                    OneSignal.User.addTag("cga", `${isLogged.a_id.trim()}`)
                 }else{            
                     let fakeHistoric =  [{
                         s_descricao: "Curso não encontrado",
