@@ -10,7 +10,7 @@ import { styles } from './style'
 export function User(){
 
 
-    const {user, signOut, userHistoric} = useContext(AuthContext)
+    const {user, signOut, userHistoric, loading} = useContext(AuthContext)
 
 
 console.log(modifyName)
@@ -52,7 +52,7 @@ function getProfileName(){ // Função que verifica se o nome da pessoa tem "dos
                 <View style={styles.profileContainer}>
                         <View style={styles.circleUser}></View>
                         <TextFont texto={<NomeSobrenomeAlternado name={user.name}/>} fontWeight={"bold"} fontSize={20} color={'white'}/>
-                        <TextFont texto={`${curso[0].toUpperCase() + curso.substring(1).toLowerCase()} / ${periodoAtual} Semestre`} fontWeight={"regular"} color={'white'}/>
+                        <TextFont texto={loading ? 'Carregando...' : `${curso[0].toUpperCase() + curso.substring(1).toLowerCase()} / ${periodoAtual} Semestre`} fontWeight={"regular"} color={'white'}/>
                 </View>   
                 
             </View>
@@ -68,10 +68,10 @@ function getProfileName(){ // Função que verifica se o nome da pessoa tem "dos
                             <View style={styles.boxAbsoluteTextContainer}>
 
                                 {semestreAtual.carga_horaria_cursada ? 
-                                <TextFont texto={semestreAtual.carga_horaria_cursada.split('.')[0]} fontWeight={"bold"} fontSize={20} color={'white'}/> : 
+                                <TextFont texto={loading ? 'Carregando...' : semestreAtual.carga_horaria_cursada.split('.')[0]} fontWeight={"bold"} fontSize={20} color={'white'}/> : 
                                 <TextFont texto={"0"} fontWeight={"bold"} fontSize={20} color={'white'}/>}
 
-                                <TextFont texto={semestreAtual.carga_horaria_curso} fontWeight={"bold"} fontSize={20} color={'white'}/>
+                                <TextFont texto={loading ? 'Carregando...' : semestreAtual.carga_horaria_curso} fontWeight={"bold"} fontSize={20} color={'white'}/>
                             </View>
                         </View>
                  </View>         
@@ -92,11 +92,11 @@ function getProfileName(){ // Função que verifica se o nome da pessoa tem "dos
                             </View>
                             <View style={styles.boxUserInfoRow}>
                                 <TextFont texto={"CURSO"} fontWeight={"semibold"} fontSize={12}/>
-                                <TextFont texto={`${curso}`} fontWeight={"semibold"} fontSize={12}/>
+                                <TextFont texto={loading ? 'Carregando...' : `${curso}`} fontWeight={"semibold"} fontSize={12}/>
                             </View>
                             <View style={styles.boxUserInfoRow}>
                                 <TextFont texto={"SEMESTRE"} fontWeight={"semibold"} fontSize={12}/>
-                                <TextFont texto={`${periodoAtual}`} fontWeight={"semibold"} fontSize={12}/>
+                                <TextFont texto={loading ? 'Carregando...' : `${periodoAtual}`} fontWeight={"semibold"} fontSize={12}/>
                             </View>
                             <View style={styles.boxUserInfoRow}>
                                 <TextFont texto={"E-MAIL"} fontWeight={"semibold"} fontSize={12}/>
