@@ -10,7 +10,7 @@ export function MapaDeSala(){
 
     const [tableHead, setTableHead] = useState(['Segunda-Feira'])
     
-    const { userHistoric, signOut } = useContext(AuthContext)
+    const { userHistoric, signOut, loading } = useContext(AuthContext)
 
     let count = 0
     const weekDays = {
@@ -26,7 +26,9 @@ export function MapaDeSala(){
 
     const mapaItems = []
 
-    return(
+    return ( 
+        <>
+     {!loading && 
         <ScrollView showsVerticalScrollIndicator={false} >
             {console.log(userHistoric)}
             {userHistoric.map((index) => {
@@ -67,5 +69,17 @@ export function MapaDeSala(){
             })}
             
         </ScrollView>
+    } 
+    {loading && 
+    <ScrollView showsVerticalScrollIndicator={false} >
+            <MapaTable key={1} dia={7} disciplina={"Carregando..."} andar={"Carregando..."} professor={"Carregando..."} sala={"Carregando..."}/> 
+    </ScrollView>
+    }
+    </>
     )
+    
+
+
+
+    
 }
