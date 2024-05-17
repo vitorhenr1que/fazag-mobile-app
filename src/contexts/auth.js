@@ -54,9 +54,9 @@ export default function AuthProvider({children}){
         }
         else if (!!isLogged.a_id === true){    // Se a response tiver a_id adicione ao usuário...
             const matricula = await axios.post('http://jaguar.solutio.net.br:9002/jaguar', { banco: 'jaguar_fazag', proc: `[FX jaguar fazag] "list-matricula", "${isLogged.a_id.trim()}"` }).then(res => res.data[0])
-            const m_id = await matricula.m_id
+            const m_id = matricula.m_id
             console.log('Número de matrícula', m_id)
-            const semestre = await matricula.t_descricao.split(' ')[0] // na API vem ex: "1° SEMESTRE PSICOLOGIA - NOTURNO" > pego só a primeira palavra
+            const semestre = matricula.t_descricao.split(' ')[0] // na API vem ex: "1° SEMESTRE PSICOLOGIA - NOTURNO" > pego só a primeira palavra
             console.log('SEMESTRE: ', semestre)
             
             //↓ Horário para o mapa de sala ↓
