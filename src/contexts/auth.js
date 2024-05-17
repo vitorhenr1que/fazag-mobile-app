@@ -10,6 +10,7 @@ export default function AuthProvider({children}){
     const [user, setUser] = useState(false)
     const [loading, setLoading] = useState(false)
     const [userHistoric, setUserHistoric] = useState('')
+    const [userHorario, setUserHorario] = useState('')
 
     console.log(user)
         useEffect(() => {
@@ -17,6 +18,7 @@ export default function AuthProvider({children}){
                 console.log('ENTROU NO USEEFFECT')
                 const asyncUserLogged = await AsyncStorage.getItem('user')
                 const asyncHistoricLogged = await AsyncStorage.getItem('historic')
+                const asyncHorarioLogged = await AsyncStorage.getItem('horario')
                 const keys = AsyncStorage.getAllKeys()
                 console.log(keys)
 
@@ -25,6 +27,9 @@ export default function AuthProvider({children}){
                 }
                 if(asyncHistoricLogged){
                     setUserHistoric(JSON.parse(asyncHistoricLogged))
+                }
+                if(asyncHorarioLogged){
+                    setUserHorario(JSON.parse(asyncHorarioLogged))
                 }
             }
             isLogged()
@@ -48,13 +53,27 @@ export default function AuthProvider({children}){
             
         }
         else if (!!isLogged.a_id === true){    // Se a response tiver a_id adicione ao usuário...
-            const m_id = await axios.post('http://jaguar.solutio.net.br:9002/jaguar', { banco: 'jaguar_fazag', proc: `[FX jaguar fazag] "list-matricula", "${isLogged.a_id.trim()}"` }).then(res => res.data[0].m_id)
+            const matricula = await axios.post('http://jaguar.solutio.net.br:9002/jaguar', { banco: 'jaguar_fazag', proc: `[FX jaguar fazag] "list-matricula", "${isLogged.a_id.trim()}"` }).then(res => res.data[0])
+            const m_id = await matricula.m_id
+            console.log('Número de matrícula', m_id)
+            const semestre = await matricula.t_descricao.split(' ')[0] // na API vem ex: "1° SEMESTRE PSICOLOGIA - NOTURNO" > pego só a primeira palavra
+            console.log('SEMESTRE: ', semestre)
+            
+            //↓ Horário para o mapa de sala ↓
+            const horario = await axios.post('http://jaguar.solutio.net.br:9002/jaguar', {banco: 'jaguar_fazag', proc: `[FX jaguar fazag] "horario", ${m_id}`}).then(res => {
+                if(!!res.data.length === true){
+                    setUserHorario(res.data)
+                    AsyncStorage.setItem('horario', JSON.stringify(res.data))
+                    console.log('Horário ATT: ', res.data[0].professor)
+                }
+            })
             setUser({                           
                 id: isLogged.a_id.trim(),
                 name: isLogged.a_nome.trim(),
                 cpf: isLogged.au_cpf.trim(),
                 email: isLogged.au_email.trim(),
                 m_id: m_id,
+                semestre: semestre
             })
             const loggedAsyncStorage = await AsyncStorage.setItem('user', JSON.stringify({ // Se a response tiver a_id adicione ao AsyncStorage...
                 id: isLogged.a_id.trim(),
@@ -62,6 +81,7 @@ export default function AuthProvider({children}){
                 cpf: isLogged.au_cpf.trim(),
                 email: isLogged.au_email.trim(),
                 m_id: m_id,
+                semestre: semestre
             }))
             const paramsHistoric = await axios.post('http://jaguar.solutio.net.br:9002/jaguar', { //AsyncStorage Histórico Acadêmico
             banco: 'jaguar_fazag',
@@ -103,13 +123,14 @@ export default function AuthProvider({children}){
         setUser(false)
         await AsyncStorage.removeItem('user')
         await AsyncStorage.removeItem('historic')
-        OneSignal.logout()
+        await AsyncStorage.removeItem('horario')
+         OneSignal.logout()
     }
 
 
 
 return (
-    <AuthContext.Provider value={{signed: !!user , user, setUser, signOut, signIn, userVerification, loading, userHistoric, setUserHistoric, setLoading}}>
+    <AuthContext.Provider value={{signed: !!user , user, setUser, signOut, signIn, userVerification, loading, userHistoric, userHorario, setUserHistoric, setLoading}}>
         {children}
     </AuthContext.Provider>
 )
