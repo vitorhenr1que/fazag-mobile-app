@@ -10,7 +10,7 @@ export function MapaDeSala(){
 
     const [tableHead, setTableHead] = useState(['Segunda-Feira'])
     
-    const { userHistoric, signOut, loading } = useContext(AuthContext)
+    const { userHistoric, signOut, loading, userHorario } = useContext(AuthContext)
 
     let count = 0
     const weekDays = {
@@ -30,24 +30,20 @@ export function MapaDeSala(){
         <>
      {!loading && 
         <ScrollView showsVerticalScrollIndicator={false} >
-            {console.log(userHistoric)}
-            {userHistoric.map((index) => {
-                const periodo = index.periodo.trim()
-                console.log(periodo)
-                const periodoAtual = userHistoric[userHistoric.length - 1].periodo.trim()
+
+            {userHorario.map((index) => {
                 
-                if(periodo === periodoAtual){
-                   
-                    if(index.sala !== null) {
-                        const sala = index.sala.trim()
-                        const dia = weekDays[`${index.dia.trim()}`]
-                        const andar = index.pavimento.split(' ')
+
+                    if(index.prds_nome !== null) {
+                        const sala = index.prds_nome.trim()
+                        const dia = weekDays[`${index.ph_dia.trim()}`]
+                        const andar = index.prds_pavimento.trim()
                         mapaItems.push({
                             dia,
                             disciplina: index.d_descricao,
                             sala,
-                            andar: andar[0],
-                            professor: index.professor
+                            andar: andar,
+                            professor: index.professor.toUpperCase()
                         })
                         return
                     } else{
@@ -61,7 +57,7 @@ export function MapaDeSala(){
                         return
                     }
   
-                }
+                
             })}
             {mapaItems.sort((a, b) => a.dia - b.dia).map((item, position) => {  // sort() ordena itens à partir de uma propriedade
             count++

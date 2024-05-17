@@ -13,7 +13,7 @@ export function User(){
     const {user, signOut, userHistoric, loading} = useContext(AuthContext)
 
 
-console.log(modifyName)
+console.log('Semestre do Usuário', user.semestre)
 
 const semestreAtual = userHistoric[userHistoric.length - 1] 
 const nomeCompletoAluno = user.name.split(' ') // pega o nome EM LETRA MAIUSCULA e particiona em array
@@ -96,7 +96,7 @@ function getProfileName(){ // Função que verifica se o nome da pessoa tem "dos
                             </View>
                             <View style={styles.boxUserInfoRow}>
                                 <TextFont texto={"SEMESTRE"} fontWeight={"semibold"} fontSize={12}/>
-                                <TextFont texto={loading ? 'Carregando...' : `${periodoAtual}`} fontWeight={"semibold"} fontSize={12}/>
+                                <TextFont texto={loading ? 'Carregando...' : `${user.semestre}`} fontWeight={"semibold"} fontSize={12}/>
                             </View>
                             <View style={styles.boxUserInfoRow}>
                                 <TextFont texto={"E-MAIL"} fontWeight={"semibold"} fontSize={12}/>
