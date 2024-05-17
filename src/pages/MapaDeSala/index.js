@@ -8,9 +8,8 @@ import { MapaTable } from '../../components/MapaDeSala/MapaTable'
 
 export function MapaDeSala(){
 
-    const [tableHead, setTableHead] = useState(['Segunda-Feira'])
     
-    const { userHistoric, signOut, loading, userHorario } = useContext(AuthContext)
+    const { signOut, loading, userHorario } = useContext(AuthContext)
 
     let count = 0
     const weekDays = {

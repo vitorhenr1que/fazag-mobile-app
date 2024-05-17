@@ -41,23 +41,13 @@
       "oneSignalAppId": "cfaa1db6-012b-4078-be46-ab8df7146f83"
     },
     "runtimeVersion": {
-      "policy": "sdkVersion"
+      "policy": "nativeVersion"
     },
     "plugins": [
       [
         "onesignal-expo-plugin",
         {
           "mode": "development"
-        }
-      ],
-      [
-        "expo-build-properties",
-        {
-          "android": {
-            "compileSdkVersion": 33,
-            "targetSdkVersion": 33,
-            "buildToolsVersion": "33.0.0"
-          }
         }
       ],
       "expo-font"
