@@ -16,6 +16,8 @@ export const styles = StyleSheet.create({
 
     },
     servicesContainer: {
+        display: 'flex',
+        flexDirection: 'column',
         marginTop: 20,
         gap: 20
     }
