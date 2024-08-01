@@ -49,6 +49,8 @@
       "policy": "nativeVersion"
     },
     "plugins": [
+      "@config-plugins/react-native-blob-util",
+      "@config-plugins/react-native-pdf",
       [
         "onesignal-expo-plugin",
         {

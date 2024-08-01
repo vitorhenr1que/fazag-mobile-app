@@ -56,19 +56,19 @@ export function Coordenador(){
     }
 
     const emailCoordenador = {
-        "0": 'daiana.paixão@gmail.com',
-        "1": 'vhpsantos@gmail.com',
-        "2": 'Educação Física (Bacharelado)',
-        "3": 'Educação Física (Licenciatura)',
-        "4": 'Enfermagem',
-        "5": 'Engenharia Civil',
-        "6": 'Estética',
-        "7": 'Farmácia',
-        "8": 'Fisioterapia',
-        "9": 'Nutrição',
-        "10": 'Pedagogia',
-        "11": 'Psicologia',
-        "12": 'Serviço Social'
+        "0": 'administracao@fazag.edu.br',
+        "1": 'cienciascontabeis@fazag.edu.br',
+        "2": 'educacaofisicab@fazag.edu.br',
+        "3": 'educacaofisical@fazag.edu.br',
+        "4": 'enfermagem@fazag.edu.br',
+        "5": 'engenhariacivil@fazag.edu.br',
+        "6": 'estetica@fazag.edu.br',
+        "7": 'farmacia@fazag.edu.br',
+        "8": 'fisioterapia@fazag.edu.br',
+        "9": 'nutricao@fazag.edu.br',
+        "10": 'pedagogia@fazag.edu.br',
+        "11": 'psicologia@fazag.edu.br',
+        "12": 'servicosocial@fazag.edu.br'
     }
 
     

@@ -21,7 +21,7 @@ export function ListBoxMainHorizontal(){
             id: '1',
             title: 'Pedagógico',
             image: require('../../../assets/pedagogico.png'),
-            route: 'Home'
+            route: 'Pedagogico'
         },
         {
             id: '2',

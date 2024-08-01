@@ -13,13 +13,14 @@ export function User(){
     const {user, signOut, userHistoric, loading} = useContext(AuthContext)
 
 
-console.log('Semestre do Usuário', user.semestre)
+console.log(user)
 
 const semestreAtual = userHistoric[userHistoric.length - 1] 
 const nomeCompletoAluno = user.name.split(' ') // pega o nome EM LETRA MAIUSCULA e particiona em array
 const curso = semestreAtual.s_descricao.split('<')[0] // Separa o nome do curso da string criando uma array 'CURSO<br>EMEC'
 const periodoAtual = semestreAtual.aperiodo.split(' ').join('') // Pega o "7 °" e remove o espaço
 
+console.log(curso)
 const modifyName = []
 
 function verifyName(name){ // Função que percorre a array particionada acima, transforma as letras e adiciona em uma nova array
@@ -52,7 +53,7 @@ function getProfileName(){ // Função que verifica se o nome da pessoa tem "dos
                 <View style={styles.profileContainer}>
                         <View style={styles.circleUser}></View>
                         <TextFont texto={<NomeSobrenomeAlternado name={user.name}/>} fontWeight={"bold"} fontSize={20} color={'white'}/>
-                        <TextFont texto={loading ? 'Carregando...' : `${curso[0].toUpperCase() + curso.substring(1).toLowerCase()} / ${periodoAtual} Semestre`} fontWeight={"regular"} color={'white'}/>
+                        <TextFont texto={loading ? 'Carregando...' : `${curso[0].toUpperCase() + curso.substring(1).toLowerCase()} / ${user.semestre} Semestre`} fontWeight={"regular"} color={'white'}/>
                 </View>   
                 
             </View>
