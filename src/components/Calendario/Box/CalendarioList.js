@@ -684,21 +684,6 @@ export function CalendarioList(){
               "text": "Sábado Letivo"
             },
             {
-              "dia_do_mes": "23",
-              "status": "letivo",
-              "text": "Semana de Iniciação Científica - SICFAZ 2023"
-            },
-            {
-              "dia_do_mes": "24",
-              "status": "letivo",
-              "text": "Semana de Iniciação Científica - SICFAZ 2024"
-            },
-            {
-              "dia_do_mes": "25",
-              "status": "letivo",
-              "text": "Semana de Iniciação Científica - SICFAZ 2025"
-            },
-            {
               "dia_do_mes": "25",
               "status": "reuniao",
               "text": "Reunião de Colegiado"
@@ -707,7 +692,22 @@ export function CalendarioList(){
               "dia_do_mes": "28",
               "status": "letivo",
               "text": "Sábado Letivo"
-            }
+            },
+            {
+              "dia_do_mes": "28",
+              "status": "letivo",
+              "text": "Semana de Iniciação Científica - SICFAZ 2024"
+            },
+            {
+              "dia_do_mes": "29",
+              "status": "letivo",
+              "text": "Semana de Iniciação Científica - SICFAZ 2024"
+            },
+            {
+              "dia_do_mes": "30",
+              "status": "letivo",
+              "text": "Semana de Iniciação Científica - SICFAZ 2024"
+            },
             ]
         },
             
@@ -719,14 +719,14 @@ export function CalendarioList(){
               "text": "Recesso Acadêmico - Feriado Finados"
             },
             {
-              "dia_do_mes": "3",
+              "dia_do_mes": "8",
               "status": "recesso",
-              "text": "Recesso Acadêmico - Feriado Finados"
+              "text": "Recesso Acadêmico - Feriados Municipais"
             },
             {
-              "dia_do_mes": "4",
+              "dia_do_mes": "9",
               "status": "recesso",
-              "text": "Recesso Acadêmico - Feriado Finados"
+              "text": "Recesso Acadêmico - Feriados Municipais"
             },
             {
               "dia_do_mes": "13",
@@ -739,9 +739,19 @@ export function CalendarioList(){
               "text": "Recesso Acadêmico - Feriado Proclamação da República"
             },
             {
+              "dia_do_mes": "16",
+              "status": "recesso",
+              "text": "Recesso Acadêmico - Feriado Proclamação da República"
+            },
+            {
               "dia_do_mes": "18",
               "status": "letivo",
               "text": "Sábado Letivo"
+            },
+            {
+              "dia_do_mes": "20",
+              "status": "recesso",
+              "text": "Recesso Acadêmico - Feriado Consciência Negra"
             },
             {
               "dia_do_mes": "22",
