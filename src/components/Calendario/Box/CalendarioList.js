@@ -479,23 +479,18 @@ export function CalendarioList(){
         {   
             6: [ // Julho
             {
-              "dia_do_mes": "2",
+              "dia_do_mes": "02",
               "status": "recesso",
-              "text": "Independência da Bahia"
+              "text": "Feriado Independência da Bahia"
             },
             {
-              "dia_do_mes": "3",
-              "status": "normal",
-              "text": "Prazo Final para os professores entregarem as pautas a SRA (Frequência, Notas e Conteúdo)"
+              "dia_do_mes": "03",
+              "status": "Normal",
+              "text": "Prazo Final para os professores lançarem as notas no Portal de 03 a 31"
             },
             {
-              "dia_do_mes": "3",
-              "status": "atencao",
-              "text": "Período de Matrícula Veteranos (03 à 31 de julho)"
-            },
-            {
-              "dia_do_mes": "26",
-              "status": "letivo",
+              "dia_do_mes": "27",
+              "status": "Normal",
               "text": "Jornada Pedagógica"
             }
             ]
@@ -504,49 +499,49 @@ export function CalendarioList(){
         {   
             7: [ // Agosto
             {
-              "dia_do_mes": "7",
-              "status": "letivo",
+              "dia_do_mes": "05",
+              "status": "normal",
               "text": "Início do Semestre Letivo"
             },
             {
               "dia_do_mes": "10",
-              "status": "reuniao",
-              "text": "Reunião dos Colegiados de Cursos"
+              "status": "letivo",
+              "text": "Sábado letivo"
             },
             {
               "dia_do_mes": "11",
               "status": "normal",
-              "text": "Dia do Estudante"
+              "text": "Dia do Estudante / Dia dos Pais"
             },
             {
-              "dia_do_mes": "12",
+              "dia_do_mes": "14",
+              "status": "reuniao",
+              "text": "Reunião dos Colegiados de Cursos"
+            },
+            {
+              "dia_do_mes": "17",
               "status": "letivo",
-              "text": "Sábado Letivo"
-            },
-            {
-              "dia_do_mes": "13",
-              "status": "recesso",
-              "text": "Dia dos Pais"
-            },
-            {
-              "dia_do_mes": "19",
-              "status": "letivo",
-              "text": "Sábado Letivo"
+              "text": "Sábado letivo"
             },
             {
               "dia_do_mes": "24",
-              "status": "reuniao",
-              "text": "Reunião CONSUPA"
+              "status": "letivo",
+              "text": "Sábado letivo"
             },
             {
               "dia_do_mes": "26",
-              "status": "letivo",
-              "text": "Sábado Letivo"
+              "status": "normal",
+              "text": "Períodos dos Trabalhos em grupo de AV 1 de 26 a 31"
+            },
+            {
+              "dia_do_mes": "27",
+              "status": "normal",
+              "text": "Dia do Psicológo"
             },
             {
               "dia_do_mes": "28",
-              "status": "normal",
-              "text": "Períodos dos Trabalhos em grupo de AV 1 (28 a 02 de setembro)"
+              "status": "reuniao",
+              "text": "Reunião CONSUPA"
             },
             {
               "dia_do_mes": "31",
@@ -559,49 +554,39 @@ export function CalendarioList(){
         {   
             8: [ // Setembro
             {
-              "dia_do_mes": "1",
+              "dia_do_mes": "01",
               "status": "normal",
               "text": "Dia do Profissional de Educação Física"
             },
             {
-              "dia_do_mes": "4",
-              "status": "atencao",
-              "text": "Último dia para matrícula acadêmica, trancamento,\nisenção e trancamento de disciplina ( Atenção 25% das Faltas)"
-            },
-            {
-              "dia_do_mes": "6",
+              "dia_do_mes": "06",
               "status": "reuniao",
               "text": "Reunião do Colegiado"
             },
             {
-              "dia_do_mes": "7",
+              "dia_do_mes": "07",
               "status": "recesso",
-              "text": "Recesso Acadêmico - Independência do Brasil"
+              "text": "Feriado Independência do Brasil"
             },
             {
-              "dia_do_mes": "8",
-              "status": "recesso",
-              "text": "Recesso Acadêmico - Independência do Brasil"
-            },
-            {
-              "dia_do_mes": "9",
-              "status": "recesso",
-              "text": "Recesso Acadêmico - Independência do Brasil"
-            },
-            {
-              "dia_do_mes": "9",
+              "dia_do_mes": "09",
               "status": "normal",
               "text": "Dia do Administrador"
             },
             {
-              "dia_do_mes": "16",
-              "status": "letivo",
-              "text": "Sábado Letivo"
+              "dia_do_mes": "13",
+              "status": "normal",
+              "text": "Último dia para matrícula acadêmica, trancamento, isenção e trancamento de disciplina ( Atenção 25% das Faltas)"
             },
             {
-              "dia_do_mes": "18",
-              "status": "normal",
-              "text": "Períodos de provas individuais escritas de AV 1 (18 a 23 de Setembro)"
+              "dia_do_mes": "14",
+              "status": "letivo",
+              "text": "Sábado letivo"
+            },
+            {
+              "dia_do_mes": "21",
+              "status": "letivo",
+              "text": "Sábado letivo"
             },
             {
               "dia_do_mes": "22",
@@ -610,13 +595,13 @@ export function CalendarioList(){
             },
             {
               "dia_do_mes": "23",
-              "status": "reuniao",
-              "text": "Reunião dos NDEs de todos os cursos"
+              "status": "normal",
+              "text": "Períodos de provas individuais escritas de AV 1 de 23 a 28"
             },
             {
               "dia_do_mes": "23",
-              "status": "letivo",
-              "text": "Sábado Letivo"
+              "status": "reuniao",
+              "text": "Reunião dos NDEs de todos os cursos"
             },
             {
               "dia_do_mes": "26",
@@ -624,24 +609,14 @@ export function CalendarioList(){
               "text": "Dia do Farmacêutico"
             },
             {
-              "dia_do_mes": "27",
+              "dia_do_mes": "30",
               "status": "normal",
-              "text": "Dia Mundial do Turismo"
+              "text": "Professores devem lançar os resultados da AV 1 no Phortal do Aluno/ Dia da Secretária"
             },
             {
-              "dia_do_mes": "27",
+              "dia_do_mes": "30",
               "status": "normal",
-              "text": "Último dia para solicitação de prova substitutiva AV1"
-            },
-            {
-              "dia_do_mes": "29",
-              "status": "normal",
-              "text": "Professores devem lançar os resultados no Portal do Aluno"
-            },
-            {
-              "dia_do_mes": "29",
-              "status": "normal",
-              "text": "Dia da Secretária"
+              "text": "Ultimo dia para solicitação de prova substitutiva AV 1"
             }
             ]
         },
@@ -649,29 +624,19 @@ export function CalendarioList(){
         {   
             9: [ // Outubro
             {
-              "dia_do_mes": "7",
+              "dia_do_mes": "05",
               "status": "letivo",
-              "text": "Sábado Letivo"
+              "text": "Sábado letivo"
             },
             {
               "dia_do_mes": "12",
               "status": "recesso",
-              "text": "Recesso Acadêmico - Nossa Senhora Aparecida"
+              "text": "Feriado Nossa Senhora Aparecida"
             },
             {
               "dia_do_mes": "13",
-              "status": "recesso",
-              "text": "Recesso Acadêmico - Nossa Senhora Aparecida"
-            },
-            {
-              "dia_do_mes": "13",
-              "status": "recesso",
+              "status": "normal",
               "text": "Dia do Fisioterapeuta"
-            },
-            {
-              "dia_do_mes": "14",
-              "status": "recesso",
-              "text": "Recesso Acadêmico - Nossa Senhora Aparecida"
             },
             {
               "dia_do_mes": "15",
@@ -679,9 +644,9 @@ export function CalendarioList(){
               "text": "Dia do Professor"
             },
             {
-              "dia_do_mes": "21",
+              "dia_do_mes": "19",
               "status": "letivo",
-              "text": "Sábado Letivo"
+              "text": "Sábado letivo"
             },
             {
               "dia_do_mes": "25",
@@ -689,94 +654,84 @@ export function CalendarioList(){
               "text": "Reunião de Colegiado"
             },
             {
-              "dia_do_mes": "28",
+              "dia_do_mes": "26",
               "status": "letivo",
-              "text": "Sábado Letivo"
+              "text": "Sábado letivo"
             },
             {
               "dia_do_mes": "28",
-              "status": "letivo",
-              "text": "Semana de Iniciação Científica - SICFAZ 2024"
-            },
-            {
-              "dia_do_mes": "29",
-              "status": "letivo",
-              "text": "Semana de Iniciação Científica - SICFAZ 2024"
-            },
-            {
-              "dia_do_mes": "30",
-              "status": "letivo",
-              "text": "Semana de Iniciação Científica - SICFAZ 2024"
-            },
+              "status": "normal",
+              "text": "Semana de Iniciação Cientifica – SICFAZ 2024 de 28 a 30"
+            }
             ]
         },
             
         {   
             10: [ // Novembro
             {
-              "dia_do_mes": "2",
+              "dia_do_mes": "02",
               "status": "recesso",
-              "text": "Recesso Acadêmico - Feriado Finados"
+              "text": "Feriado Finados"
             },
             {
-              "dia_do_mes": "8",
+              "dia_do_mes": "08",
               "status": "recesso",
-              "text": "Recesso Acadêmico - Feriados Municipais"
+              "text": "Recesso Feriados Municipais- Recesso Acadêmico"
             },
             {
-              "dia_do_mes": "9",
+              "dia_do_mes": "09",
               "status": "recesso",
-              "text": "Recesso Acadêmico - Feriados Municipais"
+              "text": "Recesso Feriados Municipais- Recesso Acadêmico"
             },
             {
-              "dia_do_mes": "13",
+              "dia_do_mes": "11",
               "status": "normal",
-              "text": "Períodos dos Trabalhos em Grupo de AV2 (13 a 18 de novembro)"
+              "text": "Períodos dos Trabalhos em grupo de AV 2 de 11 a 16"
+            },
+            {
+              "dia_do_mes": "14",
+              "status": "reunião",
+              "text": "Reunião de Colegiado"
             },
             {
               "dia_do_mes": "15",
               "status": "recesso",
-              "text": "Recesso Acadêmico - Feriado Proclamação da República"
+              "text": "Recesso Feriado Proclamação da República"
             },
             {
               "dia_do_mes": "16",
               "status": "recesso",
-              "text": "Recesso Acadêmico - Feriado Proclamação da República"
-            },
-            {
-              "dia_do_mes": "18",
-              "status": "letivo",
-              "text": "Sábado Letivo"
+              "text": "Recesso Feriado Proclamação da República"
             },
             {
               "dia_do_mes": "20",
               "status": "recesso",
-              "text": "Recesso Acadêmico - Feriado Consciência Negra"
+              "text": "Feriado – Consciência Negra"
             },
             {
-              "dia_do_mes": "22",
+              "dia_do_mes": "23",
+              "status": "letivo",
+              "text": "Sábado letivo"
+            },
+            {
+              "dia_do_mes": "25",
+              "status": "normal",
+              "text": "Apresentação do TCC de todos os cursos 25 a 28"
+            },
+            {
+              "dia_do_mes": "27",
               "status": "colacao",
               "text": "Colação de grau sem solenidade de todos os cursos"
             },
             {
-              "dia_do_mes": "25",
-              "status": "letivo",
-              "text": "Sábado Letivo"
-            },
-            {
-              "dia_do_mes": "27",
-              "status": "normal",
-              "text": "Apresentação do TCC de todos os cursos"
-            },
-            {
               "dia_do_mes": "28",
               "status": "normal",
-              "text": "Apresentação do TCC de todos os cursos"
+              "text": "Períodos de Avaliação da IES pela CPA"
             },
             {
-              "dia_do_mes": "29",
-              "status": "normal",
-              "text": "Apresentação do TCC de todos os cursos"
+              "dia_do_mes": "30",
+              "status": "letivo",
+              "text": "Sábado letivo"
             }
             ]
         },
@@ -784,59 +739,39 @@ export function CalendarioList(){
         {   
             11: [ // Dezembro
             {
-              "dia_do_mes": "4",
+              "dia_do_mes": "02",
               "status": "normal",
-              "text": "Períodos de provas individuais escritas de AV2"
+              "text": "Períodos de provas individuais escritas de AV 2 de 02 a 07"
             },
             {
-              "dia_do_mes": "11",
+              "dia_do_mes": "09",
               "status": "normal",
-              "text": "Período de Provas Finais (11 a 16 de dezembro)"
+              "text": "Ùltimo dia para solicitação de prova substitutiva AV 2"
             },
             {
-              "dia_do_mes": "12",
+              "dia_do_mes": "16",
               "status": "normal",
-              "text": "Ùltimo dia para solicitação de prova substitutiva AV2"
-            },
-            {
-              "dia_do_mes": "14",
-              "status": "normal",
-              "text": "Professores devem lançar os resultados da AV2 no Portal do Aluno"
-            },
-            {
-              "dia_do_mes": "18",
-              "status": "atencao",
-              "text": "Último dia letivo"
+              "text": "Período de Provas Finais de 16 a 21"
             },
             {
               "dia_do_mes": "18",
               "status": "normal",
-              "text": "Prazo Final para os professores entregarem as pautas a SRA (Frequência, Notas e Conteúdo)"
+              "text": "Professores devem lançar os resultados da AV 2 no Portal do Aluno"
             },
             {
-              "dia_do_mes": "22",
-              "status": "recesso",
-              "text": "Recesso Natal"
+              "dia_do_mes": "21",
+              "status": "letivo",
+              "text": "Último dia Letivo"
             },
             {
               "dia_do_mes": "23",
               "status": "recesso",
-              "text": "Recesso Natal"
+              "text": "Recesso Natal de 23 a 25"
             },
             {
-              "dia_do_mes": "24",
+              "dia_do_mes": "30",
               "status": "recesso",
-              "text": "Recesso Natal"
-            },
-            {
-              "dia_do_mes": "25",
-              "status": "recesso",
-              "text": "Recesso Natal"
-            },
-            {
-              "dia_do_mes": "29",
-              "status": "recesso",
-              "text": "Recesso Ano Novo (29/12 a 01/01/2024)"
+              "text": "Recesso Ano Novo de 30 a 01/01"
             }
             ]
         },
