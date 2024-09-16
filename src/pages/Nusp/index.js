@@ -1,7 +1,7 @@
 import {styles} from './style'
 import { useContext, useEffect, useState } from "react";
 import { Calendar, LocaleConfig } from "react-native-calendars";
-import { Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { TextFont } from "../../components/Basics/TextFont";
 import { api } from "../../services/api";
 import { AuthContext } from "../../contexts/auth";
@@ -122,7 +122,7 @@ export function Nusp(){
           LocaleConfig.defaultLocale = 'pt-br'
    
     return (
-        <>
+        <ScrollView>
             <View style={{padding: 20}}>
                 <TextFont texto={"Escolha a data da sua sessão"} fontSize={20} textAlign={"center"}/>
             </View>
@@ -190,6 +190,6 @@ export function Nusp(){
                     <TextFont texto={"Agendar"} textAlign={'center'} fontSize={16}/>
                 </TouchableOpacity>
             </View>
-        </>
+        </ScrollView>
     )
 }
