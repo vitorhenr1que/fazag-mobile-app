@@ -7,6 +7,8 @@ import { useContext, useEffect, useState } from "react";
 import Pdf from "react-native-pdf";
 import { ItemAntDesign } from "../../components/Pedagogico/itemAntDesign";
 import { ItemMaterial } from "../../components/Pedagogico/itemMaterial";
+import { ItemBibliotecaVirtual } from "../../components/Pedagogico/itemBibliotecaVirtual";
+import { ItemNusp } from "../../components/Pedagogico/itemNusp";
 
 export function Pedagogico(){
     const [isPdfView, setIsPdfView] = useState(false)
@@ -66,6 +68,10 @@ export function Pedagogico(){
                 <View style={styles.containerBox}>
                     <ItemAntDesign text={'Calendário Acadêmico'} color={'black'} iconName={'calendar'} size={20} handleClick={handleIconClick} link={`https://www.fazag.edu.br/static/calendario/calendario-academico.pdf`}/>
                     <ItemMaterial text={'Regulamento Geral'} color={'black'} iconName={'account-balance'} size={20} handleClick={handleIconClick} link={'https://www.fazag.edu.br/static/regulamentos/regulamentogeral.pdf'}/>
+                </View>
+                <View style={styles.containerBox}>
+                    <ItemBibliotecaVirtual text={'Biblioteca Virtual'} color={'black'} iconName={'bookshelf'} size={20}/>
+                    <ItemNusp text={'Nusp'} color={'black'} iconName={'brain'} size={20}/>
                 </View>
             </ScrollView>
         </View>

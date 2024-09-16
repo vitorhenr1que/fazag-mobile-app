@@ -13,6 +13,8 @@ import { CanaisDeAtendimento } from '../pages/CanaisDeAtendimento';
 import { Ava } from '../pages/Ava';
 import { Servicos } from '../pages/Servicos';
 import { Pedagogico } from '../pages/Pedagogico';
+import { BibliotecaVirtual } from '../pages/BibliotecaVirtual';
+import { Nusp } from '../pages/Nusp';
 
 
 const Tab = createBottomTabNavigator()
@@ -90,6 +92,8 @@ export default function AppRoute() {
       <Stack.Screen name='Ava' component={Ava}/>
       <Stack.Screen name='Servicos' component={Servicos}/>
       <Stack.Screen name='Pedagogico' component={Pedagogico}/>
+      <Stack.Screen name='BibliotecaVirtual' component={BibliotecaVirtual}/>
+      <Stack.Screen name='Nusp' component={Nusp}/>
      </Stack.Navigator>
      </>
   );

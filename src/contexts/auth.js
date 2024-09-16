@@ -11,6 +11,7 @@ export default function AuthProvider({children}){
     const [loading, setLoading] = useState(false)
     const [userHistoric, setUserHistoric] = useState('')
     const [userHorario, setUserHorario] = useState('')
+    const [urlBv, setUrlBv] = useState('')
 
     console.log(user)
         useEffect(() => {
@@ -132,7 +133,7 @@ export default function AuthProvider({children}){
 
 
 return (
-    <AuthContext.Provider value={{signed: !!user , user, setUser, signOut, signIn, userVerification, loading, userHistoric, userHorario, setUserHistoric, setLoading}}>
+    <AuthContext.Provider value={{signed: !!user , user, setUser, signOut, signIn, userVerification, loading, userHistoric, userHorario, setUserHistoric, setLoading, urlBv, setUrlBv}}>
         {children}
     </AuthContext.Provider>
 )
