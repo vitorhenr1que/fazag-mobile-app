@@ -2,7 +2,7 @@
   "expo": {
     "name": "FAZAG",
     "slug": "fazag-mobile-app",
-    "version": "1.0.13",
+    "version": "1.0.14",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -45,9 +45,7 @@
       },
       "oneSignalAppId": "cfaa1db6-012b-4078-be46-ab8df7146f83"
     },
-    "runtimeVersion": {
-      "policy": "nativeVersion"
-    },
+    "runtimeVersion": "10.0.14",
     "plugins": [
       "@config-plugins/react-native-blob-util",
       "@config-plugins/react-native-pdf",
