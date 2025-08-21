@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        async function getResponse(){
+            const paramsUser = {
+            banco: 'jaguar_fazag',
+             proc: `[FX jaguar fazag] "loginaluno", "12677189518", "12677189518"`
+            }
+            
+            const response = await axios.post('http://jaguar.solutio.net.br:9002/jaguar', paramsUser).then(res => res.data)
+            console.log(response)
+        }
+        getResponse()
+    </script>
+</body>
+</html>

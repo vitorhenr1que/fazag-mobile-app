@@ -48,7 +48,7 @@ export function CanaisDeAtendimento(){
                         </View>
                         <View style={styles.textContactBox}>
                             <TextFont texto={"Atendimento Geral"} fontSize={16} fontWeight={"bold"} color={colors.white}/>
-                            <TextFont texto={"faculdade.fazag@gmail.com"} fontSize={12} fontWeight={"regular"} color={colors.white}/>
+                            <TextFont texto={"faculdade@fazag.edu.br"} fontSize={12} fontWeight={"regular"} color={colors.white}/>
                         </View>
                         <View style={styles.iconContactBox}>
                             <Ionicons name="logo-whatsapp" size={24} color="white"/>
@@ -63,7 +63,7 @@ export function CanaisDeAtendimento(){
                         </View>
                         <View style={styles.textContactBox}>
                             <TextFont texto={"Secretaria de Registros Acadêmicos"} fontSize={16} fontWeight={"bold"} color={colors.white}/>
-                            <TextFont texto={"matriculasfazag@gmail.com"} fontSize={12} fontWeight={"regular"} color={colors.white}/>
+                            <TextFont texto={"secretaria@fazag.edu.br"} fontSize={12} fontWeight={"regular"} color={colors.white}/>
                         </View>
                         <View style={styles.iconContactBox}>
                             <Ionicons name="logo-whatsapp" size={24} color="white"/>
@@ -78,7 +78,7 @@ export function CanaisDeAtendimento(){
                         </View>
                         <View style={styles.textContactBox}>
                             <TextFont texto={"Financeiro do Aluno"} fontSize={16} fontWeight={"bold"} color={colors.white}/>
-                            <TextFont texto={"tainara_financeirofazag@hotmail.com"} fontSize={10} fontWeight={"regular"} color={colors.white}/>
+                            <TextFont texto={"financeiro@fazag.edu.br"} fontSize={10} fontWeight={"regular"} color={colors.white}/>
                         </View>
                         <View style={styles.iconContactBox}>
                             <Ionicons name="logo-whatsapp" size={24} color="white"/>
@@ -93,7 +93,7 @@ export function CanaisDeAtendimento(){
                         </View>
                         <View style={styles.textContactBox}>
                             <TextFont texto={"Setor de Diplomas"} fontSize={16} fontWeight={"bold"} color={colors.white}/>
-                            <TextFont texto={"diplomasfazag@gmail.com"} fontSize={12} fontWeight={"regular"} color={colors.white}/>
+                            <TextFont texto={"diplomas@fazag.edu.br"} fontSize={12} fontWeight={"regular"} color={colors.white}/>
                         </View>
                         <View style={styles.iconContactBox}>
                             <Ionicons name="logo-whatsapp" size={24} color="white"/>

@@ -9,6 +9,7 @@ import { ItemAntDesign } from "../../components/Pedagogico/itemAntDesign";
 import { ItemMaterial } from "../../components/Pedagogico/itemMaterial";
 import { ItemBibliotecaVirtual } from "../../components/Pedagogico/itemBibliotecaVirtual";
 import { ItemNusp } from "../../components/Pedagogico/itemNusp";
+import { calcularSemestre } from "../../scripts/calcularSemestre";
 
 export function Pedagogico(){
     const [isPdfView, setIsPdfView] = useState(false)
@@ -66,7 +67,7 @@ export function Pedagogico(){
                     <ItemMatriz text={'Matriz Curricular'} color={'black'} iconName={'document-text-outline'} size={20} handleClick={handleIconClick} link={linkMatriz}/>
                 </View>
                 <View style={styles.containerBox}>
-                    <ItemAntDesign text={'Calendário Acadêmico'} color={'black'} iconName={'calendar'} size={20} handleClick={handleIconClick} link={`https://www.fazag.edu.br/static/calendario/calendario-academico.pdf`}/>
+                    <ItemAntDesign text={'Calendário Acadêmico'} color={'black'} iconName={'calendar'} size={20} handleClick={handleIconClick} link={`https://www.fazag.edu.br/static/calendario/calendario${calcularSemestre()}.pdf`}/>
                     <ItemMaterial text={'Regulamento Geral'} color={'black'} iconName={'account-balance'} size={20} handleClick={handleIconClick} link={'https://www.fazag.edu.br/static/regulamentos/regulamentogeral.pdf'}/>
                 </View>
                 <View style={styles.containerBox}>
