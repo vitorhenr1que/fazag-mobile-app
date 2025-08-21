@@ -54,7 +54,7 @@ export function Nusp(){
     }
     const renderDay = (day) => {
         const dayOfWeek = new Date(day.dateString).getDay()
-        const habilitedDays = dayOfWeek === 0 // para mais dias || dayOfWeek === 2
+        const habilitedDays = dayOfWeek === 1 // para mais dias || dayOfWeek === 2
         
         function handleDayPress(day){
             const dia = String(day.day).length === 1 ? String(day.day).padStart(2, '0'): day.day
@@ -70,7 +70,7 @@ export function Nusp(){
                 padding: 10, 
                 backgroundColor: day.dateString === isSelected ? 'orange': 'white',
                 borderRadius: 50,
-                opacity: habilitedDays ? 1 : 0.3, // Se não for segunda, diminui a opacidade
+                opacity: habilitedDays ? 1 : 0.3, // Se não for a data disponível para agendamento, diminui a opacidade
                 justifyContent: 'center',
                 alignItems: 'center'
               }}>
