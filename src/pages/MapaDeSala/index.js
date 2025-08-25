@@ -29,10 +29,9 @@ export function MapaDeSala(){
         <>
      {!loading && 
         <ScrollView showsVerticalScrollIndicator={false} >
-
-            {userHorario.map((index) => {
-                
-
+            
+            {userHorario && userHorario.map((index) => {
+                console.log(userHorario)
                     if(index.prds_nome !== null) {
                         const sala = index.prds_nome.trim()
                         const dia = weekDays[`${index.ph_dia.trim()}`]
