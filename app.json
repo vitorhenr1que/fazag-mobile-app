@@ -21,7 +21,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.fazag",
-      "buildNumber": "22",
+      "buildNumber": "23",
       "infoPlist": {
         "NSAppTransportSecurity": {
           "NSAllowsArbitraryLoads": true
@@ -34,7 +34,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.fazag",
-      "versionCode": 34
+      "versionCode": 36
     },
     "web": {
       "favicon": "./assets/favicon.png"
