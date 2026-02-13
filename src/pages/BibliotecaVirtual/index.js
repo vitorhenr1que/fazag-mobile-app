@@ -3,7 +3,6 @@ import { WebView } from 'react-native-webview'
 import { AuthContext } from '../../contexts/auth'
 import { useContext } from 'react'
 
-
 export function BibliotecaVirtual(){
     const { urlBv } = useContext(AuthContext)
     if( urlBv ){

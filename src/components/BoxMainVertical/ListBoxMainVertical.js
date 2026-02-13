@@ -4,12 +4,12 @@ import { styles } from "./style";
 import { useNavigation } from "@react-navigation/native";
 
 const data = [{
-    id: 1,  
+    id: 1,
     name: "Ouvidoria FAZAG",
     image: require('../../../assets/ouvidoria.png'),
     description: "Ajude a FAZAG a servi-lo melhor.",
     route: 'Ouvidoria'
-}, 
+},
 {
     id: 2,
     name: "Fale com o seu coordenador",
@@ -25,6 +25,13 @@ const data = [{
     route: 'Calendario'
 },
 {
+    id: 5,
+    name: "Financeiro",
+    image: require('../../../assets/calendar.png'), // Placeholder
+    description: "Consulte boletos, benefícios e seu histórico de pagamentos.",
+    route: 'Financeiro'
+},
+{
     id: 4,
     name: "Canais de Atendimento",
     image: require('../../../assets/whatsapp-icon.png'),
@@ -33,16 +40,16 @@ const data = [{
 }
 ]
 
-export function ListBoxMainVertical(){
-    return(
-       <View style={styles.listMap}>
-        {data.map((index) => {
-            return (
-                
-                <BoxMainVertical key={index.id} name={index.name} image={index.image} description={index.description} route={index.route}/>
-                
-            )
-        })}
-       </View>
+export function ListBoxMainVertical() {
+    return (
+        <View style={styles.listMap}>
+            {data.map((index) => {
+                return (
+
+                    <BoxMainVertical key={index.id} name={index.name} image={index.image} description={index.description} route={index.route} />
+
+                )
+            })}
+        </View>
     )
 }

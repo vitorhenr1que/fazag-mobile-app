@@ -12,17 +12,32 @@ export function ItemBibliotecaVirtual({iconName, size, color, text}){
     const navegar = useNavigation()
     async function handleClick(){
         const sort = Math.floor(Math.random() * 300)
-        await axios.post('https://integracao.dli.minhabiblioteca.com.br/DigitalLibraryIntegrationService/AuthenticatedUrl', {
-                "email": `aluno${sort}`,
-                "FirstName": "Aluno",
-                "LastName": "FAZAG"
-        }, {
-            headers: {
-                
-                "X-DigitalLibraryIntegration-API-Key": "30954bda-f0b0-44a8-936e-da12723b042f"
+
+        const xmlData = `<?xml version="1.0" encoding="utf-8"?>
+                            <CreateAuthenticatedUrlRequest xmlns="http://dli.zbra.com.br"
+                            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                            <FirstName>Aluno</FirstName>
+                            <LastName>FAZAG</LastName>
+                            <Email>aluno${sort}</Email>
+                        </CreateAuthenticatedUrlRequest>`
+
+            console.log('TESTE DO XML -->> ', xmlData)
+        const AuthURL = await axios.post('https://integracao.dli.minhabiblioteca.com.br/DigitalLibraryIntegrationService/AuthenticatedUrl', 
+            xmlData, {
+            headers: { 
+                "Content-Type": "text/xml;charset=utf-8",
+                "X-DigitalLibraryIntegration-API-Key": `${process.env.EXPO_PUBLIC_MINHA_BIBLIOTECA}`
             }
-        }).then(res => setUrlBv(res.data["AuthenticatedUrl"]))
+        })
+
+        const match = AuthURL.data.match(/<AuthenticatedUrl>(.*?)<\/AuthenticatedUrl>/);
+        const url = match ? match[1] : null;
+        console.log('URL -->> ', url);
+        
+        setUrlBv(url)
         console.log(urlBv)
+        
          const nav = navegar.navigate('BibliotecaVirtual')
     }
 
