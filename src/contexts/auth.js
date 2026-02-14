@@ -78,6 +78,20 @@ export default function AuthProvider({ children }) {
                 OneSignal.User.addTag("curso", cursoTag);
             }
 
+            // Sincronização com o módulo de Eventos
+            try {
+                const { EventosService } = require('../services/eventos/eventosService');
+                await EventosService.upsertAluno({
+                    id: normalizedUser.id,
+                    nome: normalizedUser.name,
+                    email: userData.aluno_email || userData.email || ""
+                });
+                console.log('Aluno sincronizado com o sistema de eventos');
+            } catch (eventError) {
+                console.warn('Erro ao sincronizar com sistema de eventos:', eventError);
+                // Não trava o login principal se o sistema de eventos falhar
+            }
+
         } catch (error) {
             setUserVerification(error.message || 'Erro ao conectar ao servidor')
         } finally {

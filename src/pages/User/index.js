@@ -26,7 +26,7 @@ export function User() {
 
     return (
         <View style={styles.container}>
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 100 }}>
                 {/* Header Profile Section */}
                 <LinearGradient
                     colors={[colors.primary[800], colors.primary[600]]}

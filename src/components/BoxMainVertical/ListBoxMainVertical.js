@@ -32,6 +32,13 @@ const data = [{
     route: 'Financeiro'
 },
 {
+    id: 6,
+    name: "Eventos e Cursos",
+    image: require('../../../assets/pedagogico.png'), // Using pedagogical icon as placeholder or similar
+    description: "Inscreva-se em palestras, workshops e emita seus certificados.",
+    route: 'Eventos'
+},
+{
     id: 4,
     name: "Canais de Atendimento",
     image: require('../../../assets/whatsapp-icon.png'),
