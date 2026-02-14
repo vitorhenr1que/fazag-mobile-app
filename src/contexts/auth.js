@@ -9,8 +9,8 @@ export default function AuthProvider({ children }) {
     const [userVerification, setUserVerification] = useState('')
     const [user, setUser] = useState(false)
     const [loading, setLoading] = useState(true)
-    const [userHistoric, setUserHistoric] = useState('')
-    const [userHorario, setUserHorario] = useState('')
+    const [userHistoric, setUserHistoric] = useState([])
+    const [userHorario, setUserHorario] = useState([])
     const [urlBv, setUrlBv] = useState('')
 
     useEffect(() => {
@@ -18,7 +18,15 @@ export default function AuthProvider({ children }) {
             try {
                 const asyncUserLogged = await AsyncStorage.getItem('user')
                 if (asyncUserLogged) {
-                    setUser(JSON.parse(asyncUserLogged))
+                    const userData = JSON.parse(asyncUserLogged);
+                    // Normalização para compatibilidade com o legado
+                    const normalizedUser = {
+                        ...userData,
+                        name: userData.name || userData.aluno_nome_social || userData.aluno_nome,
+                        id: userData.id || userData.aluno_id,
+                        curso: userData.curso || userData.cursos?.[0]?.curso_descricao || ""
+                    };
+                    setUser(normalizedUser);
                 }
             } catch (e) {
                 console.error("Erro ao recuperar sessão:", e)
@@ -45,8 +53,16 @@ export default function AuthProvider({ children }) {
             const userData = response.user;
             const token = response.token;
 
-            setUser(userData);
-            await AsyncStorage.setItem('user', JSON.stringify(userData));
+            // Normalização para compatibilidade com o legado
+            const normalizedUser = {
+                ...userData,
+                name: userData.aluno_nome_social || userData.aluno_nome || userData.name,
+                id: userData.aluno_id || userData.id,
+                curso: userData.cursos?.[0]?.curso_descricao || userData.curso || ""
+            };
+
+            setUser(normalizedUser);
+            await AsyncStorage.setItem('user', JSON.stringify(normalizedUser));
 
             if (token) {
                 await AsyncStorage.setItem('token', token);

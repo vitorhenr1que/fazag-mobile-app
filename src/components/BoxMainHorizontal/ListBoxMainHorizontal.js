@@ -1,21 +1,14 @@
 import { View } from 'react-native'
 import { BoxMainHorizontal } from './'
-import { styles } from './styles'
+import { styles } from '../Main/style' // Import styles from Main to access grid layout
 
-
-
-export function ListBoxMainHorizontal(){
-
-
+export function ListBoxMainHorizontal() {
     const horizontalItems = [
         {
             id: '0',
             title: 'Financeiro',
             image: require('../../../assets/financeiro.png'),
-            disabled: {
-                backgroundColor: '#a9a9a9'
-            },
-            route: 'Home'
+            route: 'Financeiro'
         },
         {
             id: '1',
@@ -30,14 +23,11 @@ export function ListBoxMainHorizontal(){
             route: 'Servicos'
         },
     ]
-    
+
     return (
-        <View style={styles.divScroll}>
+        <View style={styles.quickAccessGrid}>
             {horizontalItems.map((item) => {
-                if(item.id === '0'){
-                    return <BoxMainHorizontal key={item.id} title={item.title} image={item.image} color={item.disabled} route={item.route}/>
-                }
-                return <BoxMainHorizontal key={item.id} title={item.title} image={item.image} route={item.route}/>
+                return <BoxMainHorizontal key={item.id} title={item.title} image={item.image} route={item.route} />
             })}
         </View>
     )

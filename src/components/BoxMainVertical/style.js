@@ -3,40 +3,50 @@ import { colors } from "../../../styles/theme";
 
 export const styles = StyleSheet.create({
     box: {
-        padding: 15,
-        marginTop: 15,
-        height: 90,
-        backgroundColor: colors.white,
-        borderRadius: 15,
-        justifyContent: 'space-between',
-        
-        shadowColor: colors.black,
-        shadowOffset: {width: 2, height: 4},
-        shadowOpacity: 0.2,
-        shadowRadius: 3,
-        elevation: 4
-    },
-
-    boxHeader:{
         flexDirection: 'row',
-    },
+        alignItems: 'center',
+        padding: 16,
+        marginBottom: 12,
+        backgroundColor: colors.white,
+        borderRadius: 16,
+        borderWidth: 1,
+        borderColor: '#f1f5f9',
 
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.03,
+        shadowRadius: 8,
+        elevation: 1,
+    },
+    contentContainer: {
+        flex: 1,
+        marginLeft: 12,
+    },
     title: {
-        fontSize: 16,
-        color: colors.black,
-        fontFamily: 'Inter_700Bold'
+        fontSize: 15,
+        color: colors.gray[800],
+        fontWeight: '600',
+        marginBottom: 2,
     },
-
     description: {
-        color: colors.gray[300],
-        fontFamily: 'Inter_400Regular'
+        color: colors.gray[500],
+        fontSize: 12,
+        lineHeight: 16,
+    },
+    iconContainer: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        backgroundColor: colors.gray[50],
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     icon: {
-        marginRight: 10,
-        height: 25,
-        width: 25
+        height: 20,
+        width: 20,
+        tintColor: colors.primary[500],
     },
     listMap: {
-        width: "90%"
+        width: "100%",
     }
 })
