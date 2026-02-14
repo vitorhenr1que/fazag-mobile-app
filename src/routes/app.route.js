@@ -17,7 +17,11 @@ import { BibliotecaVirtual } from '../pages/BibliotecaVirtual';
 import { Nusp } from '../pages/Nusp';
 
 
-import { Financeiro } from '../pages/Financeiro'; // Nova importação
+import { Financeiro } from '../pages/Financeiro';
+import { Eventos } from '../pages/Eventos';
+import { EventoDetail } from '../pages/Eventos/EventoDetail';
+import { MinhasInscricoes } from '../pages/Eventos/MinhasInscricoes';
+import { CertificateViewer } from '../pages/Eventos/CertificateViewer';
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -116,6 +120,10 @@ export default function AppRoute() {
         <Stack.Screen name='BibliotecaVirtual' component={BibliotecaVirtual} />
         <Stack.Screen name='Nusp' component={Nusp} />
         <Stack.Screen name='Financeiro' component={Financeiro} />
+        <Stack.Screen name='Eventos' component={Eventos} />
+        <Stack.Screen name='EventoDetail' component={EventoDetail} />
+        <Stack.Screen name='MinhasInscricoes' component={MinhasInscricoes} />
+        <Stack.Screen name='CertificateViewer' component={CertificateViewer} />
       </Stack.Navigator>
     </>
   );
