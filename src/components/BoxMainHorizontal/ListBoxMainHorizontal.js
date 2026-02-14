@@ -18,9 +18,9 @@ export function ListBoxMainHorizontal() {
         },
         {
             id: '2',
-            title: 'Serviços',
-            image: require('../../../assets/servicos.png'),
-            route: 'Servicos'
+            title: 'Eventos',
+            image: require('../../../assets/calendar.png'),
+            route: 'Eventos'
         },
     ]
 
