@@ -61,8 +61,12 @@ export const EventosService = {
     /**
      * Lista as inscrições do aluno logado
      */
-    listMinhasInscricoes: async () => {
-        const response = await eventosApi.get('/minhas-inscricoes');
+    listMinhasInscricoes: async (matricula) => {
+        const response = await eventosApi.get('/minhas-inscricoes/', {
+            headers: {
+                'x-aluno-id': matricula
+            }
+        });
         return response.data;
     },
 

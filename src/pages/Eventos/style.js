@@ -380,5 +380,30 @@ export const styles = StyleSheet.create({
         color: colors.gray[400],
         fontSize: 14,
         fontWeight: '500',
-    }
+    },
+    tabBar: {
+        flexDirection: 'row',
+        backgroundColor: colors.white,
+        paddingHorizontal: 16,
+        borderBottomWidth: 1,
+        borderBottomColor: colors.gray[100],
+    },
+    tab: {
+        flex: 1,
+        paddingVertical: 16,
+        alignItems: 'center',
+        borderBottomWidth: 3,
+        borderBottomColor: 'transparent',
+    },
+    activeTab: {
+        borderBottomColor: colors.primary[600],
+    },
+    tabText: {
+        fontSize: 14,
+        color: colors.gray[400],
+        fontWeight: '600',
+    },
+    activeTabText: {
+        color: colors.primary[600],
+    },
 });
