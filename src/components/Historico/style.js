@@ -2,21 +2,27 @@ import { StyleSheet } from "react-native";
 import { colors } from "../../../styles/theme";
 
 export const styles = StyleSheet.create({
-    container: {
-        marginTop: 8,
-        width: '100%',
-        height: '100%'
-    },
     buttonGenerateHistoric: {
+        width: '100%',
+        paddingVertical: 18,
+        backgroundColor: colors.white,
+        borderRadius: 16,
+        borderWidth: 1,
+        borderColor: '#f1f5f9',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
 
-        
-        padding: 15,
-        backgroundColor: colors.gray[500],
-        borderRadius: 4,
-       
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.05,
+        shadowRadius: 10,
+        elevation: 2,
     },
     textButton: {
-        textAlign: 'center',
-        color: colors.white
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: colors.gray[800],
+        marginLeft: 10,
     }
-})
+});

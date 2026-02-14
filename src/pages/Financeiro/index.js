@@ -4,16 +4,13 @@ import {
     Text,
     FlatList,
     TouchableOpacity,
-    ActivityIndicator,
-    Alert,
-    Clipboard
+    ActivityIndicator
 } from 'react-native';
-import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import { styles } from './style';
 import { colors } from '../../../styles/theme';
 import { AuthContext } from '../../contexts/auth';
 import { useTitulos } from '../../hooks/useTitulos';
-import { usePagamentos } from '../../hooks/usePagamentos';
 import { FinancialUtils } from '../../services/qualinfo/qualinfoService';
 
 /**
@@ -23,23 +20,21 @@ export function Financeiro() {
     const { user } = useContext(AuthContext);
     const [activeTab, setActiveTab] = useState('pendentes'); // 'pendentes' | 'pagos'
 
-    // Utilizando os hooks customizados que abstraem a fonte de dados (MOCK/REAL)
+    // Utilizando o hook customizado que abstrai a fonte de dados (MOCK/REAL)
     const alunoId = user?.aluno_id || user?.id;
     const { titulos, loading: loadingTitulos, refresh: refreshTitulos } = useTitulos(alunoId);
-    const { pagamentos, loading: loadingPagos, refresh: refreshPagos } = usePagamentos(alunoId);
 
-    const loading = activeTab === 'pendentes' ? loadingTitulos : loadingPagos;
+    const loading = loadingTitulos;
 
-    const copyToClipboard = (text, label) => {
-        Clipboard.setString(text);
-        Alert.alert('Copiado', `${label} copiado para a área de transferência.`);
-    };
+    const titulosPendentes = titulos.filter(t => ['B', 'V', 'A'].includes(t.titulo_situacao));
+    const titulosHistorico = titulos.filter(t => ['P', 'C'].includes(t.titulo_situacao));
 
     const renderBoleto = ({ item }) => {
         const status = FinancialUtils.getStatusMapping(item.titulo_situacao);
+        const isHistórico = ['P', 'C'].includes(item.titulo_situacao);
 
         return (
-            <View style={styles.card}>
+            <View style={[styles.card, isHistórico && { opacity: 0.9 }]}>
                 <View style={styles.cardHeader}>
                     <Text style={styles.cardTitle}>{item.taxa_descricao}</Text>
                     <View style={[styles.badge, { backgroundColor: status.color + '20' }]}>
@@ -49,7 +44,7 @@ export function Financeiro() {
 
                 <View style={styles.cardBody}>
                     <View style={styles.priceRow}>
-                        <Text style={styles.label}>Vencimento:</Text>
+                        <Text style={styles.label}>{isHistórico ? "Data de Referência:" : "Vencimento:"}</Text>
                         <Text style={styles.value}>{new Date(item.titulo_vencimento).toLocaleDateString('pt-BR')}</Text>
                     </View>
 
@@ -65,46 +60,22 @@ export function Financeiro() {
                     )}
 
                     <View style={styles.priceRow}>
-                        <Text style={styles.label}>Valor líquido estimado:</Text>
+                        <Text style={styles.label}>{isHistórico ? "Valor Final:" : "Valor líquido estimado:"}</Text>
                         <Text style={styles.totalValue}>R$ {item.valor_final?.toFixed(2)}</Text>
                     </View>
                 </View>
 
-                <View style={styles.cardFooter}>
-                    <TouchableOpacity
-                        style={styles.actionButton}
-                        onPress={() => copyToClipboard(item.titulo_id.toString(), 'Código de barras')}
-                    >
-                        <Feather name="copy" size={16} color={colors.white} />
-                        <Text style={styles.actionButtonText}>Copiar Código</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        style={[styles.actionButton, styles.pixButton]}
-                        onPress={() => copyToClipboard('PIX_MOCK_PAYMENT_DATA', 'Pix')}
-                    >
-                        <MaterialCommunityIcons name="pix" size={16} color={colors.white} />
-                        <Text style={styles.actionButtonText}>Pagar com PIX</Text>
-                    </TouchableOpacity>
-                </View>
+                {item.titulo_situacao === 'P' && (
+                    <View style={[styles.cardFooter, { backgroundColor: '#f0fdf4', borderTopWidth: 0 }]}>
+                        <Feather name="check-circle" size={16} color={colors.green[200]} />
+                        <Text style={{ marginLeft: 8, color: '#166534', fontWeight: '600' }}>Pago em {item.data_atualizacao ? new Date(item.data_atualizacao).toLocaleDateString('pt-BR') : '--/--/----'}</Text>
+                    </View>
+                )}
             </View>
         );
     };
 
-    const renderPagamento = ({ item }) => (
-        <View style={styles.paymentItem}>
-            <View style={styles.paymentLeft}>
-                <Feather name="check-circle" size={24} color={colors.green[200]} />
-                <View style={styles.paymentInfo}>
-                    <Text style={styles.paymentTitle}>{item.descricao}</Text>
-                    <Text style={styles.paymentSub}>{item.metodo} • {new Date(item.data_pagamento).toLocaleDateString('pt-BR')}</Text>
-                </View>
-            </View>
-            <Text style={styles.paymentValue}>R$ {item.valor_pago.toFixed(2)}</Text>
-        </View>
-    );
-
-    if (loading && (titulos.length === 0 && pagamentos.length === 0)) {
+    if (loading && titulos.length === 0) {
         return (
             <View style={styles.loadingContainer}>
                 <ActivityIndicator size="large" color={colors.blue[500]} />
@@ -137,7 +108,7 @@ export function Financeiro() {
 
             {activeTab === 'pendentes' ? (
                 <FlatList
-                    data={titulos}
+                    data={titulosPendentes}
                     keyExtractor={item => item.titulo_id.toString()}
                     renderItem={renderBoleto}
                     onRefresh={refreshTitulos}
@@ -152,16 +123,16 @@ export function Financeiro() {
                 />
             ) : (
                 <FlatList
-                    data={pagamentos}
-                    keyExtractor={item => item.id.toString()}
-                    renderItem={renderPagamento}
-                    onRefresh={refreshPagos}
-                    refreshing={loadingPagos}
+                    data={titulosHistorico}
+                    keyExtractor={item => item.titulo_id.toString()}
+                    renderItem={renderBoleto}
+                    onRefresh={refreshTitulos}
+                    refreshing={loadingTitulos}
                     contentContainerStyle={styles.listContent}
                     ListEmptyComponent={
                         <View style={styles.emptyState}>
                             <Feather name="frown" size={48} color={colors.gray[300]} />
-                            <Text style={styles.emptyText}>Nenhum pagamento registrado.</Text>
+                            <Text style={styles.emptyText}>Nenhum registro no histórico.</Text>
                         </View>
                     }
                 />

@@ -1,14 +1,20 @@
-import { useContext } from "react"
-import { Text, View } from "react-native"
-import { AuthContext } from "../../contexts/auth"
+export function nomeAluno(user) {
+    // Suporte para novo contrato (Qualinfo) e legado (name)
+    const fullName = user?.aluno_nome_social || user?.aluno_nome || user?.name || "Estudante";
 
-export function nomeAluno(){
-    const {user} = useContext(AuthContext)
-    const firstNameLowerCase = user.name.split(' ')[0].toLowerCase().split("")
-    const firstLetterUpperCase = firstNameLowerCase[0].toUpperCase()
-    const restName = firstNameLowerCase.splice(1)
-    const firstname = [firstLetterUpperCase, ...restName].join('')
+    try {
+        const names = fullName.split(' ');
+        const firstName = names[0] || "Estudante";
+        const firstNameLowerCase = firstName.toLowerCase().split("");
 
-    return firstname
-    
+        if (firstNameLowerCase.length === 0) return "Estudante";
+
+        const firstLetterUpperCase = firstNameLowerCase[0].toUpperCase()
+        const restName = firstNameLowerCase.slice(1)
+        const firstname = [firstLetterUpperCase, ...restName].join('')
+
+        return firstname
+    } catch (error) {
+        return "Estudante"
+    }
 }

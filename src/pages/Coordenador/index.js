@@ -1,20 +1,14 @@
-import { Text, TextInput, View,  TouchableOpacity, Modal, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, ScrollView } from 'react-native'
+import { Text, TextInput, View, TouchableOpacity, ScrollView } from 'react-native'
 import { styles } from './style'
-
-import { useEffect, useState } from 'react'
-import { Header } from '../../components/Header'
-import { Inter_600SemiBold, Inter_400Regular, useFonts } from '@expo-google-fonts/inter'
-import { useLinkProps } from '@react-navigation/native'
+import { useState } from 'react'
 import { api } from '../../services/api'
 import { Loading } from '../../components/Loading'
 import InputScrollView from 'react-native-input-scroll-view'
-import {Picker} from '@react-native-picker/picker';
-import { TextFont } from '../../components/Basics/TextFont'
 import { colors } from '../../../styles/theme'
-import { ModalCoordenador } from '../../components/ModalForms/ModalCoordenador'
+import { LinearGradient } from 'expo-linear-gradient'
+import { ModernSelectModal } from '../../components/ModernSelectModal'
 
-
-export function Coordenador(){
+export function Coordenador() {
 
     const [nome, setNome] = useState('')
     const [email, setEmail] = useState('')
@@ -22,22 +16,6 @@ export function Coordenador(){
     const [loading, setLoading] = useState(false)
     const [selectedValue, setSelectedValue] = useState('')
     const [modalVisible, setModalVisible] = useState(false)
-
-    const options = [
-        {label: 'Administração', value: 0},
-        {label: 'Ciências Contábeis', value: 1},
-        {label: 'Educação Física (Licenciatura)', value: 2},
-        {label: 'Educação Física (Bacharelado)', value: 3},
-        {label: 'Enfermagem', value: 4},
-        {label: 'Engenharia Civil', value: 5},
-        {label: 'Estética', value: 6},
-        {label: 'Farmácia', value: 7},
-        {label: 'Fisioterapia', value: 8},
-        {label: 'Nutrição', value: 9},
-        {label: 'Pedagogia', value: 10},
-        {label: 'Psicologia', value: 11},
-        {label: 'Serviço Social', value: 12}
-    ]
 
     const cursos = {
         "0": 'Administração',
@@ -55,6 +33,12 @@ export function Coordenador(){
         "12": 'Serviço Social'
     }
 
+    // Convert cursos object to array options for ModernSelectModal
+    const courseOptions = Object.entries(cursos).map(([key, value]) => ({
+        label: value,
+        value: key
+    })).sort((a, b) => a.label.localeCompare(b.label)); // Alphabetical sort
+
     const emailCoordenador = {
         "0": 'administracao@fazag.edu.br',
         "1": 'cienciascontabeis@fazag.edu.br',
@@ -71,106 +55,109 @@ export function Coordenador(){
         "12": 'servicosocial@fazag.edu.br'
     }
 
-    
-    const [fontLoaded] = useFonts({
-        Inter_600SemiBold, Inter_400Regular
-    })
-    if(!fontLoaded){
-        return null
-    }
+    async function enviarForm() {
+        if (nome === '' || email === '' || mensagem === '' || selectedValue === null || selectedValue === '') {
+            return alert('Preencha todos os campos.')
+        }
+        setLoading(true)
+        try {
 
-
-
-
-    async function enviarForm(){
-    if(nome === '' || email === '' || mensagem === '' || selectedValue === null){
-       return alert('Preencha todos os campos.')
-    }
-    setLoading(true)
-    try {
-
-       await api.post('ouvidoria/coordenador', {
-            nome,
-            email,
-            curso: cursos[selectedValue],
-            text: mensagem,
+            await api.post('ouvidoria/coordenador', {
+                nome,
+                email,
+                curso: cursos[selectedValue],
+                text: mensagem,
             }).then(e => console.log(`${e.data} - enviou! OUVIDORIA`))
 
-        await api.post('ouvidoria/emailcoordenador', {
-            nome,
-            email,
-            curso: cursos[selectedValue],
-            emailCoordenador: emailCoordenador[selectedValue],
-            text: mensagem,
-        }).then(e => console.log(`${e.data} - enviou! NODEMAILER`))
+            await api.post('ouvidoria/emailcoordenador', {
+                nome,
+                email,
+                curso: cursos[selectedValue],
+                emailCoordenador: emailCoordenador[selectedValue],
+                text: mensagem,
+            }).then(e => console.log(`${e.data} - enviou! NODEMAILER`))
 
-        setLoading(false)
-        return alert('Sua mensagem foi enviada!')
+            setLoading(false)
+            return alert('Sua mensagem foi enviada!')
 
-        } catch(err) {
+        } catch (err) {
             console.log(err.message)
             setLoading(false)
             return alert(err.message)
         }
-        
+
     }
 
-
-    function fecharModal(){
-        if(modalVisible === true){
-            setModalVisible(false)
-        }
-    }
-
-                                                                                    // Fechar em 1 segundo quando soltar o toque para dar tempo de pegar o valor no iOS
-    return(
-         <InputScrollView keyboardOffset={250} showsVerticalScrollIndicator={false} onTouchEnd={() => {
-            setTimeout(() => {
-                fecharModal()
-            }, 1000)
-         }}>
-
-        {loading && <Loading/>}
-       <View style={styles.lowerHeader}>
+    return (
         <View style={styles.container}>
-            
-            <Text style={styles.title}>Fale com o seu coordenador</Text>
-            <Text style={styles.subtitle}>.</Text>
+            <InputScrollView
+                keyboardOffset={100}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ flexGrow: 1 }}
+            >
+                {loading && <Loading />}
 
-            <Text style={styles.label}>Nome Completo</Text>
-            <TextInput style={styles.inputs} value={nome} onChangeText={setNome}/>
+                <LinearGradient
+                    colors={[colors.primary[800], colors.primary[600]]}
+                    style={styles.headerGradient}
+                >
+                    <Text style={styles.title}>Fale com o Coordenador</Text>
+                    <Text style={styles.subtitle}>Entre em contato direto com a coordenação{'\n'}do seu curso.</Text>
+                </LinearGradient>
 
-            <Text style={styles.label}>E-mail</Text>
-            <TextInput style={styles.inputs} value={email} onChangeText={setEmail}/>
+                <View style={styles.formContainer}>
+                    <Text style={styles.label}>Nome Completo</Text>
+                    <TextInput
+                        style={styles.inputs}
+                        value={nome}
+                        onChangeText={setNome}
+                        placeholder="Digite seu nome"
+                        placeholderTextColor={colors.gray[400]}
+                    />
 
-           
-            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)} style={styles.selectTextContainer}>
-                    <TextFont texto={"Selecione seu Curso"} color={colors.white} fontWeight={'bold'}/>
-                    <TextFont texto={cursos[selectedValue]} color={colors.gray[100]}/>
-            </TouchableOpacity>
+                    <Text style={styles.label}>E-mail</Text>
+                    <TextInput
+                        style={styles.inputs}
+                        value={email}
+                        onChangeText={setEmail}
+                        placeholder="seuemail@exemplo.com"
+                        keyboardType="email-address"
+                        autoCapitalize="none"
+                        placeholderTextColor={colors.gray[400]}
+                    />
 
+                    <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.selectTextContainer}>
+                        <Text style={styles.selectorLabel}>SEU CURSO</Text>
+                        <Text style={styles.selectorValue}>{cursos[selectedValue] || "Toque para selecionar"}</Text>
+                    </TouchableOpacity>
 
-  
-            <Modal visible={modalVisible} animationType='slide' transparent={true}>
-             <ModalCoordenador fecharModal={fecharModal} selectedValue={selectedValue} setSelectedValue={setSelectedValue}/>
-            </Modal> 
+                    <Text style={styles.label}>Mensagem</Text>
+                    <TextInput
+                        style={[styles.inputs, { height: 120, paddingTop: 15, textAlignVertical: 'top' }]}
+                        multiline
+                        numberOfLines={4}
+                        value={mensagem}
+                        onChangeText={setMensagem}
+                        placeholder="Escreva sua mensagem aqui..."
+                        placeholderTextColor={colors.gray[400]}
+                    />
 
-             
-        
-
-            <Text style={styles.label}>Mensagem</Text>
-
-            <TextInput style={[styles.inputs, {height: 150, textAlignVertical: 'top'}]} multiline numberOfLines={4} value={mensagem} scrollEnabled={false} onChangeText={setMensagem} />
- 
-            <TouchableOpacity onPress={enviarForm}>
-                <View style={styles.submit}>
-                    <Text style={styles.submitText}>Enviar</Text>
+                    <TouchableOpacity onPress={enviarForm} activeOpacity={0.8}>
+                        <View style={styles.submit}>
+                            <Text style={styles.submitText}>Enviar Mensagem</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
-            </TouchableOpacity>
+
+                <ModernSelectModal
+                    visible={modalVisible}
+                    onClose={() => setModalVisible(false)}
+                    title="Selecione seu Curso"
+                    options={courseOptions}
+                    onSelect={setSelectedValue}
+                    selectedValue={selectedValue}
+                />
+            </InputScrollView>
         </View>
-        </View>
- 
-        </InputScrollView>
-        
     )
 }

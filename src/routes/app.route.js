@@ -22,52 +22,71 @@ import { Financeiro } from '../pages/Financeiro'; // Nova importação
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
 
-const icons = {
-  Home: {
-    name: 'home-outline'
-  },
-  AVA: {
-    name: 'chalkboard-teacher'
-  },
-  Mapa_de_Sala: {
-    name: 'map'
-  },
-  Perfil: {
-    name: 'user'
-  },
-}
+import { View, Platform } from 'react-native';
+import { colors } from '../../styles/theme';
 
 function Tabs() {
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({ // pegar a rota atual
-        tabBarIcon: ({ color, size }) => {
-          const { name } = icons[route.name] //desestruture o "name:" de dentro da const icons['rota.name']
-          if (name === 'home-outline') {
-            return <Ionicons name={name} size={size} color={color} />
-          }
-          if (name === 'chalkboard-teacher') {
-            return <FontAwesome5 name={name} size={size} color={color} />
-          }
-          if (name === 'map') {
-            return <Feather name="map" size={size} color={color} />
-          }
-          if (name === 'user') {
-            return <Feather name={name} size={size} color={color} />
-          }
-        },
-        tabBarStyle: { // Estilo da Barra de Navegação
-          height: "8%",
-          alignItems: 'center',
-
-        },
-        tabBarActiveTintColor: 'black',
-        //tabBarInactiveTintColor: 'black',
+      screenOptions={({ route }) => ({
         headerShown: false,
-      }
+        tabBarShowLabel: false, // Cleaner look without labels, or keep true if preferred
+        tabBarActiveTintColor: colors.primary[600],
+        tabBarInactiveTintColor: colors.gray[400],
+        tabBarStyle: {
+          position: 'absolute',
+          bottom: Platform.OS === 'ios' ? 30 : 20,
+          left: 20,
+          right: 20,
+          elevation: 5,
+          backgroundColor: colors.white,
+          borderRadius: 25,
+          height: 70,
+          borderTopWidth: 0,
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 4,
+          },
+          shadowOpacity: 0.1,
+          shadowRadius: 10,
+          paddingBottom: 0, // Fix alignment
+        },
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
 
+          if (route.name === 'Home') {
+            iconName = focused ? 'home' : 'home-outline';
+          } else if (route.name === 'AVA') {
+            iconName = focused ? 'school' : 'school-outline';
+          } else if (route.name === 'Mapa_de_Sala') {
+            iconName = focused ? 'map' : 'map-outline';
+          } else if (route.name === 'Perfil') {
+            iconName = focused ? 'person' : 'person-outline';
+          }
 
-      )}>
+          // Custom styling for active icon container
+          return (
+            <View style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              top: Platform.OS === 'ios' ? 10 : 0
+            }}>
+              <Ionicons name={iconName} size={26} color={color} />
+              {focused && (
+                <View style={{
+                  width: 6,
+                  height: 6,
+                  borderRadius: 3,
+                  backgroundColor: colors.primary[600],
+                  marginTop: 6
+                }} />
+              )}
+            </View>
+          );
+        },
+      })}
+    >
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="AVA" component={Ava} />
       <Tab.Screen name="Mapa_de_Sala" component={MapaDeSala} />

@@ -75,14 +75,84 @@ const ALUNO_QUALINFO_MOCK = {
 // 2. Mock de Títulos/Boletos
 const TITULOS_MOCK = [
     {
+        titulo_id: 1767110,
+        taxa_id: "10587",
+        taxa_descricao: "PARCELA-RFC",
+        taxa_categoria: "00002",
+        taxa_categoria_descricao: "Parcela",
+        titulo_vencimento: "2026-03-05",
+        titulo_valor: 591.34,
+        titulo_mes_ref: "03",
+        titulo_ano_ref: "2026",
+        titulo_situacao: "P",
+        titulo_observacao: "Aluno indicou o amigo",
+        titulo_tipo: "Crédito",
+        aluno_id: "ADM200026",
+        aluno_nome: "Fernando Figueiredo",
+        curso_id: "00003",
+        curriculo_id: "ADM20111",
+        turma_id: "ADM03-N",
+        data_atualizacao: "2026-02-13",
+        beneficios: [
+            {
+                titulo_id: 1,
+                beneficio_id: "10",
+                beneficio_incidencia: "I",
+                beneficio_incidencia_grupo: "0",
+                beneficio_tipo_grupo: "G",
+                beneficio_descricao: "DESCONTO AUTORIZADO",
+                beneficio_valor: "40",
+                beneficio_dia_incidencia_inicial: "01",
+                beneficio_dia_incidencia_final: "32",
+                beneficio_tipo_valor: "P",
+                data_atualizacao: "2018-08-13 00:00:00.000"
+            }
+        ]
+    },
+    {
         titulo_id: 176720,
         taxa_id: "10587",
         taxa_descricao: "PARCELA-RFC",
         taxa_categoria: "00002",
         taxa_categoria_descricao: "Parcela",
-        titulo_vencimento: "2026-04-24",
+        titulo_vencimento: "2026-01-05",
         titulo_valor: 591.34,
         titulo_mes_ref: "01",
+        titulo_ano_ref: "2026",
+        titulo_situacao: "P",
+        titulo_observacao: "Aluno indicou o amigo",
+        titulo_tipo: "Crédito",
+        aluno_id: "ADM200026",
+        aluno_nome: "Fernando Figueiredo",
+        curso_id: "00003",
+        curriculo_id: "ADM20111",
+        turma_id: "ADM03-N",
+        data_atualizacao: "2026-01-05",
+        beneficios: [
+            {
+                titulo_id: 1,
+                beneficio_id: "10",
+                beneficio_incidencia: "I",
+                beneficio_incidencia_grupo: "0",
+                beneficio_tipo_grupo: "G",
+                beneficio_descricao: "DESCONTO AUTORIZADO",
+                beneficio_valor: "40",
+                beneficio_dia_incidencia_inicial: "01",
+                beneficio_dia_incidencia_final: "32",
+                beneficio_tipo_valor: "P",
+                data_atualizacao: "2018-08-13 00:00:00.000"
+            }
+        ]
+    },
+    {
+        titulo_id: 176725,
+        taxa_id: "10582",
+        taxa_descricao: "PARCELA-RFC",
+        taxa_categoria: "00002",
+        taxa_categoria_descricao: "Parcela",
+        titulo_vencimento: "2026-02-05",
+        titulo_valor: 591.34,
+        titulo_mes_ref: "02",
         titulo_ano_ref: "2026",
         titulo_situacao: "B",
         titulo_observacao: "Aluno indicou o amigo",
@@ -92,7 +162,7 @@ const TITULOS_MOCK = [
         curso_id: "00003",
         curriculo_id: "ADM20111",
         turma_id: "ADM03-N",
-        data_atualizacao: "2023-04-25",
+        data_atualizacao: "2026-02-13",
         beneficios: [
             {
                 titulo_id: 1,
@@ -101,7 +171,7 @@ const TITULOS_MOCK = [
                 beneficio_incidencia_grupo: "0",
                 beneficio_tipo_grupo: "G",
                 beneficio_descricao: "DESCONTO AUTORIZADO",
-                beneficio_valor: "63.0000",
+                beneficio_valor: "40",
                 beneficio_dia_incidencia_inicial: "01",
                 beneficio_dia_incidencia_final: "32",
                 beneficio_tipo_valor: "P",
@@ -209,11 +279,11 @@ export const FinancialUtils = {
      */
     getStatusMapping: (situacao) => {
         const mappings = {
-            'B': { label: 'EM ABERTO', color: '#0478F0' },
-            'V': { label: 'VENCIDO', color: '#f63c5b' },
-            'P': { label: 'PAGO', color: '#66CDAA' },
-            'C': { label: 'CANCELADO', color: '#a9a9a9' },
-            'A': { label: 'EM ACORDO', color: '#9370DB' }
+            'B': { label: 'EM ABERTO', color: '#0ea5e9' }, // Blue Sky
+            'V': { label: 'VENCIDO', color: '#ef4444' },   // Red vibrant
+            'P': { label: 'PAGO', color: '#10b981' },      // Emerald Green (Premium)
+            'C': { label: 'CANCELADO', color: '#94a3b8' }, // Slate Blue/Gray
+            'A': { label: 'EM ACORDO', color: '#8b5cf6' }  // Violet/Purple
         };
         return mappings[situacao] || { label: 'DESCONHECIDO', color: '#7a7a7a' };
     },
@@ -244,21 +314,30 @@ export const FinancialUtils = {
      */
     getSummary: (titulos) => {
         const agora = new Date();
-        const abertos = titulos.filter(t => t.titulo_situacao === 'B');
+        // Pendentes: Aberto, Vencido, Acordo
+        const abertos = titulos.filter(t => ['B', 'V', 'A'].includes(t.titulo_situacao));
         const pagos = titulos.filter(t => t.titulo_situacao === 'P');
 
         const totalAberto = abertos.reduce((acc, t) => acc + (t.valor_final || t.titulo_valor), 0);
         const totalPago = pagos.reduce((acc, t) => acc + t.titulo_valor, 0);
 
-        const proximo = abertos
-            .map(t => new Date(t.titulo_vencimento))
-            .filter(d => d >= agora)
-            .sort((a, b) => a - b)[0];
+        // Busca o título pendente com vencimento mais próximo
+        const sortedAbertos = [...abertos].sort((a, b) => new Date(a.titulo_vencimento) - new Date(b.titulo_vencimento));
+        const maisUrgente = sortedAbertos[0];
+
+        // Se não houver pendentes, pegamos o status do último título processado (pago ou cancelado)
+        let fallbackStatus = null;
+        if (!maisUrgente && titulos.length > 0) {
+            // Ordena por data de atualização ou vencimento decrescente para pegar o último
+            const sortedTodos = [...titulos].sort((a, b) => new Date(b.titulo_vencimento) - new Date(a.titulo_vencimento));
+            fallbackStatus = sortedTodos[0].titulo_situacao;
+        }
 
         return {
             totalAberto,
             totalPago,
-            proximoVencimento: proximo ? proximo.toISOString() : null,
+            proximoVencimento: maisUrgente ? maisUrgente.titulo_vencimento : null,
+            proximoStatus: maisUrgente ? maisUrgente.titulo_situacao : fallbackStatus,
             quantidade: abertos.length
         };
     }

@@ -1,86 +1,112 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import { colors } from "../../../styles/theme";
 
 export const styles = StyleSheet.create({
-    lowerHeader: {
-        backgroundColor: colors.gray[800],
-        
-    },
     container: {
-        backgroundColor: colors.white,
-        borderTopEndRadius: 20,
-        borderTopLeftRadius: 20,
-        padding: 30,
-        
+        flex: 1,
+        backgroundColor: colors.gray[50],
+    },
+    headerGradient: {
+        width: '100%',
+        paddingTop: 60,
+        paddingBottom: 40,
+        paddingHorizontal: 25,
+        borderBottomLeftRadius: 30,
+        borderBottomRightRadius: 30,
+        alignItems: 'center',
     },
     title: {
-        fontSize: 30,
-        fontFamily: 'Inter_600SemiBold'
+        fontSize: 28,
+        fontWeight: 'bold',
+        color: colors.white,
+        textAlign: 'center',
+        marginBottom: 8,
     },
-    subtitle: { 
-        fontFamily: 'Inter_400Regular' 
+    subtitle: {
+        fontSize: 14,
+        color: 'rgba(255,255,255,0.8)',
+        textAlign: 'center',
+        lineHeight: 20,
+    },
+    formContainer: {
+        flex: 1,
+        marginTop: -30,
+        backgroundColor: colors.white,
+        marginHorizontal: 20,
+        borderRadius: 20,
+        padding: 25,
+        marginBottom: 30,
+
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.1,
+        shadowRadius: 10,
+        elevation: 5,
+    },
+    label: {
+        fontSize: 14,
+        fontWeight: '600',
+        color: colors.gray[700],
+        marginBottom: 8,
+        marginTop: 15,
     },
     inputs: {
         width: "100%",
         height: 50,
+        backgroundColor: colors.gray[50],
         borderWidth: 1,
-        borderRadius: 4,
-        padding: 15
+        borderColor: colors.gray[200],
+        borderRadius: 12,
+        paddingHorizontal: 15,
+        fontSize: 15,
+        color: colors.gray[800],
     },
-    containerDoublePicker: {
-        width: '100%',
+    vinculoMotivoContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-
-
-    },
-    viewPicker: {
-        width: "49%",
-        
-    },
-    picker: {
-        width: "100%",
-        height: 50,
-        borderWidth: 0,
-        borderRadius: 4,
-        padding: 15,
-        borderColor: colors.black,
-        textDecorationLine: 'underline',
-        backgroundColor: colors.black,
-        color: colors.white,
-        fontFamily: 'Inter_400Regular'
-    },
-    label: {
         marginTop: 20,
-        marginBottom: 5,
-        textAlign: 'left',
-        fontFamily: 'Inter_400Regular'
+    },
+    vinculMotivoTextContainer: {
+        backgroundColor: colors.gray[50],
+        width: '48%',
+        padding: 12,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 12,
+        borderWidth: 1,
+        borderColor: colors.gray[200],
+        borderStyle: 'dashed',
+    },
+    selectorLabel: {
+        fontSize: 12,
+        fontWeight: 'bold',
+        color: colors.primary[600],
+        marginBottom: 4,
+        textTransform: 'uppercase',
+    },
+    selectorValue: {
+        fontSize: 14,
+        color: colors.gray[800],
+        fontWeight: '500',
     },
     submit: {
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 13,
-        height: 60,
+        marginTop: 30,
+        height: 56,
         width: '100%',
-        backgroundColor: colors.black,
-        borderRadius: 8
+        backgroundColor: colors.primary[600],
+        borderRadius: 16,
+
+        shadowColor: colors.primary[600],
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 8,
+        elevation: 4,
     },
     submitText: {
         color: colors.white,
-        fontFamily: 'Inter_400Regular'
+        fontSize: 16,
+        fontWeight: 'bold',
     },
- 
-    vinculoMotivoContainer: {
-        marginTop: 20,
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-    },
-    vinculMotivoTextContainer: {
-        backgroundColor: colors.gray[800],
-        width: '49%',
-        padding: 8,
-        alignItems: 'center',
-        borderRadius: 4
-    }
-
 })

@@ -1,76 +1,100 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import { colors } from "../../../styles/theme";
+
+const { height } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
     modalContainer: {
         flex: 1,
-        justifyContent: 'flex-end', 
-
+        justifyContent: 'flex-end',
+        backgroundColor: 'rgba(0,0,0,0.4)', // Dim background
     },
     modal: {
-        position: 'absolute',
         width: '100%',
-        height: 480,
         backgroundColor: colors.white,
-        borderTopEndRadius: 30,
-        borderTopStartRadius: 30,
-        justifyContent: 'space-around',
-        padding: 30,
-        backgroundColor: colors.white,
-        zIndex: 1,
+        borderTopLeftRadius: 32,
+        borderTopRightRadius: 32,
+        paddingHorizontal: 30,
+        paddingTop: 30,
+        paddingBottom: 40,
+        minHeight: height * 0.55,
+        justifyContent: 'flex-start',
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: -4 },
+        shadowOpacity: 0.1,
+        shadowRadius: 12,
+        elevation: 20,
     },
     titleContainer: {
-        alignItems: 'center'
+        alignItems: 'center',
+        marginBottom: 30,
     },
     title: {
-        fontFamily: 'Inter_700Bold',
-        fontSize: 40
+        fontSize: 32,
+        fontWeight: 'bold',
+        color: colors.gray[900],
+        marginBottom: 8,
     },
     subtitle: {
-        fontFamily: 'Inter_400Regular',
-        color: colors.gray[300]
+        fontSize: 14,
+        color: colors.gray[500],
+        textAlign: 'center',
     },
     userVerification: {
-        fontFamily: 'Inter_400Regular',
-        color: colors.red[300],
-        fontSize: 12,
-        marginTop: 7
+        color: colors.red[500],
+        fontSize: 13,
+        marginTop: 10,
+        fontWeight: '500',
+        textAlign: 'center',
     },
     inputContainer: {
-
+        width: '100%',
+        marginBottom: 25,
     },
     inputUser: {
-        backgroundColor: colors.gray[50],
-        paddingLeft: 30,
-        height: 60,
-        width: '100%',
-        borderRadius: 100,
+        backgroundColor: colors.gray[50], // Very light gray
+        height: 56,
+        borderRadius: 16,
+        paddingHorizontal: 20,
+        fontSize: 16,
+        color: colors.gray[800],
+        borderWidth: 1,
+        borderColor: colors.gray[100],
+        marginBottom: 15,
     },
     inputPass: {
         backgroundColor: colors.gray[50],
-        paddingLeft: 30,
-        height: 60,
-        width: '100%',
-        marginTop: 10,
-        borderRadius: 100
+        height: 56,
+        borderRadius: 16,
+        paddingHorizontal: 20,
+        fontSize: 16,
+        color: colors.gray[800],
+        borderWidth: 1,
+        borderColor: colors.gray[100],
     },
     signInButton: {
-        backgroundColor: colors.red[300],
-        height: 60,
-        width: '100%',
-        borderRadius: 100,
+        backgroundColor: colors.primary[600], // Changed from red to primary blue
+        height: 56,
+        borderRadius: 16,
         alignItems: 'center',
         justifyContent: 'center',
+        shadowColor: colors.primary[600],
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.2,
+        shadowRadius: 8,
+        elevation: 4,
+        marginBottom: 20,
     },
     signInButtonText: {
         color: colors.white,
-        fontFamily: 'Inter_700Bold',
-        fontSize: 16
+        fontSize: 16,
+        fontWeight: 'bold',
     },
     forgotPass: {
-        fontFamily: 'Inter_500Medium',
+        color: colors.gray[500],
+        fontSize: 14,
+        fontWeight: '500',
         textAlign: 'center',
-        fontSize: 17
+        textDecorationLine: 'underline',
     },
-  
 })
