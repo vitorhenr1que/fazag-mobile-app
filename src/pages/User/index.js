@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Feather } from '@expo/vector-icons';
@@ -6,11 +6,47 @@ import { AuthContext } from '../../contexts/auth';
 import { styles } from './style';
 import { colors } from '../../../styles/theme';
 import { nomeAluno } from '../../components/nomeAluno';
+import eventosApi from '../../services/eventos/eventosApi';
 
 export function User() {
     const { user, signOut, userHistoric, loading } = useContext(AuthContext);
+    const [totalHours, setTotalHours] = useState(0);
+    const [totalCertificates, setTotalCertificates] = useState(0);
 
     const semestreAtual = userHistoric && userHistoric.length > 0 ? userHistoric[userHistoric.length - 1] : null;
+
+    useEffect(() => {
+        async function loadInscricoes() {
+            if (!user?.id) return;
+
+            try {
+                const response = await eventosApi.get('/minhas-inscricoes/', {
+                    headers: {
+                        'x-aluno-id': user.id
+                    }
+                });
+                if (response.data.success) {
+                    const data = response.data.data;
+                    let hours = 0;
+                    let certificatesCount = 0;
+
+                    data.forEach(item => {
+                        if (item.certificado) {
+                            hours += Number(item.certificado.cargaHorariaTotal) || 0;
+                            certificatesCount++;
+                        }
+                    });
+
+                    setTotalHours(Math.round(hours));
+                    setTotalCertificates(certificatesCount);
+                }
+            } catch (error) {
+                console.error("Erro ao buscar inscrições:", error);
+            }
+        }
+
+        loadInscricoes();
+    }, [user?.id]);
 
     // Helper to format course name
     const getFormattedCourse = () => {
@@ -21,8 +57,8 @@ export function User() {
     const periodoAtual = semestreAtual?.aperiodo ? semestreAtual.aperiodo.split(' ').join('') : (user?.semestre || "1");
     const courseName = getFormattedCourse();
     const semester = user?.semestre || periodoAtual;
-    const hoursCompleted = semestreAtual?.carga_horaria_cursada ? semestreAtual.carga_horaria_cursada.split('.')[0] : "0";
-    const hoursTotal = semestreAtual?.carga_horaria_curso || "0";
+    const hoursCompleted = totalHours;
+    const hoursTotal = totalCertificates;
 
     return (
         <View style={styles.container}>
@@ -49,12 +85,12 @@ export function User() {
                         <View style={styles.statDivider} />
                         <View style={styles.statItem}>
                             <Text style={styles.statValue}>{hoursCompleted}h</Text>
-                            <Text style={styles.statLabel}>Cursadas</Text>
+                            <Text style={styles.statLabel}>Horas</Text>
                         </View>
                         <View style={styles.statDivider} />
                         <View style={styles.statItem}>
-                            <Text style={styles.statValue}>{hoursTotal}h</Text>
-                            <Text style={styles.statLabel}>Total</Text>
+                            <Text style={styles.statValue}>{hoursTotal}</Text>
+                            <Text style={styles.statLabel}>Certificados</Text>
                         </View>
                     </View>
 
