@@ -27,7 +27,6 @@ export function EventoDetail() {
     const [initialSubEventos, setInitialSubEventos] = useState([]);
     const [checkedInEvento, setCheckedInEvento] = useState(false);
     const [subEventsCheckedIn, setSubEventsCheckedIn] = useState([]);
-    const [checkInLoading, setCheckInLoading] = useState(false);
 
     const subEventos = useMemo(() => {
         if (!evento) return [];
@@ -194,13 +193,6 @@ export function EventoDetail() {
         }
     };
 
-    const isCheckInAvailable = (dataInicio) => {
-        if (!dataInicio) return false;
-        const now = new Date();
-        const start = new Date(dataInicio);
-        const diffMinutes = (now - start) / (1000 * 60);
-        return diffMinutes >= -30 && diffMinutes <= 90;
-    };
 
     const isCertificateAvailable = () => {
         if (!evento) return false;
@@ -233,36 +225,6 @@ export function EventoDetail() {
         return canEmit && hasPresence;
     };
 
-    const handleCheckInEvento = async () => {
-        if (!inscricaoId) return;
-        try {
-            setCheckInLoading(true);
-            const response = await EventosService.checkInEvento(inscricaoId);
-            if (response.success) {
-                Alert.alert('Sucesso', 'Check-in realizado com sucesso!');
-                loadData();
-            }
-        } catch (error) {
-            const message = error.response?.data?.error?.message || error.response?.data?.message || 'Não foi possível realizar o check-in.';
-            Alert.alert('Erro', message);
-        } finally {
-            setCheckInLoading(false);
-        }
-    };
-
-    const handleCheckInSubEvento = async (subId) => {
-        if (!inscricaoId) return;
-        try {
-            const response = await EventosService.checkInSubEvento(inscricaoId, subId);
-            if (response.success) {
-                Alert.alert('Sucesso', 'Check-in na atividade realizado!');
-                loadData();
-            }
-        } catch (error) {
-            const message = error.response?.data?.error?.message || error.response?.data?.message || 'Não foi possível realizar o check-in.';
-            Alert.alert('Erro', message);
-        }
-    };
 
     const handleCertificate = async () => {
         if (!inscricaoId) return;
@@ -480,22 +442,8 @@ export function EventoDetail() {
                                                     {isAlreadyRegistered ? (
                                                         subEventsCheckedIn.includes(subIdString) ? (
                                                             <Ionicons name="checkmark-done-circle" size={26} color="#10b981" />
-                                                        ) : isCheckInAvailable(sub.dataInicio) ? (
-                                                            <TouchableOpacity
-                                                                style={{
-                                                                    backgroundColor: colors.green[600],
-                                                                    paddingHorizontal: 12,
-                                                                    paddingVertical: 8,
-                                                                    borderRadius: 8,
-                                                                }}
-                                                                onPress={() => handleCheckInSubEvento(sub.id)}
-                                                            >
-                                                                <Text style={{ color: colors.white, fontSize: 11, fontWeight: 'bold' }}>Check-in</Text>
-                                                            </TouchableOpacity>
                                                         ) : (
-                                                            <View style={{ backgroundColor: colors.gray[100], paddingHorizontal: 8, paddingVertical: 4, borderRadius: 6 }}>
-                                                                <Text style={{ color: colors.gray[400], fontSize: 9, fontWeight: 'bold' }}>Em Breve</Text>
-                                                            </View>
+                                                            <Ionicons name="checkmark-circle" size={26} color={colors.primary[200]} />
                                                         )
                                                     ) : (isFull && !isSelected) ? (
                                                         <Feather name="lock" size={20} color={colors.gray[300]} />
@@ -534,31 +482,12 @@ export function EventoDetail() {
                                 </Text>
                             </View>
 
-                            {inscricaoStatus === 'CONFIRMADA' && subEventos.length === 0 && (
-                                <View style={{ flex: 1.2 }}>
-                                    {!checkedInEvento ? (
-                                        isCheckInAvailable(evento.dataInicio) ? (
-                                            <TouchableOpacity
-                                                style={[styles.registerButton, { backgroundColor: colors.green[600], height: 50, marginTop: 0 }]}
-                                                onPress={handleCheckInEvento}
-                                                disabled={checkInLoading}
-                                            >
-                                                <Feather name="map-pin" size={18} color={colors.white} style={{ marginRight: 6 }} />
-                                                <Text style={[styles.registerButtonText, { fontSize: 14 }]}>
-                                                    {checkInLoading ? '...' : 'Check-in'}
-                                                </Text>
-                                            </TouchableOpacity>
-                                        ) : (
-                                            <View style={[styles.alreadyRegisteredBadge, { backgroundColor: colors.gray[50], borderColor: colors.gray[200], height: 50 }]}>
-                                                <Text style={{ color: colors.gray[400], fontSize: 11, fontWeight: 'bold' }}>Check-in em Breve</Text>
-                                            </View>
-                                        )
-                                    ) : (
-                                        <View style={[styles.alreadyRegisteredBadge, { backgroundColor: '#ccfbf1', borderColor: '#14b8a6', height: 50 }]}>
-                                            <Ionicons name="checkmark-done" size={18} color="#0f766e" />
-                                            <Text style={{ color: '#0f766e', fontSize: 13, fontWeight: 'bold', marginLeft: 5 }}>Presente</Text>
-                                        </View>
-                                    )}
+                            {inscricaoStatus === 'CONFIRMADA' && subEventos.length === 0 && checkedInEvento && (
+                                <View style={{ flex: 1 }}>
+                                    <View style={[styles.alreadyRegisteredBadge, { backgroundColor: '#ccfbf1', borderColor: '#14b8a6', height: 50 }]}>
+                                        <Ionicons name="checkmark-done" size={18} color="#0f766e" />
+                                        <Text style={{ color: '#0f766e', fontSize: 13, fontWeight: 'bold', marginLeft: 5 }}>Presente</Text>
+                                    </View>
                                 </View>
                             )}
                         </View>

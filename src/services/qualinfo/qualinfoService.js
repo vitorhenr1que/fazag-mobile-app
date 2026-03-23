@@ -237,7 +237,7 @@ export const FinancialUtils = {
      * Calcula o valor final aplicando descontos (P = Percentual, V = Valor Fixo)
      */
     calculateValorFinal: (titulo) => {
-        let valorFinal = titulo.titulo_valor;
+        let valorFinal = parseFloat(titulo.titulo_valor || 0);
         if (titulo.beneficios && titulo.beneficios.length > 0) {
             titulo.beneficios.forEach(ben => {
                 const valorBen = parseFloat(ben.beneficio_valor || 0);
@@ -340,6 +340,44 @@ export const FinancialUtils = {
             proximoStatus: maisUrgente ? maisUrgente.titulo_situacao : fallbackStatus,
             quantidade: abertos.length
         };
+    },
+
+    /**
+     * Formata data com segurança para evitar o erro de 'um dia a menos'
+     * causado pelo fuso horário ao parsear strings YYYY-MM-DD.
+     */
+    formatDate: (dateString) => {
+        if (!dateString) return '--/--/----';
+        
+        try {
+            // Se já estiver no formato brasileiro (DD/MM/YYYY), retorna
+            if (/^\d{2}\/\d{2}\/\d{4}/.test(dateString)) {
+                return dateString.substring(0, 10);
+            }
+
+            // Trata o formato ISO (YYYY-MM-DD...)
+            const datePart = dateString.split('T')[0].split(' ')[0];
+            if (datePart.includes('-')) {
+                const parts = datePart.split('-');
+                if (parts.length === 3) {
+                    const [year, month, day] = parts;
+                    return `${day}/${month}/${year}`;
+                }
+            }
+
+            // Fallback para Date (usando T12:00:00 para evitar mudança de dia pelo fuso)
+            const d = new Date(dateString.includes('T') ? dateString : `${dateString}T12:00:00`);
+            if (!isNaN(d.getTime())) {
+                const day = String(d.getDate()).padStart(2, '0');
+                const month = String(d.getMonth() + 1).padStart(2, '0');
+                const year = d.getFullYear();
+                return `${day}/${month}/${year}`;
+            }
+        } catch (error) {
+            console.error("Erro ao formatar data:", error);
+        }
+        
+        return '--/--/----';
     }
 };
 

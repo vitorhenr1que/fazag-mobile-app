@@ -3,16 +3,18 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { CONFIG } from '../config/integrations';
 
 const apiClient = axios.create({
-    // Se estiver em modo MOCK, a baseURL é irrelevante para o dataLayer, 
-    // mas configuramos uma placeholder.
-    baseURL: CONFIG.IS_MOCKED ? 'http://localhost/mock' : 'https://api.qualinfo.com.br/v1',
+    baseURL: CONFIG.MODE === 'ACADWEB' ? CONFIG.ACADWEB_BASE_URL : (CONFIG.IS_MOCKED ? 'http://localhost/mock' : 'https://api.qualinfo.com.br/v1'),
     timeout: CONFIG.API_TIMEOUT,
+    headers: {
+        'Content-Type': 'application/json',
+        ...(CONFIG.MODE === 'ACADWEB' && { 'Authorization': `Bearer ${CONFIG.ACADWEB_TOKEN}` })
+    }
 });
 
-// Interceptor para injetar TOKEN JWT
+// Interceptor para injetar TOKEN JWT (para outros provedores ou se ACADWEB tiver um token de usuário adicional)
 apiClient.interceptors.request.use(async (config) => {
     const token = await AsyncStorage.getItem('token');
-    if (token) {
+    if (token && CONFIG.MODE !== 'ACADWEB') {
         config.headers.Authorization = `Bearer ${token}`;
     }
     return config;

@@ -13,7 +13,7 @@ export function BoxMainHorizontal(props) {
         return null
     }
     return (
-        <TouchableOpacity style={props.title !== 'Financeiro' ? styles.box : [styles.box, { backgroundColor: '#d3d3d3' }]} onPress={() => { navegar.navigate(props.route) }}>
+        <TouchableOpacity style={styles.box} onPress={() => { navegar.navigate(props.route) }}>
             <Image style={styles.image} source={props.image} />
             <Text style={styles.text}>{props.title}</Text>
         </TouchableOpacity>

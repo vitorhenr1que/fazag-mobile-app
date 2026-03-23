@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { QualinfoDataLayer } from '../services/qualinfo/dataLayer';
+import { DataLayer } from '../services/dataLayer';
 
 /**
  * Hook para buscar e gerenciar o estado dos títulos (boletos).
@@ -15,7 +15,7 @@ export function useTitulos(aluno_id, ano, semestre) {
         setLoading(true);
         setError(null);
         try {
-            const data = await QualinfoDataLayer.getTitulos(aluno_id, ano, semestre);
+            const data = await DataLayer.getTitulos(aluno_id, ano, semestre);
             setTitulos(data);
         } catch (err) {
             setError({
