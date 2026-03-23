@@ -94,27 +94,62 @@ export function User() {
                         </View>
                     </View>
 
-                    {/* Personal Info Section */}
+
+                    {/* Personal Data Section */}
                     <View style={styles.infoSection}>
                         <Text style={styles.sectionTitle}>Dados Pessoais</Text>
-
-                        <View style={styles.infoRow}>
+                        <View style={[styles.infoRow, { borderBottomWidth: 0 }]}>
                             <Text style={styles.infoLabel}>Nome Completo</Text>
-                            <Text style={styles.infoValue} numberOfLines={1}>{user?.name}</Text>
+                            <Text style={styles.infoValue} numberOfLines={2}>{user?.name}</Text>
+                        </View>
+                    </View>
+
+                    {/* Academic Info Section */}
+                    <View style={styles.infoSection}>
+                        <Text style={styles.sectionTitle}>Dados Acadêmicos</Text>
+                        <View style={styles.infoRow}>
+                            <Text style={styles.infoLabel}>Curso</Text>
+                            <Text style={styles.infoValue} numberOfLines={2}>{courseName}</Text>
                         </View>
                         <View style={styles.infoRow}>
                             <Text style={styles.infoLabel}>Matrícula (CGA)</Text>
                             <Text style={styles.infoValue}>{user?.id}</Text>
                         </View>
-                        <View style={styles.infoRow}>
-                            <Text style={styles.infoLabel}>E-mail</Text>
-                            <Text style={styles.infoValue} numberOfLines={1}>{user?.email}</Text>
-                        </View>
                         <View style={[styles.infoRow, { borderBottomWidth: 0 }]}>
                             <Text style={styles.infoLabel}>Situação</Text>
-                            <Text style={[styles.infoValue, { color: colors.green[600] }]}>Ativo</Text>
+                            <Text style={[styles.infoValue, { color: colors.green[600] }]}>{user?.status || "Matriculado"}</Text>
                         </View>
                     </View>
+
+
+                    <View style={styles.infoSection}>
+                        <Text style={styles.sectionTitle}>Dados de Contato</Text>
+
+                        <View style={styles.infoRow}>
+                            <Text style={styles.infoLabel}>E-mail</Text>
+                            <Text style={styles.infoValue} numberOfLines={1}>{user?.email || "Não informado"}</Text>
+                        </View>
+                        
+                        {!!user?.cpf && (
+                            <View style={styles.infoRow}>
+                                <Text style={styles.infoLabel}>CPF</Text>
+                                <Text style={styles.infoValue}>{user?.cpf}</Text>
+                            </View>
+                        )}
+
+                        {!!user?.telefone && (
+                            <View style={styles.infoRow}>
+                                <Text style={styles.infoLabel}>Telefone</Text>
+                                <Text style={styles.infoValue}>{user?.telefone}</Text>
+                            </View>
+                        )}
+                        
+                        <View style={[styles.infoRow, { borderBottomWidth: 0 }]}>
+                            <Text style={styles.infoLabel}>Instituição</Text>
+                            <Text style={styles.infoValue}>FAZAG</Text>
+                        </View>
+                    </View>
+
 
                     {/* Logout Button */}
                     <TouchableOpacity

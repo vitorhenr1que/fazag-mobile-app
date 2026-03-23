@@ -54,7 +54,7 @@ export function Nusp(){
     }
     const renderDay = (day) => {
         const dayOfWeek = new Date(day.dateString).getDay()
-        const habilitedDays = dayOfWeek === 1 // para mais dias || dayOfWeek === 2
+        const habilitedDays = dayOfWeek === 2 // para mais dias || dayOfWeek === 2
         
         function handleDayPress(day){
             const dia = String(day.day).length === 1 ? String(day.day).padStart(2, '0'): day.day

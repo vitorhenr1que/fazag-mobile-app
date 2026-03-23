@@ -20,7 +20,10 @@ export function StudentSummaryCard() {
         ? user.cursos[0].situacao_descricao
         : "Não identificado";
 
-    const isActive = situacao.toLowerCase().includes('matriculado') || situacao.toLowerCase().includes('ativo');
+    const isActive = situacao.toLowerCase().includes('matriculado') || 
+                     situacao.toLowerCase().includes('ativo') || 
+                     situacao.toLowerCase().includes('cursando');
+
     const statusColor = isActive ? colors.green[500] : colors.red[500];
     const statusIcon = isActive ? 'check-circle' : 'alert-circle';
 

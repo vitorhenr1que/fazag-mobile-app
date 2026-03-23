@@ -96,7 +96,7 @@ export function FinanceSummaryCard() {
                         <View style={{ alignItems: 'flex-end' }}>
                             <Text style={styles.label}>Vencimento</Text>
                             <Text style={styles.dateValue}>
-                                {new Date(summary.proximoVencimento).toLocaleDateString('pt-BR')}
+                                {FinancialUtils.formatDate(summary.proximoVencimento)}
                             </Text>
                         </View>
                     )}

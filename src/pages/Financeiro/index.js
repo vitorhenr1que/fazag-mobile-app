@@ -36,7 +36,7 @@ export function Financeiro() {
         return (
             <View style={[styles.card, isHistórico && { opacity: 0.9 }]}>
                 <View style={styles.cardHeader}>
-                    <Text style={styles.cardTitle}>{item.taxa_descricao}</Text>
+                    <Text style={styles.cardTitle}>{(item.taxa_descricao || item.descricao || "").trim()}</Text>
                     <View style={[styles.badge, { backgroundColor: status.color + '20' }]}>
                         <Text style={[styles.badgeText, { color: status.color }]}>{status.label}</Text>
                     </View>
@@ -45,14 +45,16 @@ export function Financeiro() {
                 <View style={styles.cardBody}>
                     <View style={styles.priceRow}>
                         <Text style={styles.label}>{isHistórico ? "Data de Referência:" : "Vencimento:"}</Text>
-                        <Text style={styles.value}>{new Date(item.titulo_vencimento).toLocaleDateString('pt-BR')}</Text>
+                        <Text style={styles.value}>
+                            {FinancialUtils.formatDate(item.titulo_vencimento || item.vencimento)}
+                        </Text>
                     </View>
 
                     {item.beneficios && item.beneficios.length > 0 && (
                         <View style={styles.benefitsContainer}>
                             {item.beneficios.map((b, index) => (
                                 <Text key={index} style={styles.benefitText}>
-                                    • {b.beneficio_descricao}:
+                                    • {b.beneficio_descricao || b.descricao}:
                                     {b.beneficio_tipo_valor === 'P' ? ` -${parseFloat(b.beneficio_valor)}%` : ` -R$ ${parseFloat(b.beneficio_valor).toFixed(2)}`}
                                 </Text>
                             ))}
@@ -60,15 +62,19 @@ export function Financeiro() {
                     )}
 
                     <View style={styles.priceRow}>
-                        <Text style={styles.label}>{isHistórico ? "Valor Final:" : "Valor líquido estimado:"}</Text>
-                        <Text style={styles.totalValue}>R$ {item.valor_final?.toFixed(2)}</Text>
+                        <Text style={styles.label}>{isHistórico ? "Valor Final:" : "Valor:"}</Text>
+                        <Text style={styles.totalValue}>
+                            R$ {parseFloat(item.valor_final || item.titulo_valor || item.valor || 0).toFixed(2)}
+                        </Text>
                     </View>
                 </View>
 
                 {item.titulo_situacao === 'P' && (
                     <View style={[styles.cardFooter, { backgroundColor: '#f0fdf4', borderTopWidth: 0 }]}>
                         <Feather name="check-circle" size={16} color={colors.green[200]} />
-                        <Text style={{ marginLeft: 8, color: '#166534', fontWeight: '600' }}>Pago em {item.data_atualizacao ? new Date(item.data_atualizacao).toLocaleDateString('pt-BR') : '--/--/----'}</Text>
+                        <Text style={{ marginLeft: 8, color: '#166534', fontWeight: '600' }}>
+                            Pago em {FinancialUtils.formatDate(item.data_atualizacao)}
+                        </Text>
                     </View>
                 )}
             </View>

@@ -2,6 +2,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { createContext, useEffect, useState } from "react";
 import { OneSignal } from 'react-native-onesignal';
 import { QualinfoDataLayer } from '../services/qualinfo/dataLayer';
+import { AcadwebDataLayer } from '../services/acadweb/dataLayer';
+import { CONFIG } from '../config/integrations';
 
 export const AuthContext = createContext()
 
@@ -24,7 +26,11 @@ export default function AuthProvider({ children }) {
                         ...userData,
                         name: userData.name || userData.aluno_nome_social || userData.aluno_nome,
                         id: userData.id || userData.aluno_id,
-                        curso: userData.curso || userData.cursos?.[0]?.curso_descricao || ""
+                        curso: userData.curso || userData.cursos?.[0]?.curso_descricao || "",
+                        email: userData.email || userData.aluno_email || "",
+                        cpf: userData.cpf || userData.aluno_cpf || "",
+                        telefone: userData.telefone || userData.aluno_telefone || userData.aluno_celular || "",
+                        status: userData.status || userData.cursos?.[0]?.situacao_descricao || ""
                     };
                     setUser(normalizedUser);
                 }
@@ -47,19 +53,34 @@ export default function AuthProvider({ children }) {
         }
 
         try {
-            const response = await QualinfoDataLayer.signIn(usuario, pass);
+            let response;
+            let userData;
+            let token;
 
-            // Suporte ao novo contrato (user + token)
-            const userData = response.user;
-            const token = response.token;
+            if (CONFIG.MODE === 'ACADWEB') {
+                response = await AcadwebDataLayer.signIn(usuario, pass);
+                // Normalização para o retorno do Acadweb
+                // Se o retorno vier dentro de data ou direto no root, adaptamos
+                userData = response.user || response.aluno || response;
+                token = response.token || null;
+            } else {
+                response = await QualinfoDataLayer.signIn(usuario, pass);
+                userData = response.user;
+                token = response.token;
+            }
 
-            // Normalização para compatibilidade com o legado
+            // Normalização unificada para o app
             const normalizedUser = {
                 ...userData,
-                name: userData.aluno_nome_social || userData.aluno_nome || userData.name,
-                id: userData.aluno_id || userData.id,
-                curso: userData.cursos?.[0]?.curso_descricao || userData.curso || ""
+                name: userData.aluno_nome_social || userData.aluno_nome || userData.name || "Aluno",
+                id: userData.aluno_id || userData.id || userData.pk_aluno,
+                curso: userData.cursos?.[0]?.curso_descricao || userData.curso || userData.curso_nome || "",
+                email: userData.aluno_email || userData.email || "",
+                cpf: userData.aluno_cpf || userData.cpf || "",
+                telefone: userData.aluno_telefone || userData.aluno_celular || userData.telefone || "",
+                status: userData.cursos?.[0]?.situacao_descricao || userData.situacao || userData.status || ""
             };
+
 
             setUser(normalizedUser);
             await AsyncStorage.setItem('user', JSON.stringify(normalizedUser));
@@ -68,14 +89,24 @@ export default function AuthProvider({ children }) {
                 await AsyncStorage.setItem('token', token);
             }
 
-            // Notificações - Prioriza campos Qualinfo, fallback para legado if any
-            const externalId = userData.aluno_id || userData.id;
+            // Notificações
+            const externalId = String(normalizedUser.id);
             OneSignal.login(externalId);
             OneSignal.User.addTag("cga", externalId);
 
-            if (userData.curso_id || userData.curso) {
-                const cursoTag = (userData.curso_descricao || userData.curso || "").toLowerCase();
+            if (normalizedUser.curso) {
+                // Normaliza o nome do curso para usar como tag (remover espaços e acentos se preferível, mas mantendo simples: lowercase)
+                const cursoTag = normalizedUser.curso
+                    .toLowerCase()
+                    .normalize("NFD")
+                    .replace(/[\u0300-\u036f]/g, "") // Remove acentos
+                    .replace(/\s+/g, '_'); // Substitui espaços por underline para consistência de segmentação
+
                 OneSignal.User.addTag("curso", cursoTag);
+            }
+
+            if (normalizedUser.status) {
+                OneSignal.User.addTag("status", normalizedUser.status.toLowerCase());
             }
 
             // Sincronização com o módulo de Eventos
@@ -86,10 +117,8 @@ export default function AuthProvider({ children }) {
                     nome: normalizedUser.name,
                     email: userData.aluno_email || userData.email || ""
                 });
-                console.log('Aluno sincronizado com o sistema de eventos');
             } catch (eventError) {
                 console.warn('Erro ao sincronizar com sistema de eventos:', eventError);
-                // Não trava o login principal se o sistema de eventos falhar
             }
 
         } catch (error) {

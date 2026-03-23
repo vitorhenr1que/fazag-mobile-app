@@ -80,25 +80,6 @@ export function MinhasInscricoes() {
         }
     };
 
-    const isCheckInAvailable = (dataInicio) => {
-        if (!dataInicio) return false;
-        const now = new Date();
-        const start = new Date(dataInicio);
-        const diffMinutes = (now - start) / (1000 * 60);
-        return diffMinutes >= -30 && diffMinutes <= 90;
-    };
-
-    const handleCheckIn = async (inscricaoId) => {
-        try {
-            const response = await EventosService.checkInEvento(inscricaoId);
-            if (response.success) {
-                Alert.alert('Sucesso', 'Check-in realizado com sucesso!');
-                loadInscricoes();
-            }
-        } catch (error) {
-            Alert.alert('Erro', error.response?.data?.message || 'Não foi possível realizar o check-in.');
-        }
-    };
 
     const published = inscricoes.filter(i => i.evento?.status !== 'FINISHED');
     const finished = inscricoes.filter(i => i.evento?.status === 'FINISHED');
@@ -153,15 +134,6 @@ export function MinhasInscricoes() {
 
             <View style={styles.inscricaoFooter}>
                 <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}>
-                    {!isFinished && (!insc.checkIn && !insc.presenca) && isCheckInAvailable(insc.evento?.dataInicio) && (
-                        <TouchableOpacity
-                            style={[styles.certificateButton, { backgroundColor: colors.green[600], borderColor: colors.green[600] }]}
-                            onPress={() => handleCheckIn(insc.id)}
-                        >
-                            <Feather name="map-pin" size={16} color={colors.white} />
-                            <Text style={[styles.certificateButtonText, { color: colors.white }]}>Check-in</Text>
-                        </TouchableOpacity>
-                    )}
 
                     <TouchableOpacity
                         style={[
