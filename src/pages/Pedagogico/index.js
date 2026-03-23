@@ -15,12 +15,14 @@ import { colors } from "../../../styles/theme";
 
 export function Pedagogico() {
     const [isPdfView, setIsPdfView] = useState(false)
-    const { userHistoric } = useContext(AuthContext)
+    const { userHistoric, user } = useContext(AuthContext)
     const semestreAtual = userHistoric && userHistoric.length > 0 ? userHistoric[userHistoric.length - 1] : null;
     const [linkMatriz, setLinkMatriz] = useState(``)
     const [linkGrade, setLinkGrade] = useState(``)
     const [link, setLink] = useState(``)
-    const course = semestreAtual?.s_descricao ? semestreAtual.s_descricao.split('<')[0] : "ADMINISTRAÇÃO";
+
+    const rawCourse = user?.curso || (semestreAtual?.s_descricao ? semestreAtual.s_descricao.split('<')[0] : "ADMINISTRAÇÃO");
+    const course = rawCourse.split('<')[0].trim().toUpperCase();
 
 
     const courses = {
