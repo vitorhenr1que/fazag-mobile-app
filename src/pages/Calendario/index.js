@@ -1,11 +1,13 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { View, Text, StatusBar, SectionList } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 import { colors } from '../../../styles/theme';
 import { styles } from './style';
-import { generateAllMarkedDates, getEventsForDate, CALENDARIO_DATA, STATUS_COLORS, STATUS_LABELS } from '../../data/calendario';
+import { generateAllMarkedDates, getEventsForDate, STATUS_COLORS, STATUS_LABELS } from '../../data/calendario';
 import { Feather } from '@expo/vector-icons';
+import { ActivityIndicator } from 'react-native';
+import axios from 'axios';
 
 // Configure Locale
 LocaleConfig.locales['pt-br'] = {
@@ -21,10 +23,29 @@ export function Calendario() {
     const today = new Date().toISOString().split('T')[0];
     const currentYear = new Date().getFullYear();
     const [selectedDate, setSelectedDate] = useState(today);
+    const [calendarioData, setCalendarioData] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    // Fetch Calendar Data
+    useEffect(() => {
+        const fetchCalendario = async () => {
+            try {
+                setLoading(true);
+                const response = await axios.get(`https://fazag.edu.br/api/calendario?ano=${currentYear}`);
+                setCalendarioData(response.data);
+            } catch (error) {
+                console.error("Erro ao buscar calendário:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchCalendario();
+    }, [currentYear]);
 
     // Generate marked dates
     const markedDates = useMemo(() => {
-        const baseMarked = generateAllMarkedDates(currentYear);
+        const baseMarked = generateAllMarkedDates(calendarioData, currentYear);
 
         return {
             ...baseMarked,
@@ -35,17 +56,16 @@ export function Calendario() {
                 selectedTextColor: '#ffffff'
             }
         };
-    }, [selectedDate, currentYear]);
+    }, [selectedDate, currentYear, calendarioData]);
 
     // Get events for selected DATE
-    const selectedDateEvents = useMemo(() => getEventsForDate(selectedDate), [selectedDate]);
+    const selectedDateEvents = useMemo(() => getEventsForDate(calendarioData, selectedDate), [selectedDate, calendarioData]);
 
     // Get events for selected MONTH
     const dateObj = new Date(selectedDate);
-    // Be careful with timezone/string parsing, stick to string manipulation for simple YYYY-MM-DD
     const selectedMonth = parseInt(selectedDate.split('-')[1], 10);
     const selectedMonthIndex = selectedMonth - 1;
-    const monthEvents = CALENDARIO_DATA.find(m => m.monthIndex === selectedMonthIndex)?.events || [];
+    const monthEvents = calendarioData.find(m => m.monthIndex === selectedMonthIndex)?.events || [];
 
     const sections = [];
 
@@ -143,6 +163,14 @@ export function Calendario() {
             </View>
         </>
     );
+
+    if (loading) {
+        return (
+            <View style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
+                <ActivityIndicator size="large" color={colors.primary[600]} />
+            </View>
+        );
+    }
 
     return (
         <View style={styles.container}>

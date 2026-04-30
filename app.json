@@ -12,7 +12,7 @@
       "backgroundColor": "#2b2b2b"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0,
+      "fallbackToCacheTimeout": 5000,
       "url": "https://u.expo.dev/42667dd3-f029-4eb3-8f9e-db39e477c46c"
     },
     "assetBundlePatterns": [
@@ -58,7 +58,7 @@
       [
         "onesignal-expo-plugin",
         {
-          "mode": "development"
+          "mode": "production"
         }
       ],
       [
@@ -69,7 +69,8 @@
             "compileSdkVersion": 35,
             "targetSdkVersion": 35,
             "buildToolsVersion": "35.0.0",
-            "kotlinVersion": "2.0.21"
+            "kotlinVersion": "2.0.21",
+            "minSdkVersion": 23
           }
         }
       ],

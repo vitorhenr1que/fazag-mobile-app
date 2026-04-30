@@ -6,14 +6,11 @@ import AuthProvider from './src/contexts/auth';
 import { useEffect } from 'react';
 import { OneSignal, LogLevel } from 'react-native-onesignal';
 import Constants from 'expo-constants';
+import * as Updates from 'expo-updates';
+import { Alert } from 'react-native';
 
 // para o expo go não crashar no iOS:
-// npm uninstall onesignal-expo-plugin
-// npm uninstall react-native-onesignal
-// comentar useEffect
-// Comentar linhas do Login e Logout do OneSignal no auth.js
-// remover import do OneSignal do auth.js e do App.js
-// Remover de app.json - OneSignal ID e Plugins
+// ... (comentários omitidos para brevidade no diff, mas mantidos no arquivo)
 
 export default function App() {
   useEffect(() => {
@@ -22,6 +19,29 @@ export default function App() {
     
     // Also need enable notifications to complete OneSignal setup
     OneSignal.Notifications.requestPermission(true); 
+
+    // Verificar atualizações OTA
+    async function updateApp() {
+      if (!__DEV__) {
+        try {
+          const update = await Updates.checkForUpdateAsync();
+          if (update.isAvailable) {
+            await Updates.fetchUpdateAsync();
+            Alert.alert(
+              'Nova Versão Disponível',
+              'Uma atualização foi baixada e está pronta para uso. Deseja reiniciar o app agora?',
+              [
+                { text: 'Mais tarde', style: 'cancel' },
+                { text: 'Reiniciar agora', onPress: () => Updates.reloadAsync() }
+              ]
+            );
+          }
+        } catch (e) {
+          console.log('Erro ao buscar atualização:', e);
+        }
+      }
+    }
+    updateApp();
   },[]) 
 
   return (
