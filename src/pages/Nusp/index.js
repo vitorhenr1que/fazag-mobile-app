@@ -4,6 +4,7 @@ import { Calendar, LocaleConfig } from "react-native-calendars";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { TextFont } from "../../components/Basics/TextFont";
 import { api } from "../../services/api";
+import axios from 'axios';
 import { AuthContext } from "../../contexts/auth";
 
 export function Nusp(){
@@ -21,6 +22,7 @@ export function Nusp(){
     ])
     const [toggleHour, setToggleHour] = useState(false)
     const [selectedHour, setSelectedHour] = useState(0)
+    const [availableDays, setAvailableDays] = useState([]) // Array de números [0-6]
 
     const { user } = useContext(AuthContext)
     console.log(selectedHour)
@@ -53,8 +55,12 @@ export function Nusp(){
         return test
     }
     const renderDay = (day) => {
-        const dayOfWeek = new Date(day.dateString).getDay()
-        const habilitedDays = dayOfWeek === 2 // para mais dias || dayOfWeek === 2
+        // Usa ano, mês e dia separadamente para evitar problemas de fuso horário (UTC vs Local)
+        const [y, m, d] = day.dateString.split('-').map(Number);
+        const dayOfWeek = new Date(y, m - 1, d).getDay();
+        
+        // Habilita se o dia da semana estiver no array vindo da API
+        const habilitedDays = availableDays.includes(dayOfWeek)
         
         function handleDayPress(day){
             const dia = String(day.day).length === 1 ? String(day.day).padStart(2, '0'): day.day
@@ -107,6 +113,22 @@ export function Nusp(){
               setHorario("")
               
         }, [daySelected])
+
+        useEffect(() => {
+            async function fetchSettings() {
+                try {
+                    const response = await axios.get('https://fazag.edu.br/api/nusp/settings');
+                    if (response.data && response.data.availableDays) {
+                        // Converte "3" ou "3,5" em array de números [3] ou [3, 5]
+                        const daysArray = response.data.availableDays.split(',').map(d => parseInt(d.trim(), 10));
+                        setAvailableDays(daysArray);
+                    }
+                } catch (error) {
+                    console.error("Erro ao buscar configurações do NUSP:", error);
+                }
+            }
+            fetchSettings();
+        }, []);
 
         LocaleConfig.locales['pt-br'] = {
             monthNames: [
