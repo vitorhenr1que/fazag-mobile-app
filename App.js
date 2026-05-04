@@ -7,7 +7,29 @@ import { useEffect } from 'react';
 import { OneSignal, LogLevel } from 'react-native-onesignal';
 import Constants from 'expo-constants';
 import * as Updates from 'expo-updates';
-import { Alert } from 'react-native';
+import { Alert, Linking } from 'react-native';
+
+const linking = {
+  prefixes: ['fazag://', 'https://fazag.edu.br', 'https://www.fazag.edu.br'],
+  config: {
+    screens: {
+      CanaisDeAtendimento: 'atendimento/:sector?',
+      Ouvidoria: 'ouvidoria',
+      Calendario: 'calendario',
+      Coordenador: 'coordenador',
+      Financeiro: 'financeiro',
+      Eventos: 'eventos',
+      PublicacoesInstitucionais: 'publicacoes',
+      Nusp: 'nusp',
+      AVA: 'ava',
+      Mapa_de_Sala: 'mapa',
+      Perfil: 'perfil',
+      BibliotecaVirtual: 'biblioteca',
+      Pedagogico: 'pedagogico',
+      Servicos: 'servicos',
+    },
+  },
+};
 
 // para o expo go não crashar no iOS:
 // ... (comentários omitidos para brevidade no diff, mas mantidos no arquivo)
@@ -45,7 +67,7 @@ export default function App() {
   },[]) 
 
   return (
-    <NavigationContainer>
+    <NavigationContainer linking={linking}>
     <AuthProvider>
       <StatusBar/>
       <Routes/>

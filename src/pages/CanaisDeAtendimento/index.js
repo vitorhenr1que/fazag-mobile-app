@@ -5,12 +5,56 @@ import { Ionicons, FontAwesome5 } from "@expo/vector-icons";
 import { colors } from "../../../styles/theme";
 import { LinearGradient } from 'expo-linear-gradient';
 
-export function CanaisDeAtendimento() {
+const contacts = [
+    {
+        id: 1,
+        title: "Atendimento Geral",
+        email: "faculdade@fazag.edu.br",
+        phone: "5575982296725",
+        icon: "headset"
+    },
+    {
+        id: 2,
+        title: "Secretaria Acadêmica",
+        email: "secretaria@fazag.edu.br",
+        phone: "5575981044923",
+        icon: "file-tray-full"
+    },
+    {
+        id: 3,
+        title: "Financeiro do Aluno",
+        email: "financeiro@fazag.edu.br",
+        phone: "5575982181138",
+        icon: "cash"
+    },
+    {
+        id: 4,
+        title: "Setor de Diplomas",
+        email: "diplomas@fazag.edu.br",
+        phone: "5575982181511",
+        icon: "ribbon"
+    }
+];
+
+export function CanaisDeAtendimento({ route }) {
     const [hours, setHours] = useState('')
+    const { sector } = route.params || {};
 
     useEffect(() => {
         setHours(new Date().getHours())
     }, [])
+
+    useEffect(() => {
+        if (sector) {
+            const contact = contacts.find(c => 
+                c.title.toLowerCase().includes(sector.toLowerCase()) || 
+                c.id.toString() === sector
+            );
+            if (contact) {
+                abrirWhatsapp(contact.phone);
+            }
+        }
+    }, [sector, hours])
 
     function abrirWhatsapp(phoneNumber) {
         let message = '';
@@ -23,47 +67,15 @@ export function CanaisDeAtendimento() {
             message = 'Olá, boa noite!'
         }
 
-        const url = `whatsapp://send?phone=${phoneNumber}&text=${message}`
+        const encodedMessage = encodeURIComponent(message);
+        const url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
-        Linking.canOpenURL(url).then(supported => {
-            if (supported) {
-                return Linking.openURL(url);
-            } else {
-                alert('WhatsApp não está instalado neste dispositivo.');
-            }
+        Linking.openURL(url).catch(() => {
+            alert('Não foi possível abrir o WhatsApp. Verifique se ele está instalado.');
         });
     }
 
-    const contacts = [
-        {
-            id: 1,
-            title: "Atendimento Geral",
-            email: "faculdade@fazag.edu.br",
-            phone: "5575982296725",
-            icon: "headset"
-        },
-        {
-            id: 2,
-            title: "Secretaria Acadêmica",
-            email: "secretaria@fazag.edu.br",
-            phone: "5575981044923",
-            icon: "file-tray-full"
-        },
-        {
-            id: 3,
-            title: "Financeiro do Aluno",
-            email: "financeiro@fazag.edu.br",
-            phone: "5575982181138",
-            icon: "cash"
-        },
-        {
-            id: 4,
-            title: "Setor de Diplomas",
-            email: "diplomas@fazag.edu.br",
-            phone: "5575982181511",
-            icon: "ribbon"
-        }
-    ];
+
 
     return (
         <View style={styles.container}>

@@ -44,6 +44,13 @@ const data = [{
     image: require('../../../assets/whatsapp-icon.png'),
     description: "Entre em contato com nossos setores de atendimento por whatsapp ou e-mail.",
     route: 'CanaisDeAtendimento'
+},
+{
+    id: 7,
+    name: "Publicações Institucionais",
+    image: require('../../../assets/pedagogico.png'),
+    description: "Acesse editais, regulamentos e outros documentos da FAZAG.",
+    route: 'PublicacoesInstitucionais'
 }
 ]
 
