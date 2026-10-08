@@ -1,10 +1,10 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import { getStatusBarHeight } from "react-native-status-bar-height";
 import { colors } from "../../../styles/theme";
 
 export const styles = StyleSheet.create({
     containerHeader: {
-        marginTop: 0 + getStatusBarHeight(),
+        marginTop: Platform.OS === 'android' ? 0 : getStatusBarHeight(),
         flexDirection: 'row',
         justifyContent: 'space-between',
         backgroundColor: colors.gray[800],

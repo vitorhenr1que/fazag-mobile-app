@@ -7,7 +7,10 @@ import { useEffect } from 'react';
 import { OneSignal, LogLevel } from 'react-native-onesignal';
 import Constants from 'expo-constants';
 import * as Updates from 'expo-updates';
-import { Alert, Linking } from 'react-native';
+import { Alert, Platform } from 'react-native';
+import { promptStoreUpdate } from './src/services/appUpdates';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { colors } from './styles/theme';
 
 const linking = {
   prefixes: ['fazag://', 'https://fazag.edu.br', 'https://www.fazag.edu.br'],
@@ -46,6 +49,7 @@ export default function App() {
     async function updateApp() {
       if (!__DEV__) {
         try {
+          if (await promptStoreUpdate()) return;
           const update = await Updates.checkForUpdateAsync();
           if (update.isAvailable) {
             await Updates.fetchUpdateAsync();
@@ -67,12 +71,18 @@ export default function App() {
   },[]) 
 
   return (
-    <NavigationContainer linking={linking}>
-    <AuthProvider>
-      <StatusBar/>
-      <Routes/>
-    </AuthProvider>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <SafeAreaView
+        style={{ flex: 1, backgroundColor: colors.gray[800] }}
+        edges={Platform.OS === 'android' ? ['top', 'right', 'bottom', 'left'] : []}
+      >
+        <NavigationContainer linking={linking}>
+          <AuthProvider>
+            <StatusBar style={Platform.OS === 'android' ? 'light' : 'auto'} />
+            <Routes/>
+          </AuthProvider>
+        </NavigationContainer>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
-
