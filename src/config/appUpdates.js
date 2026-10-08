@@ -1,8 +1,8 @@
 // Alterar somente depois que a versão estiver disponível para todos na loja.
 // Este arquivo também pode ser atualizado via EAS Update.
 export const APP_UPDATES = {
-    android: { latestVersion: '1.2.0' },
-    ios: { latestVersion: '1.2.0' },
+    android: { latestVersion: '1.3.0' },
+    ios: { latestVersion: '1.3.0' },
 };
 
 // Opcional: JSON remoto com o mesmo formato de APP_UPDATES.
