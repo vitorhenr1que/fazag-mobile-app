@@ -2,6 +2,61 @@ import { StyleSheet, Platform } from "react-native";
 import { colors } from "../../../styles/theme";
 
 export const styles = StyleSheet.create({
+    pixContainer: {
+        backgroundColor: colors.white,
+        padding: 16,
+        borderRadius: 12,
+        marginBottom: 20,
+    },
+    pixTitle: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: colors.gray[800],
+        marginBottom: 8,
+    },
+    pixResult: {
+        marginTop: 20,
+    },
+    pixAmount: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: colors.primary[700],
+        textAlign: 'center',
+        marginBottom: 12,
+    },
+    pixQrCode: {
+        alignItems: 'center',
+        marginBottom: 16,
+        backgroundColor: colors.white,
+    },
+    pixInstructions: {
+        fontSize: 14,
+        color: colors.gray[600],
+        lineHeight: 20,
+        marginBottom: 12,
+    },
+    pixCode: {
+        fontSize: 12,
+        color: colors.gray[700],
+        backgroundColor: colors.gray[50],
+        padding: 12,
+        borderRadius: 8,
+        marginBottom: 12,
+    },
+    pixCopyButton: {
+        backgroundColor: colors.primary[600],
+        padding: 14,
+        borderRadius: 10,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 8,
+    },
+    pixCopyButtonText: {
+        color: colors.white,
+        fontSize: 14,
+        fontWeight: 'bold',
+    },
     container: {
         flex: 1,
         backgroundColor: colors.gray[50],

@@ -7,8 +7,10 @@ import { styles } from './style';
 import { colors } from '../../../styles/theme';
 import { nomeAluno } from '../../components/nomeAluno';
 import eventosApi from '../../services/eventos/eventosApi';
+import { useNavigation } from '@react-navigation/native';
 
 export function User() {
+    const navigation = useNavigation();
     const { user, signOut, userHistoric, loading } = useContext(AuthContext);
     const [totalHours, setTotalHours] = useState(0);
     const [totalCertificates, setTotalCertificates] = useState(0);
@@ -88,10 +90,10 @@ export function User() {
                             <Text style={styles.statLabel}>Horas</Text>
                         </View>
                         <View style={styles.statDivider} />
-                        <View style={styles.statItem}>
+                        <TouchableOpacity style={styles.statItem} onPress={() => navigation.navigate('Certificados')} accessibilityRole="button" accessibilityLabel="Ver meus certificados">
                             <Text style={styles.statValue}>{hoursTotal}</Text>
                             <Text style={styles.statLabel}>Certificados</Text>
-                        </View>
+                        </TouchableOpacity>
                     </View>
 
 

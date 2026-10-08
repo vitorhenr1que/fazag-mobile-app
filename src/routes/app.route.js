@@ -22,6 +22,7 @@ import { Eventos } from '../pages/Eventos';
 import { EventoDetail } from '../pages/Eventos/EventoDetail';
 import { MinhasInscricoes } from '../pages/Eventos/MinhasInscricoes';
 import { CertificateViewer } from '../pages/Eventos/CertificateViewer';
+import { Certificados } from '../pages/Certificados';
 import { PublicacoesInstitucionais } from '../pages/PublicacoesInstitucionais';
 import { PublicationViewer } from '../pages/PublicacoesInstitucionais/PublicationViewer';
 
@@ -126,11 +127,11 @@ export default function AppRoute() {
         <Stack.Screen name='EventoDetail' component={EventoDetail} />
         <Stack.Screen name='MinhasInscricoes' component={MinhasInscricoes} />
         <Stack.Screen name='CertificateViewer' component={CertificateViewer} />
+        <Stack.Screen name='Certificados' component={Certificados} />
         <Stack.Screen name='PublicacoesInstitucionais' component={PublicacoesInstitucionais} />
         <Stack.Screen name='PublicationViewer' component={PublicationViewer} />
       </Stack.Navigator>
     </>
   );
 }
-
 

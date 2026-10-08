@@ -8,6 +8,7 @@ import { colors } from '../../../styles/theme';
 import { EventosService } from '../../services/eventos/eventosService';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { formatEventDate } from '../../utils/formatEventDate';
 
 export function Eventos() {
     const navigation = useNavigation();
@@ -119,7 +120,7 @@ export function Eventos() {
                                 <View style={styles.eventInfoRow}>
                                     <Feather name="clock" size={14} color={colors.gray[400]} />
                                     <Text style={styles.eventInfoText}>
-                                        {formatDate(evento.dataInicio, 'full')} • {format(new Date(evento.dataInicio), 'HH:mm', { locale: ptBR })}h
+                                        {formatEventDate(evento.dataInicio, evento.dataFim)} • {format(new Date(evento.dataInicio), 'HH:mm', { locale: ptBR })}h
                                     </Text>
                                 </View>
 

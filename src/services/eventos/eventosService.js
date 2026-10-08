@@ -79,6 +79,18 @@ export const EventosService = {
         return response.data;
     },
 
+    getPixQuote: async (inscricaoId) => {
+        const response = await eventosApi.get(`/inscricoes/${inscricaoId}/pix`);
+        const serverNow = Date.parse(response.headers?.date);
+        return { ...response.data, serverNow: Number.isFinite(serverNow) ? serverNow : Date.now() };
+    },
+
+    generatePixQuote: async (inscricaoId) => {
+        const response = await eventosApi.post(`/inscricoes/${inscricaoId}/pix`, {});
+        const serverNow = Date.parse(response.headers?.date);
+        return { ...response.data, serverNow: Number.isFinite(serverNow) ? serverNow : Date.now() };
+    },
+
     /**
      * Inscreve o aluno em subeventos
      * @param {string} inscricaoId 

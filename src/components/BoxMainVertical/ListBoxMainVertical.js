@@ -39,6 +39,13 @@ const data = [{
     route: 'Eventos'
 },
 {
+    id: 8,
+    name: "Meus Certificados",
+    image: require('../../../assets/pedagogico.png'),
+    description: "Visualize seus certificados e emita os disponíveis.",
+    route: 'Certificados'
+},
+{
     id: 4,
     name: "Canais de Atendimento",
     image: require('../../../assets/whatsapp-icon.png'),

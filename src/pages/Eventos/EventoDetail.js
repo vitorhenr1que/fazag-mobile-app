@@ -1,21 +1,34 @@
-import React, { useEffect, useState, useCallback, useMemo } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Image, ActivityIndicator, Alert } from 'react-native';
+import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react';
+import { View, Text, ScrollView, TouchableOpacity, Image, ActivityIndicator, Alert, AppState, Linking } from 'react-native';
 import { Ionicons, Feather } from '@expo/vector-icons';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute, useFocusEffect, useIsFocused } from '@react-navigation/native';
 import { styles } from './style';
 import { colors } from '../../../styles/theme';
 import { EventosService } from '../../services/eventos/eventosService';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { formatEventDate } from '../../utils/formatEventDate';
+import { copyToClipboard } from '../../utils/clipboard';
+import QRCode from 'react-native-qrcode-svg';
+import { createPixQuote, loadPixQuote } from '../../services/eventos/pixQuote';
 
 export function EventoDetail() {
     const navigation = useNavigation();
     const route = useRoute();
     const { id } = route.params;
+    const isFocused = useIsFocused();
+    const nextPixCheck = useRef(0);
 
     const [evento, setEvento] = useState(null);
     const [loading, setLoading] = useState(true);
     const [registering, setRegistering] = useState(false);
+    const [copyingPix, setCopyingPix] = useState(false);
+    const [generatingPix, setGeneratingPix] = useState(false);
+    const [generatedPix, setGeneratedPix] = useState(null);
+    const [pixNow, setPixNow] = useState(Date.now());
+    const [pixClockOffset, setPixClockOffset] = useState(0);
+    const [syncingPix, setSyncingPix] = useState(false);
+    const [pixError, setPixError] = useState(null);
     const [isRegistered, setIsRegistered] = useState(false);
     const [inscricaoId, setInscricaoId] = useState(null);
     const [inscricaoStatus, setInscricaoStatus] = useState(null);
@@ -33,9 +46,107 @@ export function EventoDetail() {
         return evento.subeventos || evento.subEventos || evento.SubEventos || [];
     }, [evento]);
 
+    const isPaid = String(evento?.tipo).toUpperCase() === 'PAGO';
+    const isPaymentPending = isRegistered && isPaid && inscricaoStatus === 'PENDENTE';
+    const pixKey = evento?.chavePix;
+    const activePix = isPaymentPending ? generatedPix : null;
+    const pixSecondsRemaining = activePix ? Math.max(0, Math.min(
+        Math.ceil((activePix.expiresAt - activePix.createdAt) / 1000),
+        Math.ceil((activePix.expiresAt - pixNow - pixClockOffset) / 1000)
+    )) : 0;
+    const pixTimeRemaining = `${String(Math.floor(pixSecondsRemaining / 60)).padStart(2, '0')}:${String(pixSecondsRemaining % 60).padStart(2, '0')}`;
+
+    const applyPixQuote = useCallback(({ quote, serverNow }) => {
+        setGeneratedPix(quote);
+        const now = Date.now();
+        setPixNow(now);
+        setPixClockOffset(Number.isFinite(serverNow) ? serverNow - now : 0);
+        nextPixCheck.current = now + 15000;
+        setPixError(null);
+    }, []);
+
+    const refreshPixQuote = useCallback(async () => {
+        setSyncingPix(true);
+        try {
+            const result = await loadPixQuote(inscricaoId, id);
+            applyPixQuote(result);
+            return result.quote;
+        } catch (error) {
+            setGeneratedPix(null);
+            setPixError(error.response?.data?.error?.message || error.message || 'Não foi possível consultar o Pix.');
+            throw error;
+        } finally {
+            setSyncingPix(false);
+        }
+    }, [inscricaoId, id, applyPixQuote]);
+
+    useEffect(() => {
+        if (!isFocused || loading || !isPaymentPending || !generatedPix || syncingPix || generatingPix || copyingPix) return;
+        const tick = () => {
+            const now = Date.now();
+            setPixNow(now);
+            if (now + pixClockOffset >= generatedPix.expiresAt && now >= nextPixCheck.current) {
+                nextPixCheck.current = now + 15000;
+                refreshPixQuote().catch(() => {});
+            }
+        };
+        tick();
+        const timer = setInterval(tick, 1000);
+        return () => clearInterval(timer);
+    }, [isFocused, loading, isPaymentPending, generatedPix, pixClockOffset, syncingPix, generatingPix, copyingPix, refreshPixQuote]);
+
+    const handleGeneratePix = async () => {
+        if (!isPaymentPending || generatingPix || copyingPix || syncingPix || activePix) return;
+        setGeneratingPix(true);
+        setPixError(null);
+        try {
+            applyPixQuote(await createPixQuote(inscricaoId, id));
+        } catch (error) {
+            const message = error.response?.data?.error?.message || error.message || 'Tente novamente.';
+            setPixError(message);
+            Alert.alert('Não foi possível gerar o Pix', message);
+        } finally {
+            setGeneratingPix(false);
+        }
+    };
+
+    const handleCopyPix = async () => {
+        if (!generatedPix || generatingPix || copyingPix || syncingPix) return;
+        setCopyingPix(true);
+        try {
+            // A API decide se ainda há reserva ativa; o relógio do aparelho não autoriza o pagamento.
+            const quote = await refreshPixQuote();
+            if (!quote) {
+                Alert.alert('Prazo encerrado', 'Não há reserva ativa. Gere um novo Pix para consultar o valor atual do evento.');
+                return;
+            }
+            try {
+                const copied = await copyToClipboard(quote.code);
+                if (!copied) throw new Error('Falha ao copiar');
+                Alert.alert('Código Pix copiado', 'Cole o código na opção Pix Copia e Cola do aplicativo do seu banco.');
+            } catch {
+                Alert.alert('Não foi possível copiar', 'Selecione o código Pix abaixo e copie manualmente.');
+            }
+        } catch (error) {
+            Alert.alert('Não foi possível copiar o Pix', error.response?.data?.error?.message || error.message || 'Tente novamente.');
+        } finally {
+            setCopyingPix(false);
+        }
+    };
+
+    const handleOpenFinancialWhatsApp = async () => {
+        try {
+            await Linking.openURL('https://wa.me/5575982181138');
+        } catch {
+            Alert.alert('Não foi possível abrir o WhatsApp', 'Entre em contato com o financeiro pelo número +55 75 98218-1138.');
+        }
+    };
+
     const loadData = useCallback(async () => {
         try {
             setLoading(true);
+            setGeneratedPix(null);
+            setPixError(null);
 
             // 1. Busca primeiro minhas inscrições para ver se já tenho vínculo com este evento
             const minhasInscricoes = await EventosService.listMinhasInscricoes();
@@ -80,6 +191,13 @@ export function EventoDetail() {
                     setSelectedSubEventos(ids);
                     setInitialSubEventos(ids);
                     setHasChanges(false);
+                    if (data.status === 'PENDENTE' && String(data.evento?.tipo).toUpperCase() === 'PAGO') {
+                        try {
+                            applyPixQuote(await loadPixQuote(data.id, id));
+                        } catch (error) {
+                            setPixError(error.response?.data?.error?.message || error.message || 'Não foi possível consultar o Pix.');
+                        }
+                    }
                 }
             } else {
                 // 3. Se não tem inscrição, puxa apenas os dados básicos do evento
@@ -98,11 +216,15 @@ export function EventoDetail() {
         } finally {
             setLoading(false);
         }
-    }, [id]);
+    }, [id, applyPixQuote]);
 
-    useEffect(() => {
+    useFocusEffect(useCallback(() => {
         loadData();
-    }, [loadData]);
+        const subscription = AppState.addEventListener('change', (state) => {
+            if (state === 'active') loadData();
+        });
+        return () => subscription.remove();
+    }, [loadData]));
 
     const handleRegister = async () => {
         try {
@@ -274,8 +396,6 @@ export function EventoDetail() {
     if (loading) return <View style={styles.loadingContainer}><ActivityIndicator size="large" color={colors.primary[500]} /></View>;
     if (!evento) return null;
 
-    const isPaid = String(evento.tipo).toUpperCase() === 'PAGO';
-
     return (
         <View style={styles.container}>
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 150 }}>
@@ -305,7 +425,7 @@ export function EventoDetail() {
                         </View>
                     </View>
 
-                    <View style={styles.infoBadge}><Feather name="calendar" size={18} color={colors.primary[600]} /><Text style={styles.infoBadgeText}>{format(new Date(evento.dataInicio), "dd 'de' MMMM", { locale: ptBR })}</Text></View>
+                    <View style={styles.infoBadge}><Feather name="calendar" size={18} color={colors.primary[600]} /><Text style={styles.infoBadgeText}>{formatEventDate(evento.dataInicio, evento.dataFim)}</Text></View>
                     <View style={styles.infoBadge}><Feather name="clock" size={18} color={colors.primary[600]} /><Text style={styles.infoBadgeText}>{format(new Date(evento.dataInicio), 'HH:mm', { locale: ptBR })}h</Text></View>
                     <View style={styles.infoBadge}><Feather name="map-pin" size={18} color={colors.primary[600]} /><Text style={styles.infoBadgeText}>{evento.local}</Text></View>
 
@@ -323,19 +443,82 @@ export function EventoDetail() {
                                 Sua solicitação de inscrição para <Text style={{ fontWeight: 'bold' }}>{evento.nome}</Text> foi recebida com sucesso.
                             </Text>
 
+                            {isPaymentPending && (pixKey || activePix) && (
+                                <View style={styles.pixContainer}>
+                                    <Text style={styles.pixTitle}>Pague com Pix</Text>
+                                    <Text style={styles.pixInstructions}>
+                                        {activePix
+                                            ? 'Use o Pix abaixo. O valor exibido será mantido por 30 minutos após a geração, mesmo com a mudança de lote.'
+                                            : 'Gere seu Pix para pagar pelo QR Code ou pelo código copia e cola.'}
+                                    </Text>
+                                    <TouchableOpacity
+                                        style={[styles.pixCopyButton, activePix && { opacity: 0.6 }]}
+                                        onPress={handleGeneratePix}
+                                        disabled={generatingPix || copyingPix || syncingPix || !!activePix}
+                                        accessibilityState={{ disabled: generatingPix || copyingPix || syncingPix || !!activePix }}
+                                        accessibilityRole="button"
+                                        accessibilityLabel="Gerar Pix"
+                                    >
+                                        {generatingPix ? <ActivityIndicator size="small" color={colors.white} /> : <Ionicons name="qr-code-outline" size={18} color={colors.white} />}
+                                        <Text style={styles.pixCopyButtonText}>{generatingPix ? 'Gerando Pix...' : syncingPix || (activePix && !pixSecondsRemaining) ? 'Consultando Pix...' : activePix ? `Novo Pix em ${pixTimeRemaining}` : 'Gerar Pix'}</Text>
+                                    </TouchableOpacity>
+                                    {activePix && (
+                                        <View style={styles.pixResult}>
+                                            <Text style={styles.pixAmount}>R$ {Number(activePix.amount).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
+                                            <Text style={[styles.pixInstructions, { textAlign: 'center' }]}>{pixSecondsRemaining ? `Tempo restante: ${pixTimeRemaining}` : 'Confirmando prazo com o servidor...'}</Text>
+                                            <Text selectable style={[styles.pixInstructions, { textAlign: 'center' }]}>Referência: {activePix.txid}</Text>
+                                            <View style={styles.pixQrCode} accessible accessibilityLabel="QR Code para pagamento do evento por Pix">
+                                                <QRCode value={activePix.code} size={180} quietZone={16} color="#000000" backgroundColor="#ffffff" />
+                                            </View>
+                                            <Text style={styles.pixInstructions}>
+                                                Escaneie o QR Code pelo aplicativo do banco ou copie o código abaixo.
+                                            </Text>
+                                            <Text selectable style={styles.pixCode}>{activePix.code}</Text>
+                                            <TouchableOpacity
+                                                style={styles.pixCopyButton}
+                                                onPress={handleCopyPix}
+                                                disabled={copyingPix || generatingPix || syncingPix}
+                                                accessibilityRole="button"
+                                                accessibilityLabel="Copiar código Pix"
+                                            >
+                                                {copyingPix ? <ActivityIndicator size="small" color={colors.white} /> : <Feather name="copy" size={18} color={colors.white} />}
+                                                <Text style={styles.pixCopyButtonText}>{copyingPix ? 'Copiando...' : 'Copiar código Pix'}</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                    )}
+                                </View>
+                            )}
+                            {isPaymentPending && pixError && (
+                                <Text style={styles.pixInstructions}>{pixError}</Text>
+                            )}
+
                             <Text style={{ fontSize: 16, fontWeight: 'bold', color: colors.gray[800], marginBottom: 10 }}>Próximos Passos:</Text>
 
                             <View style={{ gap: 12 }}>
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
-                                    <Text style={{ color: colors.primary[600], fontWeight: 'bold', marginRight: 8 }}>•</Text>
+                                    <Text style={{ color: colors.primary[600], fontWeight: 'bold', marginRight: 8 }}>1.</Text>
                                     <Text style={{ flex: 1, color: colors.gray[600], fontSize: 14 }}>Realize o pagamento conforme as instruções da instituição.</Text>
                                 </View>
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
-                                    <Text style={{ color: colors.primary[600], fontWeight: 'bold', marginRight: 8 }}>•</Text>
-                                    <Text style={{ flex: 1, color: colors.gray[600], fontSize: 14 }}>O administrador irá validar seu pagamento no painel.</Text>
+                                    <Text style={{ color: colors.primary[600], fontWeight: 'bold', marginRight: 8 }}>2.</Text>
+                                    <Text style={{ flex: 1, color: colors.gray[600], fontSize: 14 }}>
+                                        Envie seu nome completo e o comprovante de pagamento para o financeiro:{' '}
+                                        <Text
+                                            style={{ color: colors.primary[600], fontWeight: 'bold', textDecorationLine: 'underline' }}
+                                            onPress={handleOpenFinancialWhatsApp}
+                                            accessibilityRole="link"
+                                            accessibilityLabel="Abrir WhatsApp do financeiro: +55 75 98218-1138"
+                                        >
+                                            +55 75 98218-1138
+                                        </Text>.
+                                    </Text>
                                 </View>
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
-                                    <Text style={{ color: colors.primary[600], fontWeight: 'bold', marginRight: 8 }}>•</Text>
+                                    <Text style={{ color: colors.primary[600], fontWeight: 'bold', marginRight: 8 }}>3.</Text>
+                                    <Text style={{ flex: 1, color: colors.gray[600], fontSize: 14 }}>O setor financeiro irá validar seu pagamento no painel.</Text>
+                                </View>
+                                <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                                    <Text style={{ color: colors.primary[600], fontWeight: 'bold', marginRight: 8 }}>4.</Text>
                                     <Text style={{ flex: 1, color: colors.gray[600], fontSize: 14 }}>Após a aprovação, você poderá retornar aqui para escolher suas atividades.</Text>
                                 </View>
                             </View>
