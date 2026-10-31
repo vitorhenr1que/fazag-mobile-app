@@ -4,6 +4,13 @@ import { styles } from "./style";
 import { useNavigation } from "@react-navigation/native";
 
 const data = [{
+    id: 9,
+    name: "Junte-se a nós",
+    image: require('../../../assets/junte-se-a-nos/logo.png'),
+    description: "Indique novos alunos e ganhe descontos cumulativos.",
+    route: 'JunteSeANos'
+},
+{
     id: 1,
     name: "Ouvidoria FAZAG",
     image: require('../../../assets/ouvidoria.png'),

@@ -25,6 +25,7 @@ import { CertificateViewer } from '../pages/Eventos/CertificateViewer';
 import { Certificados } from '../pages/Certificados';
 import { PublicacoesInstitucionais } from '../pages/PublicacoesInstitucionais';
 import { PublicationViewer } from '../pages/PublicacoesInstitucionais/PublicationViewer';
+import { JunteSeANos } from '../pages/JunteSeANos';
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -114,6 +115,7 @@ export default function AppRoute() {
         }>
         <Stack.Screen name='Tabs' component={Tabs} />
         <Stack.Screen name='Ouvidoria' component={Ouvidoria} />
+        <Stack.Screen name='JunteSeANos' component={JunteSeANos} />
         <Stack.Screen name='Calendario' component={Calendario} />
         <Stack.Screen name='Coordenador' component={Coordenador} />
         <Stack.Screen name='CanaisDeAtendimento' component={CanaisDeAtendimento} />
